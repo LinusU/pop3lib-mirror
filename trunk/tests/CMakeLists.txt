@@ -1,0 +1,15 @@
+cmake_minimum_required(VERSION 2.6)
+project(tests)
+
+set(datTest_SRCS
+	datTest.cpp)
+
+add_executable(datTest ${datTest_SRCS})
+target_link_libraries(datTest poplib)
+
+
+set(hdrTest_SRCS
+	hdrTest.cpp)
+
+add_executable(hdrTest ${hdrTest_SRCS})
+target_link_libraries(hdrTest poplib)
