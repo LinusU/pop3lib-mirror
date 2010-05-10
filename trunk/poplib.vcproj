@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding = "Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="9.00"
+	Name="poplib"
+	ProjectGUID="{FB36C5DB-39E3-4CF4-8A77-2713BE419B4E}"
+	Keyword="Win32Proj">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory="Debug"
+			IntermediateDirectory="poplib.dir\Debug"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions=" /Zm1000"
+				AdditionalIncludeDirectories="&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\include&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\include\dmkp&quot;;"
+				BasicRuntimeChecks="3"
+				CompileAs="2"
+				DebugInformationFormat="3"
+				ExceptionHandling="1"
+				InlineFunctionExpansion="0"
+				Optimization="0"
+				RuntimeLibrary="3"
+				RuntimeTypeInfo="TRUE"
+				WarningLevel="3"
+				PreprocessorDefinitions="WIN32,_WINDOWS,_DEBUG,CMAKE_INTDIR=\&quot;Debug\&quot;"
+				AssemblerListingLocation="Debug"
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/Debug/poplib.pdb"
+/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\include&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\include\dmkp&quot;;"
+				PreprocessorDefinitions="WIN32,_WINDOWS,_DEBUG,CMAKE_INTDIR=\&quot;Debug\&quot;"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="WIN32,_WINDOWS,_DEBUG,CMAKE_INTDIR=\&quot;Debug\&quot;"
+				MkTypLibCompatible="FALSE"
+				TargetEnvironment="1"
+				GenerateStublessProxies="TRUE"
+				TypeLibraryName="$(InputName).tlb"
+				OutputDirectory="$(IntDir)"
+				HeaderFileName="$(InputName).h"
+				DLLDataFileName=""
+				InterfaceIdentifierFileName="$(InputName)_i.c"
+				ProxyFileName="$(InputName)_p.c"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\Debug\poplib.lib"/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory="Release"
+			IntermediateDirectory="poplib.dir\Release"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions=" /Zm1000"
+				AdditionalIncludeDirectories="&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\include&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\include\dmkp&quot;;"
+				CompileAs="2"
+				ExceptionHandling="1"
+				InlineFunctionExpansion="2"
+				Optimization="2"
+				RuntimeLibrary="2"
+				RuntimeTypeInfo="TRUE"
+				WarningLevel="3"
+				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,CMAKE_INTDIR=\&quot;Release\&quot;"
+				AssemblerListingLocation="Release"
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/Release/poplib.pdb"
+/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\include&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\include\dmkp&quot;;"
+				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,CMAKE_INTDIR=\&quot;Release\&quot;"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,CMAKE_INTDIR=\&quot;Release\&quot;"
+				MkTypLibCompatible="FALSE"
+				TargetEnvironment="1"
+				GenerateStublessProxies="TRUE"
+				TypeLibraryName="$(InputName).tlb"
+				OutputDirectory="$(IntDir)"
+				HeaderFileName="$(InputName).h"
+				DLLDataFileName=""
+				InterfaceIdentifierFileName="$(InputName)_i.c"
+				ProxyFileName="$(InputName)_p.c"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\Release\poplib.lib"/>
+		</Configuration>
+		<Configuration
+			Name="MinSizeRel|Win32"
+			OutputDirectory="MinSizeRel"
+			IntermediateDirectory="poplib.dir\MinSizeRel"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions=" /Zm1000"
+				AdditionalIncludeDirectories="&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\include&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\include\dmkp&quot;;"
+				CompileAs="2"
+				ExceptionHandling="1"
+				InlineFunctionExpansion="1"
+				Optimization="1"
+				RuntimeLibrary="2"
+				RuntimeTypeInfo="TRUE"
+				WarningLevel="3"
+				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,CMAKE_INTDIR=\&quot;MinSizeRel\&quot;"
+				AssemblerListingLocation="MinSizeRel"
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/MinSizeRel/poplib.pdb"
+/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\include&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\include\dmkp&quot;;"
+				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,CMAKE_INTDIR=\&quot;MinSizeRel\&quot;"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,CMAKE_INTDIR=\&quot;MinSizeRel\&quot;"
+				MkTypLibCompatible="FALSE"
+				TargetEnvironment="1"
+				GenerateStublessProxies="TRUE"
+				TypeLibraryName="$(InputName).tlb"
+				OutputDirectory="$(IntDir)"
+				HeaderFileName="$(InputName).h"
+				DLLDataFileName=""
+				InterfaceIdentifierFileName="$(InputName)_i.c"
+				ProxyFileName="$(InputName)_p.c"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\MinSizeRel\poplib.lib"/>
+		</Configuration>
+		<Configuration
+			Name="RelWithDebInfo|Win32"
+			OutputDirectory="RelWithDebInfo"
+			IntermediateDirectory="poplib.dir\RelWithDebInfo"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions=" /Zm1000"
+				AdditionalIncludeDirectories="&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\include&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\include\dmkp&quot;;"
+				CompileAs="2"
+				DebugInformationFormat="3"
+				ExceptionHandling="1"
+				InlineFunctionExpansion="1"
+				Optimization="2"
+				RuntimeLibrary="2"
+				RuntimeTypeInfo="TRUE"
+				WarningLevel="3"
+				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,CMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"
+				AssemblerListingLocation="RelWithDebInfo"
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/RelWithDebInfo/poplib.pdb"
+/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				AdditionalIncludeDirectories="&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\include&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\include\dmkp&quot;;"
+				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,CMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,CMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"
+				MkTypLibCompatible="FALSE"
+				TargetEnvironment="1"
+				GenerateStublessProxies="TRUE"
+				TypeLibraryName="$(InputName).tlb"
+				OutputDirectory="$(IntDir)"
+				HeaderFileName="$(InputName).h"
+				DLLDataFileName=""
+				InterfaceIdentifierFileName="$(InputName)_i.c"
+				ProxyFileName="$(InputName)_p.c"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\RelWithDebInfo\poplib.lib"/>
+		</Configuration>
+	</Configurations>
+	<Files>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeLists.txt">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+					Name="VCCustomBuildTool"
+					Description="Building Custom Rule C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/CMakeLists.txt"
+					CommandLine="&quot;C:\Program Files\CMake 2.8\bin\cmake.exe&quot; &quot;-HC:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib&quot; &quot;-BC:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib&quot; --check-stamp-file CMakeFiles/generate.stamp"
+					AdditionalDependencies="&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeLists.txt&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeSystem.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeCCompiler.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeCXXCompiler.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\gcc.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeCPlatform.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeCXXPlatform.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeRCCompiler.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeLists.txt&quot;;"
+					Outputs="CMakeFiles\generate.stamp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+					Name="VCCustomBuildTool"
+					Description="Building Custom Rule C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/CMakeLists.txt"
+					CommandLine="&quot;C:\Program Files\CMake 2.8\bin\cmake.exe&quot; &quot;-HC:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib&quot; &quot;-BC:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib&quot; --check-stamp-file CMakeFiles/generate.stamp"
+					AdditionalDependencies="&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeLists.txt&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeSystem.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeCCompiler.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeCXXCompiler.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\gcc.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeCPlatform.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeCXXPlatform.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeRCCompiler.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeLists.txt&quot;;"
+					Outputs="CMakeFiles\generate.stamp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="MinSizeRel|Win32">
+					<Tool
+					Name="VCCustomBuildTool"
+					Description="Building Custom Rule C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/CMakeLists.txt"
+					CommandLine="&quot;C:\Program Files\CMake 2.8\bin\cmake.exe&quot; &quot;-HC:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib&quot; &quot;-BC:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib&quot; --check-stamp-file CMakeFiles/generate.stamp"
+					AdditionalDependencies="&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeLists.txt&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeSystem.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeCCompiler.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeCXXCompiler.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\gcc.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeCPlatform.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeCXXPlatform.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeRCCompiler.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeLists.txt&quot;;"
+					Outputs="CMakeFiles\generate.stamp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="RelWithDebInfo|Win32">
+					<Tool
+					Name="VCCustomBuildTool"
+					Description="Building Custom Rule C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/CMakeLists.txt"
+					CommandLine="&quot;C:\Program Files\CMake 2.8\bin\cmake.exe&quot; &quot;-HC:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib&quot; &quot;-BC:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib&quot; --check-stamp-file CMakeFiles/generate.stamp"
+					AdditionalDependencies="&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeLists.txt&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeSystem.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeCCompiler.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeCXXCompiler.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\gcc.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-cl.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeCPlatform.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeCXXPlatform.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\Platform\cl.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeFiles\CMakeRCCompiler.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake&quot;;&quot;C:\Program Files\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake&quot;;&quot;C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\CMakeLists.txt&quot;;"
+					Outputs="CMakeFiles\generate.stamp"/>
+				</FileConfiguration>
+			</File>
+		<Filter
+			Name="Source Files"
+			Filter="">
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\StrUtil.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\MapDat.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\MapHeader.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\Map.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\MapObjDiscovery.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\MapObjTrigger.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\MapLand.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\Ip.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\PopGame.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\dmkp\cString.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\dmkp\cStringArray.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\dmkp\cStringBuilder.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\dmkp\Colour.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\dmkp\RAW.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\dmkp\File.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\dmkp\FileInfo.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\dmkp\FileReader.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\dmkp\FileWriter.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\dmkp\cWavFile.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\dmkp\popData.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\dmkp\memory.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\dmkp\messageBox.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\dmkp\PopSound.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\dmkp\cPopSoundManager.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\dmkp\PopObject.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\dmkp\cPopMemory.cpp">
+			</File>
+			<File
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\src\dmkp\cMapManager.cpp">
+			</File>
+		</Filter>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>
