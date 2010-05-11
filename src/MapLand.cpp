@@ -59,7 +59,8 @@ std::istream& operator>> ( std::istream& is, MapLand& mapLand )
 
 std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
 {
-    unsigned int temp;
+    char temp;
+
     unsigned int waterSize = 0;
     for ( int i = 0; i < width(); i++ )
         for ( int j = 0; j < height(); j++ )
@@ -78,7 +79,7 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
             for ( int j = 0; j < height(); j++ )
             {
                 bool isWater = (*this)(i, j) == 0;
-                landBits[(i * width() + j) / 8].set((i * width() + j) % 8 + 1, isWater);
+                landBits[(i * width() + j) / 8].set((i * width() + j) % 8, isWater);
             }
         }
         // save land bits
@@ -89,14 +90,30 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
         }
     }
     // save land
+    char pos = 0;
+    temp = 0;
     for ( int i = 0; i < width(); i++ )
     {
         for ( int j = 0; j < height(); j++ )
         {
             if (skipWater && (*this)(i, j) == 0)
                 continue;
-								// TODO saving land using 10 bits
-						//temp = 
+
+            int landPoint = (*this) ( i, j );
+
+            short mask = 0x00FF >> pos; // cut lower bits
+            temp = ((landPoint & mask) << pos ) | temp;
+            os.write(reinterpret_cast<const char *>(&temp), 1);
+            temp = 0;
+
+            mask = 0xFFFF << 8 - pos; // cut higher bits
+            temp = ((landPoint & mask) >> 8 - pos ) | temp;
+            pos = ( 10 - (8 - pos) ) % 8;
+            if (pos == 0)
+            {
+                os.write(reinterpret_cast<const char *>(&temp), 1);
+                temp = 0;
+            }
         }
     }
 
@@ -105,10 +122,65 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
 
 std::istream& MapLand::fromCompactForm ( std::istream& is )
 {
+    unsigned int temp;
+    bool skipWater;
+    int landBitsSize = ( width() * height() )/ 8 + 1;
+    std::bitset<8> landBits[landBitsSize];
+
+    is.read(reinterpret_cast<char *>(&skipWater), 1);
+
+    if (skipWater)
+    {
+        // load land bits
+        for ( int i = 0; i < landBitsSize; ++i )
+        {
+            is.read(reinterpret_cast<char *>(&temp), 1);
+            landBits[i] = std::bitset<8>(temp);
+        }
+    }
+    // load land
+    char pos = 0;
+    temp = 0;
     for ( int i = 0; i < width(); i++ )
     {
         for ( int j = 0; j < height(); j++ )
         {
+            if (skipWater)
+            {
+                bool isWater = landBits[(i * width() + j) / 8].test((i * width() + j) % 8 );
+                if (isWater)
+                {
+                    (*this)(i, j) = 0;
+                    continue;
+                }
+
+            }
+
+            short readData = 0;
+            short mask;
+            bool moreBits = false;
+
+            is.read(reinterpret_cast<char *>(&readData), 1);
+            mask = 0x03FF >> pos;
+            temp = ((readData & mask) << pos ) | temp;
+            if (pos == 0) // we need 2 more bits
+            {
+                pos = 6;
+								readData = 0;
+                is.read(reinterpret_cast<char *>(&readData), 1);
+                mask = 0x03FF >> 8;
+                temp = ((readData & mask) << 8 ) | temp;
+                moreBits = true;
+            }
+            (*this)(i, j) = temp;
+
+            temp = 0;
+            mask = 0xFFFF << 10 - pos;
+            temp = ((readData & mask) >> 10 - pos ) | temp;
+            if (moreBits)
+                continue;
+            else
+                pos = 8 - (10 - pos);
 
         }
     }
