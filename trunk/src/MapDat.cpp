@@ -104,11 +104,10 @@ void MapDat::saveMapDat ( const std::string& fileName ) const
 
 std::ostream& MapDat::toCompactForm ( std::ostream& os ) const
 {
-    // TODO toCompactForm() method in MapDat class
     mland->toCompactForm(os);
     // save objects size
     unsigned int temp = mobjects->size();
-    os.write(reinterpret_cast<const char *>(temp), 2);
+    os.write(reinterpret_cast<const char *>(&temp), 2);
     // save objects
     objList::iterator it;
     for ( it = mobjects->begin(); it != mobjects->end(); ++it )
@@ -119,13 +118,12 @@ std::ostream& MapDat::toCompactForm ( std::ostream& os ) const
 
 std::istream& MapDat::fromCompactForm ( std::istream& is )
 {
-    // TODO fromCompactForm() method in MapDat class
     cleanObjects();
 
     mland->fromCompactForm(is);
     // load objects size
     unsigned int temp = 0;
-    is.read(reinterpret_cast<char *>(temp), 2);
+    is.read(reinterpret_cast<char *>(&temp), 2);
     // load objects
     objList::iterator it;
     for ( it = mobjects->begin(); it != mobjects->end(); ++it )
