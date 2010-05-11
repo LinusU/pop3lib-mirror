@@ -30,28 +30,30 @@ class Matrix
 {
 public:
     /** Constructor.
-    @param rows Width of the matrix.
-    @param cols Height of the matrix. 
+    @param cols Width of the matrix.
+    @param rows Height of the matrix. 
     */
-    Matrix ( unsigned int rows, unsigned int cols );
+    Matrix ( unsigned int cols, unsigned int rows );
     /** Copy constructor. */
     Matrix ( const Matrix<T>& map );
     Matrix<T>& operator= ( const Matrix<T>& map );
     virtual ~Matrix();
     /** Access to the matrix elements for read only purpose.
-    @param row Row of the element.
     @param col Column of the element.
+    @param row Row of the element.
     */
-    T operator() ( unsigned int row, unsigned int col ) const;
+    T operator() ( unsigned int col, unsigned int row ) const;
     /** Access to the matrix elements for write purpose.
-    @param row Row of the element.
     @param col Column of the element.
+    @param row Row of the element.
     */
-    T& operator() ( unsigned int row, unsigned int col );
+    T& operator() ( unsigned int col, unsigned int row );
+
+protected:
+    unsigned int mrows, mcols;
 
 private:
     T* mdata;
-    unsigned int mrows, mcols;
 
     void copy ( const Matrix& map );
 };
@@ -59,35 +61,35 @@ private:
 class MapLand : public Matrix<unsigned int>
 {
 public:
-	/** Constructor. */
-    MapLand() : Matrix<unsigned int > ( mwidth, mheight ) {}
+    /** Constructor. */
+    MapLand() : Matrix<unsigned int > ( 128, 128 ) {}
     /** Returns the width of the map. */
-    int width() const { return mwidth; }
+    int width() const { return mcols; }
     /** Returns the height of the map. */
-    int height() const { return mheight; }
+    int height() const { return mrows; }
     /** Saves map land to the stream. */
     friend std::ostream& operator<< ( std::ostream& os, const MapLand& obj );
     /** Loades map land from the stream. */
     friend std::istream& operator>> ( std::istream& is, MapLand& obj );
-
-private:
-    static const int mwidth = 128;
-    static const int mheight = 128;
+    /** Saves map land details using compact form. Suitable for sending maps over the internet. */
+    std::ostream& toCompactForm ( std::ostream& os ) const;
+    /** Loades map header details from compact form. */
+    std::istream& fromCompactForm ( std::istream& is );
 };
 
 template<typename T>
-Matrix<T>::Matrix ( unsigned int rows, unsigned int cols ): mrows(rows), mcols(cols)
+Matrix<T>::Matrix ( unsigned int cols, unsigned int rows ): mcols(cols), mrows(rows)
 {
-    mdata = new T[rows * cols];
+    mdata = new T[cols * rows];
 }
 
 template<typename T>
 void Matrix<T>::copy ( const Matrix<T>& map )
 {
-    mdata = new T[map.mrows * mcols];
+    mdata = new T[mcols * map.mrows];
 
-    for ( int i = 0; i < map.mrows; ++i )
-        for ( int j = 0; j < map.mcols; ++j )
+    for ( int i = 0; i < map.mcols; ++i )
+        for ( int j = 0; j < map.mrows; ++j )
             this->operator() ( i, j ) = map ( i, j );
 }
 
@@ -116,15 +118,15 @@ Matrix<T>::~Matrix ()
 }
 
 template<typename T> inline
-T Matrix<T>::operator() ( unsigned int row, unsigned int col ) const
+T Matrix<T>::operator() ( unsigned int col, unsigned int row ) const
 {
-    return mdata[row * mrows + col];
+    return mdata[col * mcols + row];
 }
 
 template<typename T> inline
-T& Matrix<T>::operator() ( unsigned int row, unsigned int col )
+T& Matrix<T>::operator() ( unsigned int col, unsigned int row )
 {
-    return mdata[row * mrows + col];
+    return mdata[col * mcols + row];
 }
 
 } // namespace poplib

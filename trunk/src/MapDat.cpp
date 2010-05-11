@@ -95,17 +95,43 @@ void MapDat::saveMapDat ( const std::string& fileName ) const
     {
         fout << ( *mland );
         // TODO saving objects to the file
+        // fill with zeros if size under 192 137 bytes
+        unsigned int temp = 0;
+        while ( fout.tellp() < 192137 )
+            fout.write ( reinterpret_cast<const char *> ( &temp ), 1 );
     }
 }
 
 std::ostream& MapDat::toCompactForm ( std::ostream& os ) const
 {
-	// TODO toCompactForm() method in MapDat class
+    // TODO toCompactForm() method in MapDat class
+    mland->toCompactForm(os);
+    // save objects size
+    unsigned int temp = mobjects->size();
+    os.write(reinterpret_cast<const char *>(temp), 2);
+    // save objects
+    objList::iterator it;
+    for ( it = mobjects->begin(); it != mobjects->end(); ++it )
+        ; // TODO save objects to compact form
+
+    return os;
 }
 
 std::istream& MapDat::fromCompactForm ( std::istream& is )
 {
- // TODO fromCompactForm() method in MapDat class
+    // TODO fromCompactForm() method in MapDat class
+    cleanObjects();
+
+    mland->fromCompactForm(is);
+    // load objects size
+    unsigned int temp = 0;
+    is.read(reinterpret_cast<char *>(temp), 2);
+    // load objects
+    objList::iterator it;
+    for ( it = mobjects->begin(); it != mobjects->end(); ++it )
+        ; // TODO load objects from compact form
+
+    return is;
 }
 
 void MapDat::setMapLand ( MapLand* land )

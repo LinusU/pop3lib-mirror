@@ -27,14 +27,24 @@ int main ( int argc, const char* argv[] )
 {
     using poplib::MapDat;
     using poplib::MapLand;
-    // Face Off map
-    std::string filePath ( "../../tests/levl2131.dat" );
-    std::string outfile ( "mapLand.txt" );
 
-    MapDat m ( filePath );
-
+    std::string filePath ( "../../tests/levl2131.dat" ); // map to load
+    std::string outTextLand ( "mapLand.txt" ); // file to store map land in text form
+    std::string compactFile("temp_compact.dat");
     std::ofstream fout;
-    fout.open ( outfile.c_str(), std::ios_base::out );
+    std::ifstream fin;
+
+    MapDat m;
+    m.loadMapDat( filePath ); // load map details
+    fout.open ( compactFile.c_str(), std::ios_base::out );
+    m.toCompactForm(fout); // store in compact form
+    fout.close();
+    std::cout << "Loaded map has been saved in compact form to the file: " << compactFile << std::endl;
+
+    fin.open ( compactFile.c_str(), std::ios_base::in );
+    m.fromCompactForm(fin);
+    fin.close();
+    fout.open ( outTextLand.c_str(), std::ios_base::out );
 
     MapLand* land = m.mapLand();
 
@@ -69,9 +79,7 @@ int main ( int argc, const char* argv[] )
         }
     }
 
-    std::cout << "Map '" << filePath << "' loaded succesful and land saved to the file '" << outfile << "'" <<std::endl;
-    m.saveMapDat("temp.dat");
-    std::cout << "Loaded map has been saved to the file: temp.dat" << std::endl;
+    std::cout << "Compact map '" << compactFile << "' loaded succesful and land saved to the file '" << outTextLand << "'" <<std::endl;
 
     return 0;
 }
