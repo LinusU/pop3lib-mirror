@@ -29,7 +29,7 @@ namespace poplib
 
 class Mappack
 {
-
+	// TODO mappack text informations should be stored as UTF-8
 };
 
 } // namespace poplib

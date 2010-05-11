@@ -41,13 +41,13 @@ void MapHeader::defaultValues()
     mmarkers = new MapHeader::markerList ();
 }
 
-MapHeader::MapHeader () : mlvlName ( "" ), mproperties ( std::string ( "00001100" ) ),
+MapHeader::MapHeader () : mproperties ( std::string ( "00001100" ) ),
         mbuildings ( std::string ( "1111111111111111" ) ), mspellsNotCharging ( std::string ( "111111111111111111111111" ) )
 {
     defaultValues();
 }
 
-MapHeader::MapHeader ( const std::string& fileName ) : mlvlName ( "" ), mproperties ( std::string ( "00001100" ) ),
+MapHeader::MapHeader ( const std::string& fileName ) : mproperties ( std::string ( "00001100" ) ),
         mbuildings ( std::string ( "1111111111111111" ) ), mspellsNotCharging ( std::string ( "111111111111111111111111" ) )
 {
     defaultValues();
@@ -59,7 +59,6 @@ void MapHeader::copy ( const MapHeader& mapHdr )
     mlandscape = mapHdr.mlandscape;
     mtreeStyle = mapHdr.mtreeStyle;
     mmaxTribes = mapHdr.mmaxTribes;
-    mlvlName = mapHdr.mlvlName;
 
     mspells.reset();
     mspells |= mapHdr.mspells;
@@ -124,11 +123,6 @@ void MapHeader::loadHeader ( const std::string& fileName )
         fin.read ( reinterpret_cast<char *> ( &temp ), 3 ); // 0x15 - 0xa1
         mspellsNotCharging.reset();
         mspellsNotCharging |= std::bitset<24> ( temp );
-        // load level name
-        fin.seekg ( 0x38 );
-        char ctemp[LVL_NAME_LENGTH];
-        fin.read ( ctemp, LVL_NAME_LENGTH ); // 0x38 - 0x57
-        mlvlName = ctemp;
         // load max tribes
         fin.seekg ( 0x58 );
         fin.read ( &mmaxTribes, 1 ); // 0x58
@@ -182,12 +176,6 @@ void MapHeader::saveHeader ( const std::string& fileName ) const
         temp = mspellsNotCharging.to_ulong();
         fout.seekp ( 0xf );
         fout.write ( reinterpret_cast<const char *> ( &temp ), 3 ); // 0x15 - 0xa1
-        // save level name, 0x38 - 0x57
-        fout.seekp ( 0x38 );
-        fout.write ( mlvlName.c_str(), mlvlName.size() );
-        temp = 0;
-        for (int i = mlvlName.size(); i < LVL_NAME_LENGTH; ++i)
-            fout.write ( reinterpret_cast<const char *> ( &temp ), 1 ); // fill with zeros until 0x58
         // save max tribes
         fout.seekp ( 0x58 );
         fout.write ( &mmaxTribes, 1 ); // 0x58
@@ -232,11 +220,6 @@ std::ostream&  MapHeader::toCompactForm ( std::ostream& os ) const
     // save chargable spells
     temp = mspellsNotCharging.to_ulong();
     os.write ( reinterpret_cast<const char *> ( &temp ), 3 );
-    // save level name size
-    temp = mlvlName.size();
-    os.write ( reinterpret_cast<const char *> ( &temp ), 1 );
-    // save level name
-    os.write ( mlvlName.c_str(), mlvlName.size() );
     // save max tribes
     os.write ( &mmaxTribes, 1 );
     // save AI scripts - they are numbers in hex for each tribe - Cpscr010.dat = 010 = 0A
@@ -270,6 +253,8 @@ std::ostream&  MapHeader::toCompactForm ( std::ostream& os ) const
     }
     os.seekp ( -(temp * 2 + 1), std::ios_base::cur ); // move back to save markers amount
     os.write ( reinterpret_cast<const char*> ( &temp ), 1 );
+
+    return os;
 }
 
 std::istream&  MapHeader::fromCompactForm ( std::istream& is )
@@ -289,10 +274,6 @@ std::istream&  MapHeader::fromCompactForm ( std::istream& is )
     mspellsNotCharging |= std::bitset<24> ( temp );
     // load level name size
     is.read ( reinterpret_cast<char *> ( &temp ), 1 );
-    // load level name
-    char ctemp[LVL_NAME_LENGTH];
-    is.read ( ctemp, temp );
-    mlvlName = ctemp;
     // load max tribes
     is.read ( &mmaxTribes, 1 );
     // load AI scripts - they are numbers in hex for each tribe - Cpscr010.dat = 010 = 0A
@@ -324,6 +305,8 @@ std::istream&  MapHeader::fromCompactForm ( std::istream& is )
         is >> m; // 2 bytes for each marker
         mmarkers->push_back ( m );
     }
+
+    return is;
 }
 
 void MapHeader::setAllCharging(bool charge)
