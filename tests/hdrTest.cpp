@@ -128,7 +128,6 @@ int main ( int argc, const char* argv[] )
         std::cout << " god_mode,";
 
     std::cout << "\n\nmax tribes: " << h.maxTribes();
-    std::cout << "\nlevel name: " << h.levelName();
 
     std::cout << "\n\nAllies:" << std::endl;
     std::cout << "BLUE -";

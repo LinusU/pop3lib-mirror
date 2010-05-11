@@ -89,10 +89,6 @@ public:
     void setMaxTribes(int maxTribes) { if(maxTribes > 0 && maxTribes < 5) mmaxTribes = maxTribes; }
     /** Returns maximum tribes amount available for this map. */
     int maxTribes() const { return mmaxTribes; }
-    /** Sets the level name. Name can't be longer than 30 characters. Characters over 30th position are ignored. */
-    void setLevelName ( const std::string& fileName ) { mlvlName = fileName.substr(0, LVL_NAME_LENGTH - 1); }
-    /** Returns level name. It can't be longer than 30 characters. */
-    std::string levelName() const { return mlvlName; }
     /** Enables / Disables spell on the map. */
     void setEnabled ( Spell spell, bool enabled ) { mspells.set(spell, enabled); }
     /** Enables / Disables building on the map. */
@@ -124,7 +120,6 @@ public:
 
 private:
     static const int TRIBES = 4; // max tribes
-		static const int LVL_NAME_LENGTH = 32; // max level name length
 
     std::bitset<24> mspells;
     std::bitset<16> mbuildings;
@@ -135,7 +130,6 @@ private:
     int mlandscape;
     int mtreeStyle;
     char mmaxTribes; 
-    std::string mlvlName;
     markerList* mmarkers;
 
     void copy ( const MapHeader& mapHdr );
