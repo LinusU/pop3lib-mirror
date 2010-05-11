@@ -17,6 +17,8 @@ You should have received a copy of the GNU General Public License
 along with poplib. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <bitset>
+
 #include "MapLand.h"
 
 namespace poplib
@@ -52,6 +54,65 @@ std::istream& operator>> ( std::istream& is, MapLand& mapLand )
             mapLand ( i, j ) = temp;
         }
     }
+    return is;
+}
+
+std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
+{
+    unsigned int temp;
+    unsigned int waterSize = 0;
+    for ( int i = 0; i < width(); i++ )
+        for ( int j = 0; j < height(); j++ )
+            if ((*this)(i, j) == 0)
+                waterSize++;
+
+    bool skipWater = waterSize * 2 > ( width() * height() ) / 8;
+
+    os.write(reinterpret_cast<const char *>(&skipWater), 1);
+    if (skipWater)
+    {
+        int landBitsSize = ( width() * height() )/ 8 + 1;
+        std::bitset<8> landBits[landBitsSize];
+        for ( int i = 0; i < width(); i++ )
+        {
+            for ( int j = 0; j < height(); j++ )
+            {
+                bool isWater = (*this)(i, j) == 0;
+                landBits[(i * width() + j) / 8].set((i * width() + j) % 8 + 1, isWater);
+            }
+        }
+        // save land bits
+        for ( int i = 0; i < landBitsSize; ++i )
+        {
+            temp = landBits[i].to_ulong();
+            os.write(reinterpret_cast<const char *>(&temp), 1);
+        }
+    }
+    // save land
+    for ( int i = 0; i < width(); i++ )
+    {
+        for ( int j = 0; j < height(); j++ )
+        {
+            if (skipWater && (*this)(i, j) == 0)
+                continue;
+								// TODO saving land using 10 bits
+						//temp = 
+        }
+    }
+
+    return os;
+}
+
+std::istream& MapLand::fromCompactForm ( std::istream& is )
+{
+    for ( int i = 0; i < width(); i++ )
+    {
+        for ( int j = 0; j < height(); j++ )
+        {
+
+        }
+    }
+
     return is;
 }
 
