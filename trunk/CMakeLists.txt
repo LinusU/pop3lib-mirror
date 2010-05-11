@@ -15,26 +15,7 @@ set(poplib_SRCS
 	src/Ip.cpp
 	src/PopGame.cpp
 	src/MappackMap.cpp
-	src/MappackMap.cpp
-
-	src/dmkp/cString.cpp
-	src/dmkp/cStringArray.cpp
-	src/dmkp/cStringBuilder.cpp
-	src/dmkp/Colour.cpp
-	src/dmkp/RAW.cpp
-	src/dmkp/File.cpp
-	src/dmkp/FileInfo.cpp
-	src/dmkp/FileReader.cpp
-	src/dmkp/FileWriter.cpp
-	src/dmkp/cWavFile.cpp
-	src/dmkp/popData.cpp
-	src/dmkp/memory.cpp
-	src/dmkp/messageBox.cpp
-	src/dmkp/PopSound.cpp
-	src/dmkp/cPopSoundManager.cpp
-	src/dmkp/PopObject.cpp
-	src/dmkp/cPopMemory.cpp
-	src/dmkp/cMapManager.cpp)
+	src/MappackMap.cpp)
 
 add_library(poplib STATIC ${poplib_SRCS})
 
