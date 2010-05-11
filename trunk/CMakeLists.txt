@@ -14,6 +14,8 @@ set(poplib_SRCS
 	src/MapLand.cpp
 	src/Ip.cpp
 	src/PopGame.cpp
+	src/MappackMap.cpp
+	src/MappackMap.cpp
 
 	src/dmkp/cString.cpp
 	src/dmkp/cStringArray.cpp
