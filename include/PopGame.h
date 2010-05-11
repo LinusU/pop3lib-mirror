@@ -27,12 +27,13 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 namespace poplib
 {
 class Ip;
-
-enum ResultState { FINISHED_SUCCESSFUL, RESYNC, CRASHED, UNKNOWN };
+class Mappack;
 
 class PopGame
 {
 public:
+    enum ResultState { FINISHED_SUCCESSFUL, RESYNC, CRASHED, UNKNOWN };
+
     PopGame();
     explicit PopGame ( const std::string& gameDirectory );
     virtual ~PopGame();
@@ -40,6 +41,8 @@ public:
     // TODO multiplayer game starting using win api, function should return process handler
     bool startMultiplayer ( const std::string& playerName, Ip localIp, Ip ExternIp = Ip() );
 #endif
+    void loadMappack(Mappack* mappack);
+    void restoreMaps();
     std::string directory() const { return mdir; }
     void setDirectory( const std::string& dir ) { mdir = dir; }
 

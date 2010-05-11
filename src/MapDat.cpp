@@ -98,6 +98,16 @@ void MapDat::saveMapDat ( const std::string& fileName ) const
     }
 }
 
+std::ostream& MapDat::toCompactForm ( std::ostream& os ) const
+{
+	// TODO toCompactForm() method in MapDat class
+}
+
+std::istream& MapDat::fromCompactForm ( std::istream& is )
+{
+ // TODO fromCompactForm() method in MapDat class
+}
+
 void MapDat::setMapLand ( MapLand* land )
 {
     delete mland;

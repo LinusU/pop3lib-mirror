@@ -48,6 +48,10 @@ public:
     @param fileName Path to the file where map details should be stored. It should have *.dat extension.
     */
     void saveMapDat ( const std::string& fileName ) const;
+    /** Saves map dat details using compact form. Suitable for sending maps over the internet. */
+    std::ostream& toCompactForm ( std::ostream& os ) const;
+    /** Loades map header details from compact form. */
+    std::istream& fromCompactForm ( std::istream& is );
     /** Returns the land heights. */
     MapLand* mapLand() { return mland; }
     /** Sets the land heights for the map.  */
