@@ -68,7 +68,7 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
             if ((*this)(i, j) == 0)
                 waterSize++;
 
-    bool skipWater = waterSize * 2 > ( width() * height() ) / 8;
+    bool skipWater = waterSize * 11 > 2048;
 
     os.write(reinterpret_cast<const char *>(&skipWater), 1);
     if (skipWater)
