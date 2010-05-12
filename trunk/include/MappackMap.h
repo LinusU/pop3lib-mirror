@@ -28,8 +28,23 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 namespace poplib
 {
 
-class MappackMap
+class MappackMap : public MapDat, public MapHeader
 {
+public:
+    MappackMap();
+
+    friend std::ostream& operator<<(std::ostream& os, const MappackMap& obj) { return obj.toCompactForm(os); }
+    friend std::istream& operator>>(std::istream& is, MappackMap& obj) { return obj.fromCompactForm(is); }
+
+	protected:
+    virtual std::ostream& toCompactForm ( std::ostream& os ) const;
+    virtual std::istream& fromCompactForm ( std::istream& is );
+
+private:
+    void loadHeader ( const std::string& fileName );
+    void saveHeader ( const std::string& fileName ) const;
+    void loadMapDat ( const std::string& fileName );
+    void saveMapDat ( const std::string& fileName ) const;
 
 };
 

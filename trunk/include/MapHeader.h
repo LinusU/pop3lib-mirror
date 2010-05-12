@@ -62,9 +62,9 @@ public:
     */
     void saveHeader ( const std::string& fileName ) const;
     /** Saves map header details using compact form. Suitable for sending maps over the internet. */
-    std::ostream& toCompactForm ( std::ostream& os ) const;
+    virtual std::ostream& toCompactForm ( std::ostream& os ) const;
     /** Loades map header details from compact form. */
-    std::istream& fromCompactForm ( std::istream& is );
+    virtual std::istream& fromCompactForm ( std::istream& is );
     /** Returns true if spell is chargin at start. */
     bool isCharging ( Spell spell ) const { return mspellsNotCharging[spell] == 0; }
     /** Enables or disables spell charging at start. */

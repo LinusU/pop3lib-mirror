@@ -17,9 +17,28 @@ You should have received a copy of the GNU General Public License
 along with poplib. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "MappackMap.h"
+
 namespace poplib
 {
 
-	
+MappackMap::MappackMap()
+{
+
+}
+
+std::ostream& MappackMap::toCompactForm ( std::ostream& os ) const
+{
+    // TODO toCompactForm() method in MappackMap class
+    MapHeader::toCompactForm(os);
+    MapDat::toCompactForm(os);
+}
+
+std::istream& MappackMap::fromCompactForm ( std::istream& is )
+{
+    // TODO fromCompactForm() method in MappackMap class
+    MapHeader::fromCompactForm(is);
+    MapDat::fromCompactForm(is);
+}
 
 } // namespace poplib

@@ -42,13 +42,15 @@ void MapHeader::defaultValues()
 }
 
 MapHeader::MapHeader () : mproperties ( std::string ( "00001100" ) ),
-        mbuildings ( std::string ( "1111111111111111" ) ), mspellsNotCharging ( std::string ( "111111111111111111111111" ) )
+        mbuildings ( std::string ( "1111111111111111" ) ), mspellsNotCharging ( std::string ( "111111111111111111111111" ) ),
+        mspells(std::string ( "111111111111111111111111" ))
 {
     defaultValues();
 }
 
 MapHeader::MapHeader ( const std::string& fileName ) : mproperties ( std::string ( "00001100" ) ),
-        mbuildings ( std::string ( "1111111111111111" ) ), mspellsNotCharging ( std::string ( "111111111111111111111111" ) )
+        mbuildings ( std::string ( "1111111111111111" ) ), mspellsNotCharging ( std::string ( "111111111111111111111111" ) ),
+        mspells(std::string ( "111111111111111111111111" ))
 {
     defaultValues();
     loadHeader ( fileName );
