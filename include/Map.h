@@ -64,6 +64,10 @@ public:
     /** Returns file name (without extension) of loaded or saved maps. Map files follow convention: mapName.dat for land
     and mapName.hdr for header. */
     const std::string mapName() const { return mmapName; }
+    
+private:
+    virtual std::ostream& toCompactForm ( std::ostream& os ) const;
+    virtual std::istream& fromCompactForm ( std::istream& is );
 
 private:
     static const std::string mapDatExt, mapHdrExt;
