@@ -31,6 +31,7 @@ int main ( int argc, const char* argv[] )
     std::string filePath ( "../../tests/levl2131.dat" ); // map to load
     std::string outTextLand ( "mapLand.txt" ); // file to store map land in text form
     std::string compactFile("temp_compact.dat");
+    std::string mapFileName("temp.dat");
     std::ofstream fout;
     std::ifstream fin;
 
@@ -80,6 +81,8 @@ int main ( int argc, const char* argv[] )
     }
 
     std::cout << "Compact map '" << compactFile << "' loaded succesful and land saved to the file '" << outTextLand << "'" <<std::endl;
+    m.saveMapDat(mapFileName);
+    std::cout << "Copy of the map has been saved to the file '" << mapFileName <<"'\n";
 
     return 0;
 }

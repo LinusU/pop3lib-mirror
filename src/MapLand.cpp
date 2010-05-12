@@ -59,7 +59,8 @@ std::istream& operator>> ( std::istream& is, MapLand& mapLand )
 
 std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
 {
-    char temp;
+    // TODO write how actualy this compact form is saved
+    short temp, temp2;
 
     unsigned int waterSize = 0;
     for ( int i = 0; i < width(); i++ )
@@ -92,6 +93,7 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
     // save land
     char pos = 0;
     temp = 0;
+    temp2 = 0;
     for ( int i = 0; i < width(); i++ )
     {
         for ( int j = 0; j < height(); j++ )
@@ -99,7 +101,7 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
             if (skipWater && (*this)(i, j) == 0)
                 continue;
 
-            int landPoint = (*this) ( i, j );
+            int landPoint = (*this) ( i, j ) > 2047 ? 2047 : (*this) ( i, j );
 
             short mask = 0x00FF >> pos; // cut lower bits
             temp = ((landPoint & mask) << pos ) | temp;
@@ -108,11 +110,15 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
 
             mask = 0xFFFF << 8 - pos; // cut higher bits
             temp = ((landPoint & mask) >> 8 - pos ) | temp;
-            pos = ( 10 - (8 - pos) ) % 8;
-            if (pos == 0)
+            pos = pos + 3;
+            if (pos > 8)
             {
-                os.write(reinterpret_cast<const char *>(&temp), 1);
-                temp = 0;
+                mask = 0x00FF;
+                temp2 = temp & mask;
+                os.write(reinterpret_cast<const char *>(&temp2), 1);
+                temp = temp >> 8;
+                temp2 = 0;
+                pos = pos - 8;
             }
         }
     }
@@ -158,30 +164,24 @@ std::istream& MapLand::fromCompactForm ( std::istream& is )
 
             short readData = 0;
             short mask;
-            bool moreBits = false;
 
             is.read(reinterpret_cast<char *>(&readData), 1);
-            mask = 0x03FF >> pos;
+            mask = 0x07FF >> pos;
             temp = ((readData & mask) << pos ) | temp;
-            if (pos == 0) // we need 2 more bits
+            if (pos < 3) // we need to read one more byte
             {
-                pos = 6;
-								readData = 0;
+                pos = 8 + pos;
+                readData = 0;
                 is.read(reinterpret_cast<char *>(&readData), 1);
-                mask = 0x03FF >> 8;
-                temp = ((readData & mask) << 8 ) | temp;
-                moreBits = true;
+                mask = 0x07FF >> pos;
+                temp = ((readData & mask) << pos ) | temp;
             }
             (*this)(i, j) = temp;
 
             temp = 0;
-            mask = 0xFFFF << 10 - pos;
-            temp = ((readData & mask) >> 10 - pos ) | temp;
-            if (moreBits)
-                continue;
-            else
-                pos = 8 - (10 - pos);
-
+            mask = 0xFFFF << 11 - pos;
+            temp = ((readData & mask) >> 11 - pos ) | temp;
+            pos = pos - 3;
         }
     }
 
