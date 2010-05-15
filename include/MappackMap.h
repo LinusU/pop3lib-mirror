@@ -22,30 +22,27 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 
 #include <string>
 
-#include "MapDat.h"
-#include "MapHeader.h"
+#include "Map.h"
 
 namespace poplib
 {
 
-class MappackMap : public MapDat, public MapHeader
+class MappackMap : public Map
 {
 public:
+    // TODO add more things to MappackMap class
     MappackMap();
+    MappackMap(const std::string& fileName);
+    MappackMap(const std::string& directory, const std::string& mapName);
 
-    friend std::ostream& operator<<(std::ostream& os, const MappackMap& obj) { return obj.toCompactForm(os); }
-    friend std::istream& operator>>(std::istream& is, MappackMap& obj) { return obj.fromCompactForm(is); }
+    void saveExtended(const std::string& fileName) const;
+    void loadExtended(const std::string& fileName);
 
-	protected:
-    virtual std::ostream& toCompactForm ( std::ostream& os ) const;
-    virtual std::istream& fromCompactForm ( std::istream& is );
+    friend std::ostream& operator<<(std::ostream& os, const MappackMap& obj);
+    friend std::istream& operator>>(std::istream& is, MappackMap& obj);
 
 private:
-    void loadHeader ( const std::string& fileName );
-    void saveHeader ( const std::string& fileName ) const;
-    void loadMapDat ( const std::string& fileName );
-    void saveMapDat ( const std::string& fileName ) const;
-
+    static const unsigned short magicNumber = 10611;
 };
 
 } // namespace poplib

@@ -15,7 +15,9 @@ set(poplib_SRCS
 	src/Ip.cpp
 	src/PopGame.cpp
 	src/MappackMap.cpp
-	src/MappackMap.cpp)
+	src/Mappack.cpp
+	src/systemUtils/Dir.cpp
+	src/systemUtils/File.cpp)
 
 add_library(poplib STATIC ${poplib_SRCS})
 

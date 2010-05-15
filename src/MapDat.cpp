@@ -102,7 +102,7 @@ void MapDat::saveMapDat ( const std::string& fileName ) const
     }
 }
 
-std::ostream& MapDat::toCompactForm ( std::ostream& os ) const
+std::ostream& MapDat::saveMapDatCompactForm ( std::ostream& os ) const
 {
     mland->toCompactForm(os);
     // save objects size
@@ -116,7 +116,7 @@ std::ostream& MapDat::toCompactForm ( std::ostream& os ) const
     return os;
 }
 
-std::istream& MapDat::fromCompactForm ( std::istream& is )
+std::istream& MapDat::loadMapDatCompactForm ( std::istream& is )
 {
     cleanObjects();
 

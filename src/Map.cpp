@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with poplib. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "StrUtil.h"
+#include "systemUtils/File.h"
 #include "Map.h"
 
 namespace poplib
@@ -26,32 +26,14 @@ namespace poplib
 const std::string Map::mapDatExt ( ".dat" );
 const std::string Map::mapHdrExt ( ".hdr" );
 
-Map::Map() : mmapName(""), mdirectory("")
+Map::Map()
 {
 
 }
 
-Map::Map ( const std::string& directory, const std::string& mapName ) :
-        mmapName(directory), mdirectory(mapName)
+Map::Map ( const std::string& directory, const std::string& mapName )
 {
     load ( directory, mapName );
-}
-
-Map::Map ( const Map& map ) : mmapName ( map.mmapName ), mdirectory(map.mdirectory)
-{
-    load ( mdirectory, mmapName );
-}
-
-Map& Map::operator= ( const Map& map )
-{
-    if ( this == &map )
-        return *this;
-
-    mmapName = map.mmapName;
-    mdirectory = map.mdirectory;
-    load ( mdirectory, mmapName );
-
-    return *this;
 }
 
 Map::~Map()
@@ -61,23 +43,16 @@ Map::~Map()
 
 void  Map::load ( const std::string& directory, const std::string& mapName )
 {
-    std::string filePatch = StrUtil::constrPatch ( directory, mapName );
-    loadHeader ( filePatch + Map::mapHdrExt );
-    loadMapDat ( filePatch + Map::mapDatExt );
-    mmapName = directory;
-    mdirectory = mapName;
-}
-
-void Map::save() const
-{
-    save ( mdirectory, mmapName );
+    std::string filePath = File::path ( directory, mapName );
+    loadHeader ( filePath + Map::mapHdrExt );
+    loadMapDat ( filePath + Map::mapDatExt );
 }
 
 void  Map::save ( const std::string& directory, const std::string& mapName ) const
 {
-    std::string filePatch = StrUtil::constrPatch ( directory, mapName );
-    saveHeader ( filePatch + Map::mapHdrExt );
-    saveMapDat ( filePatch + Map::mapDatExt );
+    std::string filePath = File::path ( directory, mapName );
+    saveHeader ( filePath + Map::mapHdrExt );
+    saveMapDat ( filePath + Map::mapDatExt );
 }
 
 } // namespace poplib

@@ -21,6 +21,7 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 #define _H_POPLIB_MAPPACK__
 
 #include <string>
+#include <list>
 
 #include "MappackMap.h"
 
@@ -29,7 +30,20 @@ namespace poplib
 
 class Mappack
 {
-	// TODO mappack text informations should be stored as UTF-8
+public:
+    Mappack();
+    explicit Mappack(const std::string& fileName);
+
+    void loadFromFile(const std::string& fileName);
+    void loadFromDirectory(const std::string& dir);
+    void saveToFile(const std::string& fileName) const;
+
+private:
+    std::list<MappackMap> mmaps;
+
+    static const unsigned int magicNumber = 10499;
+
+    // TODO mappack text informations should be stored as UTF-8
 };
 
 } // namespace poplib

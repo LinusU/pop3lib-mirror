@@ -17,6 +17,8 @@ You should have received a copy of the GNU General Public License
 along with poplib. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <fstream>
+
 #include "MappackMap.h"
 
 namespace poplib
@@ -27,18 +29,58 @@ MappackMap::MappackMap()
 
 }
 
-std::ostream& MappackMap::toCompactForm ( std::ostream& os ) const
+MappackMap::MappackMap(const std::string& filename)
 {
-    // TODO toCompactForm() method in MappackMap class
-    MapHeader::toCompactForm(os);
-    MapDat::toCompactForm(os);
+
 }
 
-std::istream& MappackMap::fromCompactForm ( std::istream& is )
+MappackMap::MappackMap ( const std::string& directory, const std::string& mapName ) : Map(directory, mapName)
 {
-    // TODO fromCompactForm() method in MappackMap class
-    MapHeader::fromCompactForm(is);
-    MapDat::fromCompactForm(is);
+
+}
+
+void MappackMap::saveExtended(const std::string& fileName) const
+{
+    std::ofstream fout;
+    fout.open ( fileName.c_str(), std::ios_base::out | std::ios_base::binary );
+    if ( fout.is_open() )
+    {
+        fout.write ( reinterpret_cast<const char *> ( &magicNumber ), 2 );
+        fout << (*this);
+    }
+}
+
+void MappackMap::loadExtended(const std::string& fileName)
+{
+    std::ifstream fin;
+    fin.open ( fileName.c_str(), std::ios_base::in | std::ios_base::binary );
+    if ( fin.is_open() )
+    {
+        unsigned int temp = 0;
+        fin.read(reinterpret_cast<char *>(temp), 2);
+        if (temp != magicNumber)
+            return;
+
+        fin >> (*this);
+    }
+}
+
+std::ostream& operator<<(std::ostream& os, const MappackMap& obj)
+{
+    // TODO MappackMap class saving
+    obj.saveHeaderCompactForm(os);
+    obj.saveMapDatCompactForm(os);
+
+    return os;
+}
+
+std::istream& operator>>(std::istream& is, MappackMap& obj)
+{
+    // TODO MappackMap class loading
+    obj.loadHeaderCompactForm(is);
+    obj.loadMapDatCompactForm(is);
+
+    return is;
 }
 
 } // namespace poplib
