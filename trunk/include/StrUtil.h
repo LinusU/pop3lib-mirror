@@ -30,7 +30,6 @@ namespace poplib
 class StrUtil
 {
 public:
-    static std::string constrPatch ( const std::string& directory, const std::string& fileName );
     static std::list<std::string> split ( const std::string& str, char sep );
 
     template<class T>

@@ -38,12 +38,12 @@ int main ( int argc, const char* argv[] )
     MapDat m;
     m.loadMapDat( filePath ); // load map details
     fout.open ( compactFile.c_str(), std::ios_base::out );
-    m.toCompactForm(fout); // store in compact form
+    m.saveMapDatCompactForm(fout); // store in compact form
     fout.close();
     std::cout << "Loaded map has been saved in compact form to the file: " << compactFile << std::endl;
 
     fin.open ( compactFile.c_str(), std::ios_base::in );
-    m.fromCompactForm(fin);
+    m.loadMapDatCompactForm(fin);
     fin.close();
     fout.open ( outTextLand.c_str(), std::ios_base::out );
 

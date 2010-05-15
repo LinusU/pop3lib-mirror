@@ -49,9 +49,9 @@ public:
     */
     void saveMapDat ( const std::string& fileName ) const;
     /** Saves map dat details using compact form. Suitable for sending maps over the internet. */
-    virtual std::ostream& toCompactForm ( std::ostream& os ) const;
+    std::ostream& saveMapDatCompactForm ( std::ostream& os ) const;
     /** Loades map header details from compact form. */
-    virtual std::istream& fromCompactForm ( std::istream& is );
+    std::istream& loadMapDatCompactForm ( std::istream& is );
     /** Returns the land heights. */
     MapLand* mapLand() { return mland; }
     /** Sets the land heights for the map.  */

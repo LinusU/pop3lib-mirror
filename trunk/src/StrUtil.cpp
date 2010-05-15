@@ -23,22 +23,6 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 namespace poplib
 {
 
-std::string StrUtil::constrPatch ( const std::string& directory, const std::string& fileName )
-{
-    std::string filePatch = directory;
-    char lastChar = directory.at ( directory.length() - 1 );
-    if ( lastChar == '/' || lastChar == '\\' )
-    {
-#if defined(PLATFORM_WIN32)
-        filePatch += '\\';
-#elif defined(PLATFORM_LINUX)
-        filePatch += '/';
-#endif
-    }
-
-    return filePatch + fileName;
-}
-
 std::list<std::string> StrUtil::split ( const std::string& str, char sep )
 {
     std::list<std::string> stringList;

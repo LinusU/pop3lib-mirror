@@ -210,7 +210,7 @@ void MapHeader::saveHeader ( const std::string& fileName ) const
     }
 }
 
-std::ostream&  MapHeader::toCompactForm ( std::ostream& os ) const
+std::ostream&  MapHeader::saveHeaderCompactForm ( std::ostream& os ) const
 {
     unsigned long temp;
     // save enabled spells
@@ -259,7 +259,7 @@ std::ostream&  MapHeader::toCompactForm ( std::ostream& os ) const
     return os;
 }
 
-std::istream&  MapHeader::fromCompactForm ( std::istream& is )
+std::istream&  MapHeader::loadHeaderCompactForm ( std::istream& is )
 {
     unsigned long temp;
     // load enabled spells

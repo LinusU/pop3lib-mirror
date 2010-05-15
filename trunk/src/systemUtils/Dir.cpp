@@ -10,20 +10,25 @@ the Free Software Foundation, either version 3 of the License, or
 
 poplib is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with poplib. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef _H_POPLIB__
-#define _H_POPLIB__
+#include "systemUtils/Dir.h"
 
-// TODO add all includes in poplib
-#include "Mappack.h"
-#include "MapObjDiscovery.h"
-#include "MapObjTrigger.h"
-#include "PopGame.h"
+namespace poplib
+{
 
-#endif // _H_POPLIB__
+std::list<std::string> Dir::listFiles(const std::string& dir)
+{
+    std::list<std::string> files;
+
+    // TODO list files method
+
+    return files;
+}
+
+} // namespace poplib

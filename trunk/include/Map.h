@@ -41,37 +41,29 @@ public:
     mapName.dat, mapName.hdr.
     */
     Map ( const std::string& directory, const std::string& mapName );
-    /** Copy constructor */
-    Map ( const Map& map );
     Map& operator= ( const Map& map );
     virtual ~Map();
-    /** Loads map details from files.
+    /** Loads map details from populous map files.
     @param directory Directory, where map files are stored.
     @param mapName Name of files (without extension) where map is stored. Map files must follow convention:
     mapName.dat, mapName.hdr.
     */
     void load ( const std::string& directory, const std::string& mapName );
-    /** Saves opened map files. */
-    void save() const;
-    /** Saves map details to files.
+    /** Saves map details to files using populous map format.
     @param directory Directory, where map files are stored.
     @param mapName Name of the files where map is stored. Map files follow convention:
     mapName.dat for land and mapName.hdr for header.
     */
     void save ( const std::string& directory, const std::string& mapName ) const;
-    /** Returns path to the directory where map files are stored. */
-    std::string mapDirectory() const { return mdirectory; }
-    /** Returns file name (without extension) of loaded or saved maps. Map files follow convention: mapName.dat for land
-    and mapName.hdr for header. */
-    const std::string mapName() const { return mmapName; }
-    
-private:
-    virtual std::ostream& toCompactForm ( std::ostream& os ) const;
-    virtual std::istream& fromCompactForm ( std::istream& is );
+
+protected:
+    std::ostream& saveHeaderCompactForm ( std::ostream& os ) const { return MapHeader::saveHeaderCompactForm(os); }
+    std::istream& loadHeaderCompactForm ( std::istream& is ) { return MapHeader::loadHeaderCompactForm(is); }
+    std::ostream& saveMapDatCompactForm ( std::ostream& os ) const { return MapDat::saveMapDatCompactForm(os); }
+    std::istream& loadMapDatCompactForm ( std::istream& is ) { return MapDat::loadMapDatCompactForm(is); }
 
 private:
     static const std::string mapDatExt, mapHdrExt;
-    std::string mdirectory, mmapName;
 };
 
 } // namespace poplib

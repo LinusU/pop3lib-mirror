@@ -175,7 +175,7 @@ int main ( int argc, const char* argv[] )
 
     std::ofstream fout;
     fout.open ( "temp_compact.hdr", std::ios_base::out );
-    h.toCompactForm(fout);
+    h.saveHeaderCompactForm(fout);
     fout.close();
     std::cout << "\n\nCompact header copy saved to the file: temp_compact.hdr\n\n";
 

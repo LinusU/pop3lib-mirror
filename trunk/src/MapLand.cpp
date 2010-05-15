@@ -60,7 +60,7 @@ std::istream& operator>> ( std::istream& is, MapLand& mapLand )
 std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
 {
     // TODO write how actualy this compact form is saved
-    short temp, temp2;
+    unsigned short temp, temp2;
 
     unsigned int waterSize = 0;
     for ( int i = 0; i < width(); i++ )
@@ -101,9 +101,9 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
             if (skipWater && (*this)(i, j) == 0)
                 continue;
 
-            int landPoint = (*this) ( i, j ) > 2047 ? 2047 : (*this) ( i, j );
+            unsigned int landPoint = (*this) ( i, j ) > 2047 ? 2047 : (*this) ( i, j );
 
-            short mask = 0x00FF >> pos; // cut lower bits
+            unsigned short mask = 0x00FF >> pos; // cut lower bits
             temp = ((landPoint & mask) << pos ) | temp;
             os.write(reinterpret_cast<const char *>(&temp), 1);
             temp = 0;
@@ -162,8 +162,8 @@ std::istream& MapLand::fromCompactForm ( std::istream& is )
 
             }
 
-            short readData = 0;
-            short mask;
+            unsigned short readData = 0;
+            unsigned short mask;
 
             is.read(reinterpret_cast<char *>(&readData), 1);
             mask = 0x07FF >> pos;
