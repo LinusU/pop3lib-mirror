@@ -7,6 +7,7 @@ include_directories(${CMAKE_HOME_DIRECTORY}/include/dmkp)
 set(poplib_SRCS
 	src/StrUtil.cpp
 	src/UTFConversion.cpp
+	src/String16.cpp
 	src/MapDat.cpp
 	src/MapHeader.cpp
 	src/Map.cpp

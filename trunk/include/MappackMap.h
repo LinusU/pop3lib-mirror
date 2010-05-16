@@ -21,7 +21,10 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 #define _H_POPLIB_MAPPACKMAP__
 
 #include <string>
+#include <bitset>
+#include <list>
 
+#include "String16.h"
 #include "bits/mapBits.h"
 #include "Map.h"
 
@@ -37,15 +40,38 @@ public:
     MappackMap();
     explicit MappackMap(const std::string& fileName);
     MappackMap(const std::string& directory, const std::string& mapName);
+    virtual ~MappackMap();
 
     void saveExtended(const std::string& fileName) const;
     void loadExtended(const std::string& fileName);
+
+    void setPossibleTeams(Teams teams);
+    bool isPossibleTeam(Teams team) const;
+    void setDefaultTeams(Teams teams);
+    bool isDefaultTeam(Teams team) const;
+
+    void setLevelName(const String16& name) { mname =  name; }
+    String16 levelName() const { return mname; }
+    void setDescription(const String16& descr) { mdescr = descr; }
+    String16 descr() const { return mdescr; }
+    void addAuthor(const String16& author) { mauthors.push_back(new String16(author)); }
+    void removeAuthor(const String16& author);
+    void setAuthors(const std::list<String16 *>& authors);
+    std::list<String16 *> authors() const { return mauthors; }
 
     friend std::ostream& operator<<(std::ostream& os, const MappackMap& obj);
     friend std::istream& operator>>(std::istream& is, MappackMap& obj);
 
 private:
+    std::bitset<8> mpossTeams;
+    std::bitset<8> mdefTeams;
+    String16 mname;
+    String16 mdescr;
+    std::list<String16 *> mauthors;
+
     static const unsigned short magicNumber = 10611;
+		
+		void clearAuthors();
 };
 
 } // namespace poplib
