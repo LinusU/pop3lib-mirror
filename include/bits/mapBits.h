@@ -27,7 +27,7 @@ enum _Allies {ALLY_BLUE = 1, ALLY_RED = 1 << 1, ALLY_YELLOW = 1 << 2, ALLY_GREEN
 inline _Allies operator| ( _Allies ally1, _Allies ally2 )
 { return _Allies ( static_cast<int> ( ally1 ) | static_cast<int> ( ally2 ) ); }
 
-enum _Teams {IVO = 1, EVO = 1 << 1, TVB = 1 << 2};
+enum _Teams {IVO = 1, EVO = 1 << 1, TVB = 1 << 2, FFA = 1 << 3, THREE_WAY = 1 << 4, TWO_WAY = 1 << 5};
 inline _Teams operator| ( _Teams teams1, _Teams teams2 )
 { return _Teams ( static_cast<int> ( teams1 ) | static_cast<int> ( teams2 ) ); }
 
