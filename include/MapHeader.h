@@ -23,7 +23,7 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 #include <bitset>
 #include <list>
 
-#include "bits/mapHeaderBits.h"
+#include "bits/mapBits.h"
 #include "Marker.h"
 
 namespace poplib
