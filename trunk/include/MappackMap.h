@@ -22,6 +22,7 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 
 #include <string>
 
+#include "bits/mapBits.h"
 #include "Map.h"
 
 namespace poplib
@@ -30,9 +31,11 @@ namespace poplib
 class MappackMap : public Map
 {
 public:
+    typedef _Teams Teams;
+
     // TODO add more things to MappackMap class
     MappackMap();
-    MappackMap(const std::string& fileName);
+    explicit MappackMap(const std::string& fileName);
     MappackMap(const std::string& directory, const std::string& mapName);
 
     void saveExtended(const std::string& fileName) const;
