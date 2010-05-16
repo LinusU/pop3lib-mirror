@@ -13,3 +13,9 @@ set(hdrTest_SRCS
 
 add_executable(hdrTest ${hdrTest_SRCS})
 target_link_libraries(hdrTest poplib)
+
+set(mappackTest_SRCS
+	mappackTest.cpp)
+
+add_executable(mappackTest ${mappackTest_SRCS})
+target_link_libraries(mappackTest poplib)

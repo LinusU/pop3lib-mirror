@@ -36,6 +36,9 @@ public:
     static std::string fileNameWithExt(const std::string& filePath);
     static std::string fileName(const std::string& filePath);
     static std::string fileExtension(const std::string& filePath);
+
+private:
+    static int extPos(const std::string& str);
 };
 
 } // namespace poplib

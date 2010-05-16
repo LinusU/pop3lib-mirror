@@ -33,15 +33,26 @@ class Mappack
 public:
     Mappack();
     explicit Mappack(const std::string& fileName);
+    /** Copy constructor. */
+    Mappack ( const Mappack& mappack );
+    Mappack& operator= ( const Mappack& mappack );
+    virtual ~Mappack();
 
     void loadFromFile(const std::string& fileName);
     void loadFromDirectory(const std::string& dir);
     void saveToFile(const std::string& fileName) const;
 
+    void addMap(MappackMap* map) { mmaps.push_back(map); }
+    void removeMap(MappackMap* map);
+    std::list<MappackMap *> maps() const { return mmaps; }
+
 private:
-    std::list<MappackMap> mmaps;
+    std::list<MappackMap *> mmaps;
 
     static const unsigned int magicNumber = 10499;
+
+    void cleanMaps();
+    void copyMaps(const Mappack& mappack);
 
     // TODO mappack text informations should be stored as UTF-8
 };

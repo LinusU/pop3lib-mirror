@@ -40,6 +40,22 @@ MappackMap::MappackMap ( const std::string& directory, const std::string& mapNam
 
 }
 
+MappackMap::MappackMap ( const MappackMap& map ) : mpossTeams(map.mpossTeams.to_ulong()),
+        mdefTeams(map.mdefTeams.to_ulong()), mname(map.mname), mdescr(map.mdescr)
+{
+    copyAuthors(map);
+}
+
+MappackMap& MappackMap::operator= ( const MappackMap& map )
+{
+    mpossTeams = map.mpossTeams;
+    mdefTeams = map.mdefTeams;
+    mname = map.mname;
+    mdescr = map.mdescr;
+    clearAuthors();
+    copyAuthors(map);
+}
+
 MappackMap::~MappackMap()
 {
     clearAuthors();
@@ -103,6 +119,7 @@ void MappackMap::removeAuthor(const String16& author)
         if (author == **it)
         {
             mauthors.erase(it);
+	    delete *it;
             return;
         }
     }
@@ -117,9 +134,10 @@ void MappackMap::setAuthors(const std::list<String16 *>& authors)
 
 std::ostream& operator<<(std::ostream& os, const MappackMap& obj)
 {
-    os.write ( reinterpret_cast<const char *> ( &obj.magicNumber ), 2 );
+    unsigned int temp = obj.magicNumber;
+    os.write ( reinterpret_cast<const char *> ( &temp ), 2 );
 
-    unsigned int temp = obj.mpossTeams.to_ulong();
+    temp = obj.mpossTeams.to_ulong();
     os.write(reinterpret_cast<char *>(&temp), 1);
     temp = obj.mdefTeams.to_ulong();
     os.write(reinterpret_cast<char *>(&temp), 1);
@@ -173,6 +191,13 @@ void MappackMap::clearAuthors()
     std::list<String16 *>::iterator it;
     for (it = mauthors.begin(); it != mauthors.end(); ++it)
         delete *it;
+}
+
+void MappackMap::copyAuthors(const MappackMap& map)
+{
+    std::list<String16 *>::const_iterator it;
+    for (it = map.mauthors.begin(); it != map.mauthors.end(); ++it)
+        mauthors.push_back(new String16(**it));
 }
 
 } // namespace poplib

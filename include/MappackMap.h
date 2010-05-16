@@ -36,10 +36,12 @@ class MappackMap : public Map
 public:
     typedef _Teams Teams;
 
-    // TODO add more things to MappackMap class
     MappackMap();
     explicit MappackMap(const std::string& fileName);
     MappackMap(const std::string& directory, const std::string& mapName);
+    /** Copy constructor. */
+    MappackMap ( const MappackMap& map );
+    MappackMap& operator= ( const MappackMap& map );
     virtual ~MappackMap();
 
     void saveExtended(const std::string& fileName) const;
@@ -70,8 +72,9 @@ private:
     std::list<String16 *> mauthors;
 
     static const unsigned short magicNumber = 10611;
-		
-		void clearAuthors();
+
+    void clearAuthors();
+    void copyAuthors(const MappackMap& map);
 };
 
 } // namespace poplib
