@@ -18,6 +18,8 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "systemUtils/File.h"
+#include "systemUtils/Dir.h"
+#include "StrUtil.h"
 
 namespace poplib
 {
@@ -40,40 +42,52 @@ std::string File::path(const std::string& directory, const std::string& fileName
 
 std::string File::fileNameWithExt(const std::string& filePath)
 {
-    std::string withExt("");
-    char c = filePath.at(filePath.size() - 1);
-    for (int i = filePath.size() - 1; i >= 0 && c != dirSep; --i)
-        withExt += c;
+    int i;
+    for (i = filePath.size() - 1; i >= 0; --i)
+    {
+        if (filePath.at(i) == dirSep)
+            break;
+    }
 
-    return withExt;
+    return filePath.substr(i + 1, filePath.size());
 }
 
 std::string File::fileName(const std::string& filePath)
 {
     std::string withExt = fileNameWithExt(filePath);
+    int pos = extPos(withExt);
 
-    std::string fileName("");
-    char c = withExt.at(withExt.size() - 1);
-    for (int i = withExt.size() - 1; i >= 0 && c != dirSep && c != '.'; --i)
-        fileName += c;
-
-    return fileName;
+    if (pos > 0)
+        return withExt.substr(0, pos);
+    else
+        return withExt;
 }
 
 std::string File::fileExtension(const std::string& filePath)
 {
-    std::string name = fileNameWithExt(filePath);
+    std::string withExt = fileNameWithExt(filePath);
+    int pos = extPos(withExt);
 
-    std::string ext("");
-    char c = name.at(name.size() - 1);
-    bool hasExt = false;
-    for (int i = name.size() - 1; i >= 0 && !(hasExt = c == '.'); --i)
-        ext += c;
-
-    if (hasExt)
-        return ext;
+    if (pos > 0)
+        return withExt.substr(pos + 1, withExt.size() - pos);
     else
         return std::string("");
+}
+
+int File::extPos(const std::string& str)
+{
+    char c;
+    for (int i = str.size() - 1; i >= 0; --i)
+    {
+        c = str.at(i);
+        if (c == '.')
+        {
+            if (i > 0 && i < str.size() - 1)
+                return i;
+            else
+                return 0;
+        }
+    }
 }
 
 } // namespace poplib
