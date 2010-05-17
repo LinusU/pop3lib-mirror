@@ -67,8 +67,12 @@ void MappackMap::saveExtended(const std::string& fileName) const
     fout.open ( fileName.c_str(), std::ios_base::out | std::ios_base::binary );
     if ( fout.is_open() )
     {
+        unsigned int temp = magicNumber;
+        fout.write ( reinterpret_cast<const char *> ( &temp ), 2 );
+
         fout << (*this);
     }
+    fout.close();
 }
 
 void MappackMap::loadExtended(const std::string& fileName)
@@ -77,8 +81,14 @@ void MappackMap::loadExtended(const std::string& fileName)
     fin.open ( fileName.c_str(), std::ios_base::in | std::ios_base::binary );
     if ( fin.is_open() )
     {
+        unsigned int temp = 0;
+        fin.read(reinterpret_cast<char *>(&temp), 2);
+        if (temp != magicNumber)
+            return;
+
         fin >> (*this);
     }
+    fin.close();
 }
 
 void MappackMap::setPossibleTeams(Teams teams)
@@ -119,7 +129,7 @@ void MappackMap::removeAuthor(const String16& author)
         if (author == **it)
         {
             mauthors.erase(it);
-	    delete *it;
+            delete *it;
             return;
         }
     }
@@ -134,10 +144,7 @@ void MappackMap::setAuthors(const std::list<String16 *>& authors)
 
 std::ostream& operator<<(std::ostream& os, const MappackMap& obj)
 {
-    unsigned int temp = obj.magicNumber;
-    os.write ( reinterpret_cast<const char *> ( &temp ), 2 );
-
-    temp = obj.mpossTeams.to_ulong();
+    unsigned int temp = obj.mpossTeams.to_ulong();
     os.write(reinterpret_cast<char *>(&temp), 1);
     temp = obj.mdefTeams.to_ulong();
     os.write(reinterpret_cast<char *>(&temp), 1);
@@ -161,17 +168,15 @@ std::istream& operator>>(std::istream& is, MappackMap& obj)
     obj.clearAuthors();
 
     unsigned int temp = 0;
-    is.read(reinterpret_cast<char *>(&temp), 2);
-    if (temp != obj.magicNumber)
-        return is;
-
     is.read(reinterpret_cast<char *>(&temp), 1);
     obj.mpossTeams = std::bitset<8>(temp);
+    temp = 0;
     is.read(reinterpret_cast<char *>(&temp), 1);
     obj.mdefTeams = std::bitset<8>(temp);
 
     is >> obj.mname >> obj.mdescr;
 
+    temp = 0;
     is.read(reinterpret_cast<char *>(&temp), 1);
     for (int i = 0; i < temp; ++i)
     {

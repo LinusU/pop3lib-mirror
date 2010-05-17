@@ -28,6 +28,7 @@ String16::String16()
 {
     UTF16 init = 0;
     mdata = stdStr16(&init);
+    msize = 1;
 }
 
 String16::String16(UTF32* str)
@@ -35,9 +36,21 @@ String16::String16(UTF32* str)
     // TODO string16 constructing from UTF16
 }
 
-String16::String16(UTF16* str): mdata(str)
+String16::String16(UTF16* str)
 {
-
+    int i = 0;
+    UTF16 c;
+    while (true)
+    {
+        c = str[i];
+        if (c == 0)
+        {
+            msize = i + 1;
+            mdata = stdStr16(str, msize);
+            break;
+        }
+        ++i;
+    }
 }
 
 String16::String16(UTF8* str)
@@ -48,17 +61,24 @@ String16::String16(UTF8* str)
 std::ostream& operator<<(std::ostream& os, const String16& obj)
 {
     os.write(reinterpret_cast<const char *>(obj.data16()), obj.dataSize());
+    return os;
 }
 
 std::istream& operator>>(std::istream& is, String16& obj)
 {
+    // TODO storing string16 data using utf-8 encoding - it's usualy shorter
     UTF16 c;
+    obj.msize = 0;
+    bool bad = is.bad();
     while (true)
     {
-        is.read(reinterpret_cast<char *>(&c), sizeof(UTF16));
+        is.read(reinterpret_cast<char *>(&c), 2);
         obj.mdata += c;
+        ++obj.msize;
         if (c == 0)
-            break;
+            return is;
+
+        c = 0;
     }
 }
 

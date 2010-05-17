@@ -1,0 +1,101 @@
+B28F31F1
+
+PACKNAME: Åsgard Worlds
+PACKVERSION: 1.1
+PACKCREATOR: Åsgard
+
+LEVEL: 0
+NAME: Hel
+DAT: levl2001.dat
+HDR: levl2001.hdr
+CREATOR: [AsG]SewerAssassin, [AsG]Hundredth
+
+LEVEL: 1
+NAME: Ragnarök
+DAT: levl2002.dat
+HDR: levl2002.hdr
+CREATOR: [AsG]SewerAssassin, [AsG]Hundredth
+
+LEVEL: 2
+NAME: Hvergelmir
+DAT: levl2003.dat
+HDR: levl2003.hdr
+CREATOR: [AsG]SewerAssassin
+
+LEVEL: 3
+NAME: Midgard
+DAT: levl2004.dat
+HDR: levl2004.hdr
+CREATOR: [AsG]Hundredth
+
+LEVEL: 4
+NAME: Well of Mimir
+DAT: levl2005.dat
+HDR: levl2005.hdr
+CREATOR: [AsG]Hundredth, [AsG]SewerAssassin
+
+LEVEL: 5
+NAME: Körmt and Örmt
+DAT: levl2006.dat
+HDR: levl2006.hdr
+CREATOR: [AsG]Hundredth
+
+LEVEL: 6
+NAME: Utgard
+DAT: levl2007.dat
+HDR: levl2007.hdr
+CREATOR: [AsG]SewerAssassin, [AsG]Hundredth
+
+LEVEL: 7
+NAME: Well of Urd
+DAT: levl2008.dat
+HDR: levl2008.hdr
+CREATOR: [AsG]Hundredth
+
+LEVEL: 8
+NAME: Loki's Keep
+DAT: levl2009.dat
+HDR: levl2009.hdr
+CREATOR: [AsG]Hundredth
+
+LEVEL: 9
+NAME: Valhallah
+DAT: levl2010.dat
+HDR: levl2010.hdr
+CREATOR: [AsG]Hundredth
+
+LEVEL: A
+NAME: Yggdrasil
+DAT: levl2011.dat
+HDR: levl2011.hdr
+CREATOR: [AsG]Hundredth
+
+LEVEL: B
+NAME: Nilfheim
+DAT: levl2012.dat
+HDR: levl2012.hdr
+CREATOR: [AsG]Hundredth
+
+LEVEL: C
+NAME: Nidavellir
+DAT: levl2013.dat
+HDR: levl2013.hdr
+CREATOR: [AsG]SewerAssassin, [AsG]Hundredth
+
+LEVEL: D
+NAME: Töm
+DAT: levl2014.dat
+HDR: levl2014.hdr
+CREATOR: [AsG]Fury, [AsG]Hundredth
+
+LEVEL: E
+NAME: Bifrost
+DAT: levl2015.dat
+HDR: levl2015.hdr
+CREATOR: [AsG]Hundredth
+
+LEVEL: F
+NAME: Heimdall Gates
+DAT: levl2016.dat
+HDR: levl2016.hdr
+CREATOR: [AsG]Hundredth, [AsG]Radiance
