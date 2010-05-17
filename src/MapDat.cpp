@@ -125,8 +125,7 @@ std::istream& MapDat::loadMapDatCompactForm ( std::istream& is )
     unsigned int temp = 0;
     is.read(reinterpret_cast<char *>(&temp), 2);
     // load objects
-    objList::iterator it;
-    for ( it = mobjects->begin(); it != mobjects->end(); ++it )
+    for ( int i = 0; i < temp; ++i )
         ; // TODO load objects from compact form
 
     return is;

@@ -24,18 +24,21 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 namespace poplib
 {
 
-MappackMap::MappackMap()
+MappackMap::MappackMap(): mstatus(ALPHA), mpossTeams(std::string("11111111")),
+        mdefTeams(std::string("11111111"))
 {
 
 }
 
-MappackMap::MappackMap(const std::string& filename)
+MappackMap::MappackMap(const std::string& filename):  mstatus(ALPHA), mpossTeams(std::string("11111111")),
+        mdefTeams(std::string("11111111"))
 {
     loadExtended(filename);
 }
 
 MappackMap::MappackMap ( const std::string& directory, const std::string& mapName ) :
-        Map(directory, mapName)
+        Map(directory, mapName), mstatus(ALPHA), mpossTeams(std::string("11111111")),
+        mdefTeams(std::string("11111111"))
 {
 
 }
@@ -148,6 +151,7 @@ std::ostream& operator<<(std::ostream& os, const MappackMap& obj)
     os.write(reinterpret_cast<char *>(&temp), 1);
     temp = obj.mdefTeams.to_ulong();
     os.write(reinterpret_cast<char *>(&temp), 1);
+    os.write(reinterpret_cast<const char *>(&obj.mstatus), 1);
 
     os << obj.mname << obj.mdescr;
 
@@ -173,6 +177,7 @@ std::istream& operator>>(std::istream& is, MappackMap& obj)
     temp = 0;
     is.read(reinterpret_cast<char *>(&temp), 1);
     obj.mdefTeams = std::bitset<8>(temp);
+    is.read(reinterpret_cast<char *>(&obj.mstatus), 1);
 
     is >> obj.mname >> obj.mdescr;
 

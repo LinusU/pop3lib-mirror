@@ -259,9 +259,10 @@ std::ostream&  MapHeader::saveHeaderCompactForm ( std::ostream& os ) const
             temp++;
         }
     }
-    os.seekp ( -(temp * 2 + 1), std::ios_base::cur ); // move back to save markers amount
+    int markersSize = temp * 2;
+    os.seekp ( -(markersSize + 1), std::ios_base::cur ); // move back to save markers size
     os.write ( reinterpret_cast<const char*> ( &temp ), 1 );
-
+    os.seekp(markersSize, std::ios_base::cur);// skip saved markers
     return os;
 }
 

@@ -35,6 +35,7 @@ class MappackMap : public Map
 {
 public:
     typedef _Teams Teams;
+    enum Status {ALPHA = 0, BETA, STABLE, MATURE};
 
     MappackMap();
     explicit MappackMap(const std::string& fileName);
@@ -60,6 +61,8 @@ public:
     void removeAuthor(const String16& author);
     void setAuthors(const std::list<String16 *>& authors);
     std::list<String16 *> authors() const { return mauthors; }
+    void setStatus(Status status) { mstatus = status; }
+    Status status() const { return mstatus; }
 
     friend std::ostream& operator<<(std::ostream& os, const MappackMap& obj);
     friend std::istream& operator>>(std::istream& is, MappackMap& obj);
@@ -70,6 +73,7 @@ private:
     String16 mname;
     String16 mdescr;
     std::list<String16 *> mauthors;
+    Status mstatus;
 
     static const unsigned short magicNumber = 10611;
 
