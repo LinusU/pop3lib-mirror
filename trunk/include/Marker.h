@@ -39,7 +39,7 @@ public:
 
     friend std::ostream& operator<< ( std::ostream& os, const Marker& obj )
     {
-        os.write (  &obj.x, 1 );
+        os.write ( &obj.x, 1 );
         os.write ( &obj.y, 1 );
     }
 

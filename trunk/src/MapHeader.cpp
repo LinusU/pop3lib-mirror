@@ -110,18 +110,20 @@ void MapHeader::loadHeader ( const std::string& fileName )
     fin.open ( fileName.c_str(), std::ios_base::in | std::ios_base::binary );
     if ( fin.is_open() )
     {
-        unsigned long temp;
+        unsigned long temp = 0;
         // load enabled spells
         fin.read ( reinterpret_cast<char *> ( &temp ), 3 );
         mspells.reset();
         mspells |= std::bitset<24> ( temp ); // 0x0 - 0x2
         // load enabled buildings
         fin.seekg ( 1, std::ios_base::cur ); // skip 0x3
+        temp = 0;
         fin.read ( reinterpret_cast<char *> ( &temp ), 2 );
         mbuildings.reset();
         mbuildings |= std::bitset<16> ( temp ); // 0x4 - 0x6
         // load chargable spells
         fin.seekg ( 0xf );
+        temp = 0;
         fin.read ( reinterpret_cast<char *> ( &temp ), 3 ); // 0x15 - 0xa1
         mspellsNotCharging.reset();
         mspellsNotCharging |= std::bitset<24> ( temp );
@@ -136,6 +138,7 @@ void MapHeader::loadHeader ( const std::string& fileName )
         // load allies
         for ( int i = 0; i < TRIBES; ++i )
         {
+            temp = 0;
             fin.read ( reinterpret_cast<char *> ( &temp ) , 1 ); // 0x5c - 0x5f
             mallies[i].reset();
             mallies[i] |= std::bitset<8> ( temp );
@@ -145,6 +148,7 @@ void MapHeader::loadHeader ( const std::string& fileName )
         // load tree style
         fin.read ( reinterpret_cast<char *> ( &mtreeStyle ), 1 ); // 0x61
         // load properties
+        temp = 0;
         fin.read ( reinterpret_cast<char *> ( &temp ), 1 ); // 0x62
         mproperties.reset();
         mproperties |= std::bitset<8> ( temp );
@@ -158,6 +162,7 @@ void MapHeader::loadHeader ( const std::string& fileName )
             mmarkers->push_back ( m );
         }
     }
+    fin.close();
 }
 
 void MapHeader::saveHeader ( const std::string& fileName ) const
@@ -208,6 +213,7 @@ void MapHeader::saveHeader ( const std::string& fileName ) const
         while ( fout.tellp() < 616 )
             fout.write ( reinterpret_cast<const char *> ( &temp ), 1 );
     }
+    fout.close();
 }
 
 std::ostream&  MapHeader::saveHeaderCompactForm ( std::ostream& os ) const
@@ -261,21 +267,21 @@ std::ostream&  MapHeader::saveHeaderCompactForm ( std::ostream& os ) const
 
 std::istream&  MapHeader::loadHeaderCompactForm ( std::istream& is )
 {
-    unsigned long temp;
+    unsigned long temp = 0;
     // load enabled spells
     is.read ( reinterpret_cast<char *> ( &temp ), 3 );
     mspells.reset();
     mspells |= std::bitset<24> ( temp );
     // load enabled buildings
+    temp = 0;
     is.read ( reinterpret_cast<char *> ( &temp ), 2 );
     mbuildings.reset();
     mbuildings |= std::bitset<16> ( temp );
     // load chargable spells
+    temp = 0;
     is.read ( reinterpret_cast<char *> ( &temp ), 3 );
     mspellsNotCharging.reset();
     mspellsNotCharging |= std::bitset<24> ( temp );
-    // load level name size
-    is.read ( reinterpret_cast<char *> ( &temp ), 1 );
     // load max tribes
     is.read ( &mmaxTribes, 1 );
     // load AI scripts - they are numbers in hex for each tribe - Cpscr010.dat = 010 = 0A
@@ -286,6 +292,7 @@ std::istream&  MapHeader::loadHeaderCompactForm ( std::istream& is )
     // load allies
     for ( int i = 0; i < TRIBES; ++i )
     {
+        temp = 0;
         is.read ( reinterpret_cast<char *> ( &temp ) , 1 );
         mallies[i].reset();
         mallies[i] |= std::bitset<8> ( temp );
@@ -295,12 +302,14 @@ std::istream&  MapHeader::loadHeaderCompactForm ( std::istream& is )
     // load tree style
     is.read ( reinterpret_cast<char *> ( &mtreeStyle ), 1 );
     // load properties
+    temp = 0;
     is.read ( reinterpret_cast<char *> ( &temp ), 1 );
     mproperties.reset();
     mproperties |= std::bitset<8> ( temp );
     // load markers
     mmarkers->clear();
     Marker m;
+    temp = 0;
     is.read ( reinterpret_cast<char *> ( &temp ), 1 ); // read markes amount
     for ( int i = 0; i < temp; ++i )
     {

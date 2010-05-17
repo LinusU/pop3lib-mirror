@@ -37,7 +37,12 @@ int main ( int argc, const char* argv[] )
     maps = m.maps();
     for ( i = 0, it = maps.begin(); it != maps.end(); ++it, ++i )
     {
-        poplib::MapLand* land = ( *it )->mapLand();
+        UTF16 str[5]; str[0] = 'a'; str[1] = 'b'; str[2] = 'c'; str[3] = 'd'; str[4] = 0;
+        (*it)->setLevelName(str);
+        (*it)->setDescription(str);
+        (*it)->addAuthor(str);
+        (*it)->addAuthor(str);
+        (*it)->addAuthor(str);
     }
 
     m.saveToFile("mappack.p3m");

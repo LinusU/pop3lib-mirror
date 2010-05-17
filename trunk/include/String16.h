@@ -40,11 +40,12 @@ public:
 
     /** Not implemented yet. */
     const UTF8* data8() const { return 0; } // TODO returning UTF8 data
+    /** Constructs string object from null-terminated characters sequence. */
     const UTF16* data16() const { return mdata.c_str(); }
      /** Not implemented yet. */
     const UTF32* data32() const { return 0; } // TODO returning UTF32 data
     /** Returns how many bytes is used by a string. */
-    unsigned int dataSize() const { return mdata.size() + 1; }
+    unsigned int dataSize() const { return msize*2; }
     bool operator==(const String16& str) const { return str.mdata == mdata; }
 
     friend std::ostream& operator<<(std::ostream& os, const String16& obj);
@@ -54,6 +55,7 @@ private:
     typedef std::basic_string<UTF16> stdStr16;
 
     stdStr16 mdata;
+    unsigned int msize;
 };
 
 } // namespace poplib

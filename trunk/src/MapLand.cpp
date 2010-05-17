@@ -49,7 +49,7 @@ std::istream& operator>> ( std::istream& is, MapLand& mapLand )
     {
         for ( int j = 0; j < mapLand.height(); j++ )
         {
-            unsigned int temp;
+            unsigned int temp = 0;
             is.read ( reinterpret_cast<char *> ( &temp ), 2 );
             mapLand ( i, j ) = temp;
         }
@@ -128,7 +128,7 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
 
 std::istream& MapLand::fromCompactForm ( std::istream& is )
 {
-    unsigned int temp;
+    unsigned int temp = 0;
     bool skipWater;
     int landBitsSize = ( width() * height() )/ 8 + 1;
     std::bitset<8> landBits[landBitsSize];
@@ -140,6 +140,7 @@ std::istream& MapLand::fromCompactForm ( std::istream& is )
         // load land bits
         for ( int i = 0; i < landBitsSize; ++i )
         {
+            temp = 0;
             is.read(reinterpret_cast<char *>(&temp), 1);
             landBits[i] = std::bitset<8>(temp);
         }

@@ -60,13 +60,13 @@ void Mappack::loadFromFile ( const std::string& fileName )
     if ( fin.is_open() )
     {
         unsigned int temp = 0;
-        fin.read ( reinterpret_cast<char *> ( temp ), 2 );
+        fin.read ( reinterpret_cast<char *> ( &temp ), 2 );
         if ( temp != magicNumber )
             return;
 
         temp = 0;
         MappackMap* m;
-        fin.read ( reinterpret_cast<char *> ( temp ), 4 );
+        fin.read ( reinterpret_cast<char *> ( &temp ), 1 );
         for ( int i = 0; i < temp; ++i )
         {
             m = new MappackMap();
@@ -74,6 +74,7 @@ void Mappack::loadFromFile ( const std::string& fileName )
             mmaps.push_back ( m );
         }
     }
+    fin.close();
 }
 
 void Mappack::loadFromDirectory ( const std::string& dir )
@@ -104,11 +105,12 @@ void Mappack::saveToFile ( const std::string& fileName ) const
         unsigned int temp = magicNumber;
         fout.write ( reinterpret_cast<const char *> ( &temp ), 2 );
         temp = mmaps.size();
-        fout.write ( reinterpret_cast<const char *> ( &temp ), 4 );
+        fout.write ( reinterpret_cast<const char *> ( &temp ), 1 );
         std::list<MappackMap *>::const_iterator it;
         for ( it = mmaps.begin(); it != mmaps.end(); ++it )
             fout << ( **it );
     }
+    fout.close();
 }
 
 void Mappack::removeMap(MappackMap* map)
