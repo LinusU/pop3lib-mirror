@@ -53,10 +53,10 @@ public:
     void setDefaultTeams(Teams teams);
     bool isDefaultTeam(Teams team) const;
 
-    void setLevelName(const String16& name) { mname =  name; }
-    String16 levelName() const { return mname; }
+    void setMapName(const String16& name) { mname =  name; }
+    String16 mapName() const { return mname; }
     void setDescription(const String16& descr) { mdescr = descr; }
-    String16 descr() const { return mdescr; }
+    String16 description() const { return mdescr; }
     void addAuthor(const String16& author) { mauthors.push_back(new String16(author)); }
     void removeAuthor(const String16& author);
     void setAuthors(const std::list<String16 *>& authors);

@@ -31,12 +31,12 @@ String16::String16()
     msize = 1;
 }
 
-String16::String16(UTF32* str)
+String16::String16(const UTF32* str)
 {
     // TODO string16 constructing from UTF16
 }
 
-String16::String16(UTF16* str)
+String16::String16(const UTF16* str)
 {
     int i = 0;
     UTF16 c;
@@ -53,7 +53,7 @@ String16::String16(UTF16* str)
     }
 }
 
-String16::String16(UTF8* str)
+String16::String16(const UTF8* str)
 {
     // TODO string16 constructing from UTF8
 }
