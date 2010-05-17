@@ -73,7 +73,7 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
     os.write(reinterpret_cast<const char *>(&skipWater), 1);
     if (skipWater)
     {
-        int landBitsSize = ( width() * height() )/ 8 + 1;
+        int landBitsSize = ( width() * height() )/ 8;
         std::bitset<8> landBits[landBitsSize];
         for ( int i = 0; i < width(); i++ )
         {
@@ -92,8 +92,7 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
     }
     // save land
     char pos = 0;
-    temp = 0;
-    temp2 = 0;
+    unsigned short mask;
     for ( int i = 0; i < width(); i++ )
     {
         for ( int j = 0; j < height(); j++ )
@@ -103,7 +102,7 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
 
             unsigned int landPoint = (*this) ( i, j ) > 2047 ? 2047 : (*this) ( i, j );
 
-            unsigned short mask = 0x00FF >> pos; // cut lower bits
+            mask = 0x00FF >> pos; // cut lower bits
             temp = ((landPoint & mask) << pos ) | temp;
             os.write(reinterpret_cast<const char *>(&temp), 1);
             temp = 0;
@@ -122,6 +121,9 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
             }
         }
     }
+    if (pos > 0)
+        os.write(reinterpret_cast<const char *>(&temp), 1);
+
 
     return os;
 }
@@ -129,8 +131,8 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
 std::istream& MapLand::fromCompactForm ( std::istream& is )
 {
     unsigned int temp = 0;
-    bool skipWater;
-    int landBitsSize = ( width() * height() )/ 8 + 1;
+    bool skipWater = 0;
+    int landBitsSize = ( width() * height() )/ 8;
     std::bitset<8> landBits[landBitsSize];
 
     is.read(reinterpret_cast<char *>(&skipWater), 1);

@@ -64,6 +64,8 @@ void Mappack::loadFromFile ( const std::string& fileName )
         if ( temp != magicNumber )
             return;
 
+        fin >> mname >> mdesc;
+
         temp = 0;
         MappackMap* m;
         fin.read ( reinterpret_cast<char *> ( &temp ), 1 );
@@ -104,6 +106,9 @@ void Mappack::saveToFile ( const std::string& fileName ) const
     {
         unsigned int temp = magicNumber;
         fout.write ( reinterpret_cast<const char *> ( &temp ), 2 );
+
+        fout << mname << mdesc;
+
         temp = mmaps.size();
         fout.write ( reinterpret_cast<const char *> ( &temp ), 1 );
         std::list<MappackMap *>::const_iterator it;

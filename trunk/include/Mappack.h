@@ -46,8 +46,15 @@ public:
     void removeMap(MappackMap* map);
     std::list<MappackMap *> maps() const { return mmaps; }
 
+    String16 name() const { return mname; }
+    void setName(const String16& name) { mname = name; }
+    String16 description() const { return mdesc; }
+    void setDescription(const String16& desc) { mdesc = desc; }
+
 private:
     std::list<MappackMap *> mmaps;
+    String16 mname;
+    String16 mdesc;
 
     static const unsigned int magicNumber = 10499;
 
