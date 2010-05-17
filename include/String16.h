@@ -32,11 +32,11 @@ class String16
 public:
     String16();
     /** Not implemented yet. */
-    String16(UTF32* str);
+    String16(const UTF32* str);
     /** Constructs object from block of data encoded with UTF-16 and terminated by null character. */
-    String16(UTF16* str);
+    String16(const UTF16* str);
     /** Not implemented yet. */
-    String16(UTF8* str);
+    String16(const UTF8* str);
 
     /** Not implemented yet. */
     const UTF8* data8() const { return 0; } // TODO returning UTF8 data

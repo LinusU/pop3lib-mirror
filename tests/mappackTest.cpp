@@ -38,7 +38,7 @@ int main ( int argc, const char* argv[] )
     for ( i = 0, it = maps.begin(); it != maps.end(); ++it, ++i )
     {
         UTF16 str[5]; str[0] = 'a'; str[1] = 'b'; str[2] = 'c'; str[3] = 'd'; str[4] = 0;
-        (*it)->setLevelName(str);
+        (*it)->setMapName(str);
         (*it)->setDescription(str);
         (*it)->addAuthor(str);
         (*it)->addAuthor(str);
