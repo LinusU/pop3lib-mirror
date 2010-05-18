@@ -26,8 +26,8 @@ namespace poplib
 
 String16::String16()
 {
-    UTF16 init = 0;
-    mdata = stdStr16(&init);
+    mdata = new UTF16;
+    *mdata = 0;
     msize = 1;
 }
 
@@ -45,8 +45,9 @@ String16::String16(const UTF16* str)
         c = str[i];
         if (c == 0)
         {
-            msize = i + 1;
-            mdata = stdStr16(str, msize);
+            msize = (i + 1)*sizeof(UTF16);
+            mdata = new UTF16[i + 1];
+            std::memcpy(mdata, str, msize);
             break;
         }
         ++i;
@@ -58,28 +59,56 @@ String16::String16(const UTF8* str)
     // TODO string16 constructing from UTF8
 }
 
+String16::String16(const String16& str): msize(str.msize)
+{
+    mdata = new UTF16[msize/sizeof(UTF16)];
+    std::memcpy(mdata, str.mdata, msize);
+}
+
+String16& String16::operator=(const String16& str)
+{
+    delete[] mdata;
+
+    msize = str.msize;
+    mdata = new UTF16[msize/sizeof(UTF16)];
+    std::memcpy(mdata, str.mdata, msize);
+}
+
+String16::~String16()
+{
+    delete[] mdata;
+}
+
 std::ostream& operator<<(std::ostream& os, const String16& obj)
 {
     os.write(reinterpret_cast<const char *>(obj.data16()), obj.dataSize());
+
     return os;
 }
 
 std::istream& operator>>(std::istream& is, String16& obj)
 {
     // TODO storing string16 data using utf-8 encoding - it's usualy shorter
-    UTF16 c;
+    delete[] obj.mdata;
+
+    int pos = is.tellg();
     obj.msize = 0;
-    bool bad = is.bad();
+    UTF16 c;
     while (true)
     {
-        is.read(reinterpret_cast<char *>(&c), 2);
-        obj.mdata += c;
+        c = 0;
+        is.read(reinterpret_cast<char *>(&c), sizeof(UTF16));
         ++obj.msize;
         if (c == 0)
-            return is;
-
-        c = 0;
+            break;
     }
+
+    obj.msize = obj.msize * sizeof(UTF16);
+    obj.mdata = new UTF16 [obj.msize/sizeof(UTF16)];
+    is.seekg(pos);
+    is.read(reinterpret_cast<char *>(obj.mdata), obj.msize);
+
+    return is;
 }
 
 } // namespace poplib

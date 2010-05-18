@@ -17,6 +17,8 @@ You should have received a copy of the GNU General Public License
 along with poplib. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <fstream>
+
 #include "systemUtils/File.h"
 #include "systemUtils/Dir.h"
 #include "StrUtil.h"
@@ -72,6 +74,16 @@ std::string File::fileExtension(const std::string& filePath)
         return withExt.substr(pos + 1, withExt.size() - pos);
     else
         return std::string("");
+}
+
+bool File::fileExists(const std::string& filePath)
+{
+    std::ifstream fin;
+    fin.open(filePath.c_str(), std::ios::in);
+    bool exists = fin.is_open();
+    fin.close();
+
+    return exists;
 }
 
 int File::extPos(const std::string& str)

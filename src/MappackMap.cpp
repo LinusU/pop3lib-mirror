@@ -94,11 +94,18 @@ void MappackMap::loadExtended(const std::string& fileName)
     fin.close();
 }
 
-void MappackMap::setPossibleTeams(Teams teams)
+void MappackMap::setPossibleTeams(poplib::MappackMap::Teams teams, bool enabled)
 {
     std::bitset<8> bteams(static_cast<unsigned long>(teams)); // bitmask representation of teams
-    mpossTeams.reset();
-    mpossTeams |= bteams;
+    if (enabled)
+    {
+        mpossTeams |= bteams;
+    }
+    else
+    {
+        bteams = bteams.flip();
+        mpossTeams &= bteams;
+    }
 }
 
 bool MappackMap::isPossibleTeam(Teams team) const
@@ -109,11 +116,18 @@ bool MappackMap::isPossibleTeam(Teams team) const
     return temp.any();
 }
 
-void MappackMap::setDefaultTeams(Teams teams)
+void MappackMap::setDefaultTeams(poplib::MappackMap::Teams teams, bool enabled)
 {
     std::bitset<8> bteams(static_cast<unsigned long>(teams)); // bitmask representation of teams
-    mdefTeams.reset();
-    mdefTeams |= bteams;
+    if (enabled)
+    {
+        mdefTeams |= bteams;
+    }
+    else
+    {
+        bteams = bteams.flip();
+        mdefTeams &= bteams;
+    }
 }
 
 bool MappackMap::isDefaultTeam(Teams team) const

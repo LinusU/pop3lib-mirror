@@ -48,9 +48,9 @@ public:
     void saveExtended(const std::string& fileName) const;
     void loadExtended(const std::string& fileName);
 
-    void setPossibleTeams(Teams teams);
+    void setPossibleTeams(Teams teams, bool enabled);
     bool isPossibleTeam(Teams team) const;
-    void setDefaultTeams(Teams teams);
+    void setDefaultTeams(Teams teams, bool enabled);
     bool isDefaultTeam(Teams team) const;
 
     void setMapName(const String16& name) { mname =  name; }

@@ -46,7 +46,7 @@ int main ( int argc, const char* argv[] )
     }
 
     UTF16 str[3];
-    str[0] = 's'; str[1] = 's'; str[2] = 0;
+    str[0] = 'a'; str[1] = 'a'; str[2] = 0;
     m.setName(str);
     m.setDescription(str);
 

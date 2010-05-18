@@ -21,6 +21,8 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 #define _H_POPLIB_MAP_STRING16__
 
 #include <string>
+#include <iostream>
+#include <cstring>
 
 #include "UTFConversion.h"
 
@@ -37,16 +39,19 @@ public:
     String16(const UTF16* str);
     /** Not implemented yet. */
     String16(const UTF8* str);
+    String16(const String16& str);
+    String16& operator=(const String16& str);
+    virtual ~String16();
 
     /** Not implemented yet. */
     const UTF8* data8() const { return 0; } // TODO returning UTF8 data
-    /** Constructs string object from null-terminated characters sequence. */
-    const UTF16* data16() const { return mdata.c_str(); }
+    /** Returns null-terminated sequence of internal data. */
+    const UTF16* data16() const { return mdata; }
      /** Not implemented yet. */
     const UTF32* data32() const { return 0; } // TODO returning UTF32 data
-    /** Returns how many bytes is used by a string. */
-    unsigned int dataSize() const { return msize*2; }
-    bool operator==(const String16& str) const { return str.mdata == mdata; }
+    /** Returns how many bytes is used by a string without null termination. */
+    unsigned int dataSize() const { return msize; }
+    bool operator==(const String16& str) const { return str.msize == msize && std::memcmp(str.mdata, mdata, msize); }
 
     friend std::ostream& operator<<(std::ostream& os, const String16& obj);
     friend std::istream& operator>>(std::istream& is, String16& obj);
@@ -54,7 +59,7 @@ public:
 private:
     typedef std::basic_string<UTF16> stdStr16;
 
-    stdStr16 mdata;
+    UTF16* mdata;
     unsigned int msize;
 };
 
