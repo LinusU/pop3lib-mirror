@@ -68,7 +68,7 @@ int main ( int argc, const char* argv[] )
             {
                 int landPoint = ( *land ) ( i, j );
 
-                if ( landPoint > 1000 )
+                if ( landPoint > 1023 )
                     landPoint = 9;
                 else if ( landPoint > 900 )
                     landPoint = 8;
