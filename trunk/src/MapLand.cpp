@@ -101,7 +101,11 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
                 continue;
 
             unsigned int landPoint = (*this) ( i, j ) > 2047 ? 2047 : (*this) ( i, j );
+            unsigned int tempPoint = landPoint;
+            if (landPoint > 1023) // land higher than 1023 we mark as 0
+                landPoint = 0;
 
+            // save land high using 10 bits
             mask = 0x00FF >> pos; // cut lower bits
             temp = ((landPoint & mask) << pos ) | temp;
             os.write(reinterpret_cast<const char *>(&temp), 1);
@@ -109,7 +113,8 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
 
             mask = 0xFFFF << 8 - pos; // cut higher bits
             temp = ((landPoint & mask) >> 8 - pos ) | temp;
-            pos = pos + 3;
+            pos = pos + 2; // each iteration we left 10 - 8 = 2 bits to next iteration
+
             if (pos > 8)
             {
                 mask = 0x00FF;
@@ -118,6 +123,30 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
                 temp = temp >> 8;
                 temp2 = 0;
                 pos = pos - 8;
+            }
+
+            if (tempPoint > 1023) // save land higher than 1023 using 11 bits
+            {
+                landPoint = tempPoint;
+
+                mask = 0x00FF >> pos; // cut lower bits
+                temp = ((landPoint & mask) << pos ) | temp;
+                os.write(reinterpret_cast<const char *>(&temp), 1);
+                temp = 0;
+
+                mask = 0xFFFF << 8 - pos; // cut higher bits
+                temp = ((landPoint & mask) >> 8 - pos ) | temp;
+                pos = pos + 3; // this time we left 11 - 8 - 3 bits to next iteration
+
+                if (pos > 8)
+                {
+                    mask = 0x00FF;
+                    temp2 = temp & mask;
+                    os.write(reinterpret_cast<const char *>(&temp2), 1);
+                    temp = temp >> 8;
+                    temp2 = 0;
+                    pos = pos - 8;
+                }
             }
         }
     }
@@ -166,25 +195,56 @@ std::istream& MapLand::fromCompactForm ( std::istream& is )
             }
 
             unsigned short readData = 0;
+            char bits = 10;
             unsigned short mask;
 
             is.read(reinterpret_cast<char *>(&readData), 1);
-            mask = 0x07FF >> pos;
+            mask = 0x03FF >> pos;
             temp = ((readData & mask) << pos ) | temp;
-            if (pos < 3) // we need to read one more byte
+
+            if (pos < 2) // we need to read one more byte
             {
                 pos = 8 + pos;
                 readData = 0;
                 is.read(reinterpret_cast<char *>(&readData), 1);
-                mask = 0x07FF >> pos;
+                mask = 0x03FF >> pos;
                 temp = ((readData & mask) << pos ) | temp;
             }
+
+            if (temp == 0) // it's land higher than 1023, saved using 11 bits
+            {
+                bits = 10;
+                temp = 0;
+                mask = 0xFFFF << bits - pos;
+                temp = ((readData & mask) >> bits - pos ) | temp;
+                pos = pos - (bits - 8);
+
+                readData = 0;
+                is.read(reinterpret_cast<char *>(&readData), 1);
+                mask = 0x07FF >> pos;
+                temp = ((readData & mask) << pos ) | temp;
+
+                if (pos < 3) // we need to read one more byte
+                {
+                    pos = 8 + pos;
+                    readData = 0;
+                    is.read(reinterpret_cast<char *>(&readData), 1);
+                    mask = 0x07FF >> pos;
+                    temp = ((readData & mask) << pos ) | temp;
+                }
+            }
+
             (*this)(i, j) = temp;
 
+            if (temp <= 1023)
+                bits = 10;
+            else
+                bits = 11;
+
             temp = 0;
-            mask = 0xFFFF << 11 - pos;
-            temp = ((readData & mask) >> 11 - pos ) | temp;
-            pos = pos - 3;
+            mask = 0xFFFF << bits - pos;
+            temp = ((readData & mask) >> bits - pos ) | temp;
+            pos = pos - (bits - 8);
         }
     }
 
