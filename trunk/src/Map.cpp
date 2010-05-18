@@ -44,7 +44,9 @@ Map::~Map()
 void  Map::load ( const std::string& directory, const std::string& mapName )
 {
     std::string filePath = File::path ( directory, mapName );
-    loadHeader ( filePath + Map::mapHdrExt );
+    if (File::fileExists(filePath + Map::mapHdrExt))
+        loadHeader ( filePath + Map::mapHdrExt );
+
     loadMapDat ( filePath + Map::mapDatExt );
 }
 
