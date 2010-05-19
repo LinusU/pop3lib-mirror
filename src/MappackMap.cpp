@@ -167,7 +167,7 @@ std::ostream& operator<<(std::ostream& os, const MappackMap& obj)
     os.write(reinterpret_cast<char *>(&temp), 1);
     os.write(reinterpret_cast<const char *>(&obj.mstatus), 1);
 
-    os << obj.mfileName << "\n" << obj.mname << obj.mdescr;
+    os << obj.mname << obj.mdescr;
 
     temp = obj.mauthors.size();
     os.write(reinterpret_cast<char *>(&temp), 1);
@@ -193,7 +193,6 @@ std::istream& operator>>(std::istream& is, MappackMap& obj)
     obj.mdefTeams = std::bitset<8>(temp);
     is.read(reinterpret_cast<char *>(&obj.mstatus), 1);
 
-    std::getline(is, obj.mfileName);
     is >> obj.mname >> obj.mdescr;
 
     temp = 0;
