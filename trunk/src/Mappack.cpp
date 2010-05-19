@@ -22,6 +22,7 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 #include "Mappack.h"
 #include "systemUtils/Dir.h"
 #include "systemUtils/File.h"
+#include "StrUtil.h"
 
 namespace poplib
 {
@@ -92,9 +93,7 @@ void Mappack::importFromDirectory ( const std::string& dir )
         std::string fileExt = File::fileExtension ( *it );
         if ( fileExt == "dat" )
         {
-            std::string fileName = File::fileName ( *it );
-            m = new MappackMap ( dir, fileName );
-            m->setFileName(fileName);
+            m = new MappackMap ( dir, File::fileName ( *it ) );
             mmaps.push_back ( m );
         }
     }
@@ -103,11 +102,14 @@ void Mappack::importFromDirectory ( const std::string& dir )
 void Mappack::exportToDirectory(const std::string& dir)
 {
     std::list<MappackMap *>::const_iterator it;
+    int i = 0;
     for ( it = mmaps.begin(); it != mmaps.end(); ++it )
     {
         MappackMap* map = (*it);
-        std::string fileName = map->fileName();
+	std::string fileName = i < 10 ? "lvl0" : "lvl";
+        fileName += StrUtil::toString<int>(i);
         map->save(dir, fileName);
+        ++i;
     }
 }
 
