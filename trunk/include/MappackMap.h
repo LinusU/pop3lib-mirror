@@ -55,6 +55,8 @@ public:
 
     void setMapName(const String16& name) { mname =  name; }
     String16 mapName() const { return mname; }
+    void setFileName(const std::string& name) { mfileName = name; }
+    std::string fileName() { return mfileName; }
     void setDescription(const String16& descr) { mdescr = descr; }
     String16 description() const { return mdescr; }
     void addAuthor(const String16& author) { mauthors.push_back(new String16(author)); }
@@ -71,6 +73,7 @@ private:
     std::bitset<8> mpossTeams;
     std::bitset<8> mdefTeams;
     String16 mname;
+    std::string mfileName;
     String16 mdescr;
     std::list<String16 *> mauthors;
     Status mstatus;

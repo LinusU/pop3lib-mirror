@@ -39,7 +39,8 @@ public:
     virtual ~Mappack();
 
     void loadFromFile(const std::string& fileName);
-    void loadFromDirectory(const std::string& dir);
+    void importFromDirectory(const std::string& dir);
+    void exportToDirectory(const std::string& dir);
     void saveToFile(const std::string& fileName) const;
 
     void addMap(MappackMap* map) { mmaps.push_back(map); }
