@@ -79,7 +79,7 @@ void Mappack::loadFromFile ( const std::string& fileName )
     fin.close();
 }
 
-void Mappack::loadFromDirectory ( const std::string& dir )
+void Mappack::importFromDirectory ( const std::string& dir )
 {
     mmaps.clear();
 
@@ -89,12 +89,25 @@ void Mappack::loadFromDirectory ( const std::string& dir )
     std::string t;
     for ( it = files.begin(); it != files.end(); ++it )
     {
-        t = File::fileExtension ( *it );
-        if ( File::fileExtension ( *it ) == "dat" )
+        std::string fileExt = File::fileExtension ( *it );
+        if ( fileExt == "dat" )
         {
-            m = new MappackMap ( dir, File::fileName ( *it ) );
+            std::string fileName = File::fileName ( *it );
+            m = new MappackMap ( dir, fileName );
+            m->setFileName(fileName);
             mmaps.push_back ( m );
         }
+    }
+}
+
+void Mappack::exportToDirectory(const std::string& dir)
+{
+    std::list<MappackMap *>::const_iterator it;
+    for ( it = mmaps.begin(); it != mmaps.end(); ++it )
+    {
+        MappackMap* map = (*it);
+        std::string fileName = map->fileName();
+        map->save(dir, fileName);
     }
 }
 
