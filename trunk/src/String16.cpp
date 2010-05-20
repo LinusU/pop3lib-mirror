@@ -26,9 +26,9 @@ namespace poplib
 
 String16::String16()
 {
-    mdata = new UTF16;
-    *mdata = 0;
-    msize = 1;
+    mdata = new UTF16[2];
+    mdata[0] = 0; mdata[1] = 0;
+    msize = 2;
 }
 
 String16::String16(const UTF32* str)

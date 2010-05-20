@@ -62,16 +62,16 @@ template<typename T>
 std::ostream& MapObject<T>::saveObject ( std::ostream& os ) const
 {
     T model = mmodel;
-    Type typ = type();
-    Owner own = owner();
-    int posx = positionx();
-    int posy = positiony();
+    Type _type = type();
+    Owner _owner = owner();
+    int _posx = posx();
+    int _posy = posy();
 
     os.write ( reinterpret_cast<char *> ( &model ), 1 );
-    os.write ( reinterpret_cast<char *> ( &typ ), 1 );
-    os.write ( reinterpret_cast<char *> ( &own ), 1 );
-    os.write ( reinterpret_cast<char *> ( &posx ), 2 );
-    os.write ( reinterpret_cast<char *> ( &posy ), 2 );
+    os.write ( reinterpret_cast<char *> ( &_type ), 1 );
+    os.write ( reinterpret_cast<char *> ( &_owner ), 1 );
+    os.write ( reinterpret_cast<char *> ( &_posx ), 2 );
+    os.write ( reinterpret_cast<char *> ( &_posy ), 2 );
 
     return os;
 }
