@@ -96,9 +96,9 @@ public:
     */
     void setOwner(Owner own) { mowner = own; }
     /** Returns X position of the object on the map. */
-    int positionx() const { return mposx; }
+    int posx() const { return mposx; }
     /** Returns Y position of the object on the map. */
-    int positiony() const { return mposy; }
+    int posy() const { return mposy; }
     /** Set new position of the object on the map. */
     void setPosition ( int posX, int posY ) { mposx = posX; mposy = posY; }
     /** Used to load object from the file. This function uses virtual method std::ostream& saveObject ( std::ostream& os )
