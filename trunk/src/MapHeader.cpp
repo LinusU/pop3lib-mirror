@@ -209,9 +209,12 @@ void MapHeader::saveHeader ( const std::string& fileName ) const
         for ( markerList::iterator it = mmarkers->begin(); it != mmarkers->end(); ++it )
             fout << *it; // 2 bytes for each marker
         // header file has to have at least 616 bytes, fill with zeros if size under 616 bytes
-        temp = 0;
-        while ( fout.tellp() < 616 )
-            fout.write ( reinterpret_cast<const char *> ( &temp ), 1 );
+        int zerosSize = 616 - fout.tellp();
+        if (zerosSize > 0)
+        {
+            char zeros[zerosSize];
+            fout.write ( zeros , zerosSize );
+        }
     }
     fout.close();
 }

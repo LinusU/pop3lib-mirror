@@ -106,7 +106,7 @@ void Mappack::exportToDirectory(const std::string& dir)
     for ( it = mmaps.begin(); it != mmaps.end(); ++it )
     {
         MappackMap* map = (*it);
-	std::string fileName = i < 10 ? "lvl0" : "lvl";
+        std::string fileName = i < 10 ? "lvl0" : "lvl";
         fileName += StrUtil::toString<int>(i);
         map->save(dir, fileName);
         ++i;
@@ -131,6 +131,15 @@ void Mappack::saveToFile ( const std::string& fileName ) const
             fout << ( **it );
     }
     fout.close();
+}
+
+void Mappack::clear()
+{
+    std::list<MappackMap *>::iterator it;
+    for ( it = mmaps.begin(); it != mmaps.end(); ++it )
+        delete *it;
+
+    mmaps.clear();
 }
 
 void Mappack::removeMap(MappackMap* map)
