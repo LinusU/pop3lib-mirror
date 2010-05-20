@@ -42,6 +42,7 @@ public:
     void importFromDirectory(const std::string& dir);
     void exportToDirectory(const std::string& dir);
     void saveToFile(const std::string& fileName) const;
+    void clear();
 
     void addMap(MappackMap* map) { mmaps.push_back(map); }
     void removeMap(MappackMap* map);

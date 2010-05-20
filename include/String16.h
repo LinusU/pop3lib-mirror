@@ -49,7 +49,7 @@ public:
     const UTF16* data16() const { return mdata; }
      /** Not implemented yet. */
     const UTF32* data32() const { return 0; } // TODO returning UTF32 data
-    /** Returns how many bytes is used by a string without null termination. */
+    /** Returns how many bytes is used by a string with null termination. */
     unsigned int dataSize() const { return msize; }
     bool operator==(const String16& str) const { return str.msize == msize && std::memcmp(str.mdata, mdata, msize); }
 
