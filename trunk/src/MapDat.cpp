@@ -99,8 +99,9 @@ void MapDat::saveMapDat ( const std::string& fileName ) const
         int zerosSize = 192137 - fout.tellp();
         if (zerosSize > 0)
         {
-            char zeros[zerosSize];
+            char* zeros = new char[zerosSize];
             fout.write ( zeros , zerosSize );
+			delete[] zeros;
         }
     }
 }
@@ -128,7 +129,7 @@ std::istream& MapDat::loadMapDatCompactForm ( std::istream& is )
     unsigned int temp = 0;
     is.read(reinterpret_cast<char *>(&temp), 2);
     // load objects
-    for ( int i = 0; i < temp; ++i )
+    for ( unsigned int i = 0; i < temp; ++i )
         ; // TODO load objects from compact form
 
     return is;

@@ -46,6 +46,7 @@ Mappack& Mappack::operator= ( const Mappack& mappack )
 {
     cleanMaps();
     copyMaps(mappack);
+	return *this;
 }
 
 Mappack::~Mappack()
@@ -70,7 +71,7 @@ void Mappack::loadFromFile ( const std::string& fileName )
         temp = 0;
         MappackMap* m;
         fin.read ( reinterpret_cast<char *> ( &temp ), 1 );
-        for ( int i = 0; i < temp; ++i )
+        for ( unsigned int i = 0; i < temp; ++i )
         {
             m = new MappackMap();
             fin >> *m;

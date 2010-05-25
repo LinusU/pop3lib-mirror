@@ -212,8 +212,9 @@ void MapHeader::saveHeader ( const std::string& fileName ) const
         int zerosSize = 616 - fout.tellp();
         if (zerosSize > 0)
         {
-            char zeros[zerosSize];
+            char* zeros = new char[zerosSize];
             fout.write ( zeros , zerosSize );
+			delete[] zeros;
         }
     }
     fout.close();
@@ -315,7 +316,7 @@ std::istream&  MapHeader::loadHeaderCompactForm ( std::istream& is )
     Marker m;
     temp = 0;
     is.read ( reinterpret_cast<char *> ( &temp ), 1 ); // read markes amount
-    for ( int i = 0; i < temp; ++i )
+    for ( unsigned int i = 0; i < temp; ++i )
     {
         is >> m; // 2 bytes for each marker
         mmarkers->push_back ( m );
