@@ -72,6 +72,7 @@ String16& String16::operator=(const String16& str)
     msize = str.msize;
     mdata = new UTF16[msize/sizeof(UTF16)];
     std::memcpy(mdata, str.mdata, msize);
+	return *this;
 }
 
 String16::~String16()

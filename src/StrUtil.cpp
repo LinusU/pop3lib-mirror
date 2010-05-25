@@ -27,7 +27,7 @@ std::list<std::string> StrUtil::split ( const std::string& str, char sep )
 {
     std::list<std::string> stringList;
     int pos = 0;
-    for ( int i = 0; i < str.length(); ++i )
+    for ( unsigned int i = 0; i < str.length(); ++i )
     {
         if ( str.at ( i ) == sep )
         {

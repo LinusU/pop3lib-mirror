@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="datTest"
-	ProjectGUID="{2BD0CBFF-18C8-48CF-99EE-D8B67DABE62D}"
+	Name="mappackTest"
+	ProjectGUID="{F31EACF1-03C6-48FF-BF0C-9CC48C394CFF}"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
@@ -13,7 +13,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="Debug"
-			IntermediateDirectory="datTest.dir\Debug"
+			IntermediateDirectory="mappackTest.dir\Debug"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -34,7 +34,7 @@
 				PreprocessorDefinitions="WIN32,_WINDOWS,_DEBUG,CMAKE_INTDIR=\&quot;Debug\&quot;"
 				AssemblerListingLocation="Debug"
 				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/tests/Debug/datTest.pdb"
+				ProgramDataBaseFileName="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/tests/Debug/mappackTest.pdb"
 />
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -65,19 +65,19 @@
 				LinkLibraryDependencies="false"
 				AdditionalOptions=" /STACK:10000000 /machine:I386 /debug"
 				AdditionalDependencies="$(NOINHERIT) kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib  ..\Debug\poplib.lib "
-				OutputFile="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\tests\Debug\datTest.exe"
+				OutputFile="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\tests\Debug\mappackTest.exe"
 				Version="0.0"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories=""
-				ProgramDataBaseFile="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/tests/Debug/datTest.pdb"
+				ProgramDataBaseFile="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/tests/Debug/mappackTest.pdb"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
-				ImportLibrary="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\tests\Debug\datTest.lib"/>
+				ImportLibrary="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\tests\Debug\mappackTest.lib"/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="Release"
-			IntermediateDirectory="datTest.dir\Release"
+			IntermediateDirectory="mappackTest.dir\Release"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -96,7 +96,7 @@
 				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,CMAKE_INTDIR=\&quot;Release\&quot;"
 				AssemblerListingLocation="Release"
 				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/tests/Release/datTest.pdb"
+				ProgramDataBaseFileName="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/tests/Release/mappackTest.pdb"
 />
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -127,18 +127,18 @@
 				LinkLibraryDependencies="false"
 				AdditionalOptions=" /STACK:10000000 /machine:I386"
 				AdditionalDependencies="$(NOINHERIT) kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib  ..\Release\poplib.lib "
-				OutputFile="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\tests\Release\datTest.exe"
+				OutputFile="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\tests\Release\mappackTest.exe"
 				Version="0.0"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories=""
-				ProgramDataBaseFile="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/tests/Release/datTest.pdb"
+				ProgramDataBaseFile="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/tests/Release/mappackTest.pdb"
 				SubSystem="1"
-				ImportLibrary="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\tests\Release\datTest.lib"/>
+				ImportLibrary="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\tests\Release\mappackTest.lib"/>
 		</Configuration>
 		<Configuration
 			Name="MinSizeRel|Win32"
 			OutputDirectory="MinSizeRel"
-			IntermediateDirectory="datTest.dir\MinSizeRel"
+			IntermediateDirectory="mappackTest.dir\MinSizeRel"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -157,7 +157,7 @@
 				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,CMAKE_INTDIR=\&quot;MinSizeRel\&quot;"
 				AssemblerListingLocation="MinSizeRel"
 				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/tests/MinSizeRel/datTest.pdb"
+				ProgramDataBaseFileName="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/tests/MinSizeRel/mappackTest.pdb"
 />
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -188,18 +188,18 @@
 				LinkLibraryDependencies="false"
 				AdditionalOptions=" /STACK:10000000 /machine:I386"
 				AdditionalDependencies="$(NOINHERIT) kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib  ..\MinSizeRel\poplib.lib "
-				OutputFile="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\tests\MinSizeRel\datTest.exe"
+				OutputFile="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\tests\MinSizeRel\mappackTest.exe"
 				Version="0.0"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories=""
-				ProgramDataBaseFile="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/tests/MinSizeRel/datTest.pdb"
+				ProgramDataBaseFile="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/tests/MinSizeRel/mappackTest.pdb"
 				SubSystem="1"
-				ImportLibrary="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\tests\MinSizeRel\datTest.lib"/>
+				ImportLibrary="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\tests\MinSizeRel\mappackTest.lib"/>
 		</Configuration>
 		<Configuration
 			Name="RelWithDebInfo|Win32"
 			OutputDirectory="RelWithDebInfo"
-			IntermediateDirectory="datTest.dir\RelWithDebInfo"
+			IntermediateDirectory="mappackTest.dir\RelWithDebInfo"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -219,7 +219,7 @@
 				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,CMAKE_INTDIR=\&quot;RelWithDebInfo\&quot;"
 				AssemblerListingLocation="RelWithDebInfo"
 				ObjectFile="$(IntDir)\"
-				ProgramDataBaseFileName="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/tests/RelWithDebInfo/datTest.pdb"
+				ProgramDataBaseFileName="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/tests/RelWithDebInfo/mappackTest.pdb"
 />
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -250,14 +250,14 @@
 				LinkLibraryDependencies="false"
 				AdditionalOptions=" /STACK:10000000 /machine:I386 /debug"
 				AdditionalDependencies="$(NOINHERIT) kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib  ..\RelWithDebInfo\poplib.lib "
-				OutputFile="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\tests\RelWithDebInfo\datTest.exe"
+				OutputFile="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\tests\RelWithDebInfo\mappackTest.exe"
 				Version="0.0"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories=""
-				ProgramDataBaseFile="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/tests/RelWithDebInfo/datTest.pdb"
+				ProgramDataBaseFile="C:/Users/daroo/Documents/Visual Studio 2008/Projects/poplib/tests/RelWithDebInfo/mappackTest.pdb"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
-				ImportLibrary="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\tests\RelWithDebInfo\datTest.lib"/>
+				ImportLibrary="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\tests\RelWithDebInfo\mappackTest.lib"/>
 		</Configuration>
 	</Configurations>
 	<Files>
@@ -304,7 +304,7 @@
 			Name="Source Files"
 			Filter="">
 			<File
-				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\tests\datTest.cpp">
+				RelativePath="C:\Users\daroo\Documents\Visual Studio 2008\Projects\poplib\tests\mappackTest.cpp">
 			</File>
 		</Filter>
 	</Files>

@@ -57,6 +57,7 @@ MappackMap& MappackMap::operator= ( const MappackMap& map )
     mdescr = map.mdescr;
     clearAuthors();
     copyAuthors(map);
+	return *this;
 }
 
 MappackMap::~MappackMap()
@@ -197,7 +198,7 @@ std::istream& operator>>(std::istream& is, MappackMap& obj)
 
     temp = 0;
     is.read(reinterpret_cast<char *>(&temp), 1);
-    for (int i = 0; i < temp; ++i)
+    for (unsigned int i = 0; i < temp; ++i)
     {
         String16* str = new String16();
         is >> *str;

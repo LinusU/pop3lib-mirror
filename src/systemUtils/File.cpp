@@ -89,7 +89,7 @@ bool File::fileExists(const std::string& filePath)
 int File::extPos(const std::string& str)
 {
     char c;
-    for (int i = str.size() - 1; i >= 0; --i)
+    for (unsigned int i = str.size() - 1; i >= 0; --i)
     {
         c = str.at(i);
         if (c == '.')
@@ -100,6 +100,7 @@ int File::extPos(const std::string& str)
                 return 0;
         }
     }
+	return 0;
 }
 
 } // namespace poplib
