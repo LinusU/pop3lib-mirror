@@ -45,8 +45,8 @@ public:
     MappackMap& operator= ( const MappackMap& map );
     virtual ~MappackMap();
 
-    void saveExtended(const std::string& fileName) const;
-    void loadExtended(const std::string& fileName);
+    void saveMappack(const std::string& fileName) const;
+    void loadMappack(const std::string& fileName);
 
     void setPossibleTeams(Teams teams, bool enabled);
     bool isPossibleTeam(Teams team) const;

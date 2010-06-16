@@ -94,7 +94,7 @@ void Matrix<T>::copy ( const Matrix<T>& map )
 }
 
 template<typename T>
-Matrix<T>::Matrix ( const Matrix<T>& map )
+Matrix<T>::Matrix ( const Matrix<T>& map ): mcols(map.mcols), mrows(map.mrows)
 {
     copy ( map );
 }
@@ -107,6 +107,8 @@ Matrix<T>& Matrix<T>::operator= ( const Matrix<T>& map )
 
     delete[] mdata;
     copy ( map );
+    mcols = map.mcols;
+    mrows = map.mrows;
 
     return *this;
 }

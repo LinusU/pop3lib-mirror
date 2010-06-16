@@ -33,7 +33,7 @@ Map::Map()
 
 Map::Map ( const std::string& directory, const std::string& mapName )
 {
-    load ( directory, mapName );
+    loadMap ( directory, mapName );
 }
 
 Map::~Map()
@@ -41,7 +41,7 @@ Map::~Map()
 
 }
 
-void  Map::load ( const std::string& directory, const std::string& mapName )
+void  Map::loadMap ( const std::string& directory, const std::string& mapName )
 {
     std::string filePath = File::path ( directory, mapName );
     if (File::fileExists(filePath + Map::mapHdrExt))
@@ -50,7 +50,7 @@ void  Map::load ( const std::string& directory, const std::string& mapName )
     loadMapDat ( filePath + Map::mapDatExt );
 }
 
-void  Map::save ( const std::string& directory, const std::string& mapName ) const
+void  Map::saveMap ( const std::string& directory, const std::string& mapName ) const
 {
     std::string filePath = File::path ( directory, mapName );
     saveHeader ( filePath + Map::mapHdrExt );

@@ -48,13 +48,13 @@ public:
     @param mapName Name of files (without extension) where map is stored. Map files must follow convention:
     mapName.dat, mapName.hdr.
     */
-    void load ( const std::string& directory, const std::string& mapName );
+    void loadMap ( const std::string& directory, const std::string& mapName );
     /** Saves map details to files using populous map format.
     @param directory Directory, where map files are stored.
     @param mapName Name of the files where map is stored. Map files follow convention:
     mapName.dat for land and mapName.hdr for header.
     */
-    void save ( const std::string& directory, const std::string& mapName ) const;
+    void saveMap ( const std::string& directory, const std::string& mapName ) const;
 
 protected:
     std::ostream& saveHeaderCompactForm ( std::ostream& os ) const { return MapHeader::saveHeaderCompactForm(os); }
