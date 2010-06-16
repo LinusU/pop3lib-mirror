@@ -33,7 +33,7 @@ MappackMap::MappackMap(): mstatus(ALPHA), mpossTeams(std::string("11111111")),
 MappackMap::MappackMap(const std::string& filename):  mstatus(ALPHA), mpossTeams(std::string("11111111")),
         mdefTeams(std::string("11111111"))
 {
-    loadExtended(filename);
+    loadMappack(filename);
 }
 
 MappackMap::MappackMap ( const std::string& directory, const std::string& mapName ) :
@@ -65,7 +65,7 @@ MappackMap::~MappackMap()
     clearAuthors();
 }
 
-void MappackMap::saveExtended(const std::string& fileName) const
+void MappackMap::saveMappack(const std::string& fileName) const
 {
     std::ofstream fout;
     fout.open ( fileName.c_str(), std::ios_base::out | std::ios_base::binary );
@@ -79,7 +79,7 @@ void MappackMap::saveExtended(const std::string& fileName) const
     fout.close();
 }
 
-void MappackMap::loadExtended(const std::string& fileName)
+void MappackMap::loadMappack(const std::string& fileName)
 {
     std::ifstream fin;
     fin.open ( fileName.c_str(), std::ios_base::in | std::ios_base::binary );

@@ -109,7 +109,7 @@ void Mappack::exportToDirectory(const std::string& dir)
         MappackMap* map = (*it);
         std::string fileName = i < 10 ? "lvl0" : "lvl";
         fileName += StrUtil::toString<int>(i);
-        map->save(dir, fileName);
+        map->saveMap(dir, fileName);
         ++i;
     }
 }

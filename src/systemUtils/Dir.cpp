@@ -21,7 +21,7 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 
 #if defined(PLATFORM_WIN32)
 #	include <windows.h>
-#	include <tchar.h> 
+#	include <tchar.h>
 #	include <stdio.h>
 #	include <strsafe.h>
 #elif defined(PLATFORM_LINUX)
@@ -38,36 +38,34 @@ std::list<std::string> Dir::listFiles(const std::string& dir)
     std::list<std::string> files;
 
 #if defined(PLATFORM_WIN32)
-   WIN32_FIND_DATA ffd;
-   TCHAR szDir[MAX_PATH];
-   HANDLE hFind = INVALID_HANDLE_VALUE;
+    WIN32_FIND_DATA ffd;
+    TCHAR szDir[MAX_PATH];
+    HANDLE hFind = INVALID_HANDLE_VALUE;
 
+    // Prepare string for use with FindFile functions.  First, copy the
+    // string to a buffer, then append '\*' to the directory name.
+    StringCchCopy(szDir, MAX_PATH, dir.c_str());
+    StringCchCat(szDir, MAX_PATH, TEXT("\\*"));
 
-   // Prepare string for use with FindFile functions.  First, copy the
-   // string to a buffer, then append '\*' to the directory name.
-   StringCchCopy(szDir, MAX_PATH, dir.c_str());
-   StringCchCat(szDir, MAX_PATH, TEXT("\\*"));
+    // Find the first file in the directory.
+    hFind = FindFirstFile(szDir, &ffd);
 
-   // Find the first file in the directory.
-   hFind = FindFirstFile(szDir, &ffd);
+    if (INVALID_HANDLE_VALUE == hFind)
+        return files;
 
-   if (INVALID_HANDLE_VALUE == hFind) 
-	return files;
-   
-   do
-   {
-      files.push_back(std::string(ffd.cFileName));
-   }
-   while (FindNextFile(hFind, &ffd) != 0);
+    do
+    {
+        files.push_back(std::string(ffd.cFileName));
+    }
+    while (FindNextFile(hFind, &ffd) != 0);
 
-   FindClose(hFind);
+    FindClose(hFind);
 #elif defined(PLATFORM_LINUX)
     DIR *dp;
     struct dirent *dirp;
     if ((dp = opendir(dir.c_str())) != NULL) {
         while ((dirp = readdir(dp)) != NULL) {
-            if (dirp->d_type == 8) // it's regular file
-                files.push_back(std::string(dirp->d_name));
+            files.push_back(std::string(dirp->d_name));
         }
         closedir(dp);
     }
