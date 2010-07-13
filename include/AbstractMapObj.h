@@ -112,7 +112,7 @@ protected:
     /** Type can't be changed when object is already created. */
     void setType ( Type type ) { mtype = type; }
     /** Saves object binary to the stream.
-    	@param os Stream used to save the object.*/
+    @param os Stream used to save the object.*/
     virtual std::ostream& saveObject ( std::ostream& os ) const = 0;
     /** Loades binary object from the stream
     @param is Stream used to load the object. */

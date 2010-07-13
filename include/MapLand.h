@@ -64,9 +64,9 @@ public:
     /** Constructor. */
     MapLand() : Matrix<unsigned int > ( 128, 128 ) {}
     /** Returns the width of the map. */
-    int width() const { return mcols; }
+    unsigned int width() const { return mcols; }
     /** Returns the height of the map. */
-    int height() const { return mrows; }
+    unsigned int height() const { return mrows; }
     /** Saves map land to the stream. */
     friend std::ostream& operator<< ( std::ostream& os, const MapLand& obj );
     /** Loades map land from the stream. */
@@ -90,7 +90,7 @@ void Matrix<T>::copy ( const Matrix<T>& map )
 
     for ( int i = 0; i < map.mcols; ++i )
         for ( int j = 0; j < map.mrows; ++j )
-            this->operator() ( i, j ) = map ( i, j );
+            this->operator() ( i, j ) = map ( i, j );// TODO use memcopy to copy mapland
 }
 
 template<typename T>
@@ -119,16 +119,16 @@ Matrix<T>::~Matrix ()
     delete[] mdata;
 }
 
-template<typename T> inline
+template<typename T>
 T Matrix<T>::operator() ( unsigned int col, unsigned int row ) const
 {
-    return mdata[col * mcols + row];
+    return mdata[row * mcols + col];
 }
 
-template<typename T> inline
+template<typename T>
 T& Matrix<T>::operator() ( unsigned int col, unsigned int row )
 {
-    return mdata[col * mcols + row];
+    return mdata[row * mcols + col];
 }
 
 } // namespace poplib
