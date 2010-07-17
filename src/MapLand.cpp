@@ -89,7 +89,7 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
             temp = landBits[i].to_ulong();
             os.write(reinterpret_cast<const char *>(&temp), 1);
         }
-		delete[] landBits;
+        delete[] landBits;
     }
     // save land
     char pos = 0;
@@ -248,7 +248,7 @@ std::istream& MapLand::fromCompactForm ( std::istream& is )
             pos = pos - (bits - 8);
         }
     }
-	delete[] landBits;
+    delete[] landBits;
 
     return is;
 }
