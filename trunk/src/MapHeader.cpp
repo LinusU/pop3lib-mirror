@@ -214,7 +214,7 @@ void MapHeader::saveHeader ( const std::string& fileName ) const
         {
             char* zeros = new char[zerosSize];
             fout.write ( zeros , zerosSize );
-			delete[] zeros;
+            delete[] zeros;
         }
     }
     fout.close();

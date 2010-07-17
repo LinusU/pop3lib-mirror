@@ -44,8 +44,8 @@ public:
     typedef _Allies Allies;
     typedef std::list<Marker> markerList;
     /** Constructor. By default there is no allies, special properties are disabled, spells and buildings
-    	*	are all enabled, all spells are charging at start.
-    	*/
+    * are all enabled, all spells are charging at start.
+    */
     MapHeader();
     /** Constructor. Loads the header properties from the file. */
     explicit MapHeader ( const std::string& fileName );

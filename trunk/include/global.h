@@ -27,11 +27,11 @@ namespace poplib
 
 // platform detection
 #if defined( __WIN32__ ) || defined( _WIN32 )
-#		define PLATFORM_WIN32
+#	define PLATFORM_WIN32
 #elif defined( __APPLE_CC__)
-#		define PLATFORM_APPLE
+#	define PLATFORM_APPLE
 #else
-#		define PLATFORM_LINUX
+#	define PLATFORM_LINUX
 #endif
 
 } // namespace util
