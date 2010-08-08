@@ -83,7 +83,8 @@ void Mappack::loadFromFile ( const std::string& fileName )
 
 void Mappack::importFromDirectory ( const std::string& dir )
 {
-    mmaps.clear();
+	if(mmaps.size() > 0)
+		mmaps.clear();
 
     std::list<std::string> files = Dir::listFiles ( dir );
     MappackMap* m;

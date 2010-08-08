@@ -20,8 +20,6 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 #ifndef _H_GLOBAL__
 #define _H_GLOBAL__
 
-#include <string>
-
 namespace poplib
 {
 
@@ -34,6 +32,6 @@ namespace poplib
 #	define PLATFORM_LINUX
 #endif
 
-} // namespace util
+} // namespace poplib
 
 #endif // _H_GLOBAL__
