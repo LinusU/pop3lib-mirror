@@ -21,8 +21,6 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 
 #if defined(PLATFORM_WIN32)
 #	include <windows.h>
-#	include <tchar.h>
-#	include <stdio.h>
 #elif defined(PLATFORM_LINUX)
 #	include <dirent.h>
 #endif
@@ -38,7 +36,6 @@ std::list<std::string> Dir::listFiles(const std::string& dir)
 
 #if defined(PLATFORM_WIN32)
     WIN32_FIND_DATA ffd;
-    TCHAR szDir[MAX_PATH];
     HANDLE hFind = INVALID_HANDLE_VALUE;
 
     // append '\*' to the directory name
