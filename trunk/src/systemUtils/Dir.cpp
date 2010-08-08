@@ -23,7 +23,6 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 #	include <windows.h>
 #	include <tchar.h>
 #	include <stdio.h>
-#	include <strsafe.h>
 #elif defined(PLATFORM_LINUX)
 #	include <dirent.h>
 #endif
@@ -42,13 +41,11 @@ std::list<std::string> Dir::listFiles(const std::string& dir)
     TCHAR szDir[MAX_PATH];
     HANDLE hFind = INVALID_HANDLE_VALUE;
 
-    // Prepare string for use with FindFile functions.  First, copy the
-    // string to a buffer, then append '\*' to the directory name.
-    StringCchCopy(szDir, MAX_PATH, dir.c_str());
-    StringCchCat(szDir, MAX_PATH, TEXT("\\*"));
+    // append '\*' to the directory name
+    std::string sDir = dir + "\\*";
 
-    // Find the first file in the directory.
-    hFind = FindFirstFile(szDir, &ffd);
+    // Find the first file in the directory
+    hFind = FindFirstFile(sDir.c_str(), &ffd);
 
     if (INVALID_HANDLE_VALUE == hFind)
         return files;

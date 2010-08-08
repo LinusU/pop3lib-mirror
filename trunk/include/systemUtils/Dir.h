@@ -31,7 +31,7 @@ namespace poplib
 #if defined(PLATFORM_WIN32)
 /** Directories separator. */
 const char dirSep = '\\';
-#elif defined(PLATFORM_LINUX)
+#elif defined(PLATFORM_LINUX) || defined(PLATFORM_APPLE)
 /** Directories separator. */
 const char dirSep = '/';
 #endif
