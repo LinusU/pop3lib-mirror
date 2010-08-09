@@ -1,0 +1,4 @@
+C:/Users/daroo/workspace/poplib@poplib@poplib/tests/CMakeFiles/datTest.dir
+C:/Users/daroo/workspace/poplib@poplib@poplib/tests/CMakeFiles/hdrTest.dir
+C:/Users/daroo/workspace/poplib@poplib@poplib/tests/CMakeFiles/mappackTest.dir
+C:/Users/daroo/workspace/poplib@poplib@poplib/CMakeFiles/poplib.dir
