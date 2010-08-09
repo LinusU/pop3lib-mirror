@@ -133,8 +133,8 @@ void MapHeader::loadHeader ( const std::string& fileName )
         // load AI scripts - they are numbers in hex for each tribe - Cpscr010.dat = 010 = 0A
         // scripts are in order for red, yellow and green
         fin.read ( &maiScripts[0], 1 ); // 0x59
-        fin.read ( &maiScripts[1], 1 ); // 0x60
-        fin.read ( &maiScripts[2], 1 ); // 0x61
+        fin.read ( &maiScripts[1], 1 ); // 0x5a
+        fin.read ( &maiScripts[2], 1 ); // 0x5b
         // load allies
         for ( int i = 0; i < TRIBES; ++i )
         {
@@ -189,8 +189,8 @@ void MapHeader::saveHeader ( const std::string& fileName ) const
         // save AI scripts - they are numbers in hex for each tribe - Cpscr010.dat = 010 = 0A
         // scripts are in order for red, yellow and green
         fout.write ( &maiScripts[0], 1 ); // 0x59
-        fout.write ( &maiScripts[1], 1 ); // 0x60
-        fout.write ( &maiScripts[2], 1 ); // 0x61
+        fout.write ( &maiScripts[1], 1 ); // 0x5b
+        fout.write ( &maiScripts[2], 1 ); // 0x5c
         // save allies
         for ( int i = 0; i < TRIBES; ++i )
         {
