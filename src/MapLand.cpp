@@ -29,9 +29,9 @@ std::ostream& operator<< ( std::ostream& os, const MapLand& mapLand )
     // Populous map is a square with 128x128,
     // 128 (width) * 128 (height) * 2 (WORD) = 32 768 bytes,
     // every WORD is one height of one point of map
-    for ( int i = 0; i < mapLand.width(); i++ )
+    for ( unsigned int i = 0; i < mapLand.width(); i++ )
     {
-        for ( int j = 0; j < mapLand.height(); j++ )
+        for ( unsigned int j = 0; j < mapLand.height(); j++ )
         {
             unsigned int temp = mapLand ( i, j );
             os.write ( reinterpret_cast<char *> ( &temp ), 2 );
@@ -45,9 +45,9 @@ std::istream& operator>> ( std::istream& is, MapLand& mapLand )
     // Populous map is a square with 128x128,
     // 128 (width) * 128 (height) * 2 (WORD) = 32 768 bytes,
     // every WORD is one height of one point of map
-    for ( int i = 0; i < mapLand.width(); i++ )
+    for ( unsigned int i = 0; i < mapLand.width(); i++ )
     {
-        for ( int j = 0; j < mapLand.height(); j++ )
+        for ( unsigned int j = 0; j < mapLand.height(); j++ )
         {
             unsigned int temp = 0;
             is.read ( reinterpret_cast<char *> ( &temp ), 2 );
@@ -63,8 +63,8 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
     unsigned short temp, temp2;
 
     unsigned int waterSize = 0;
-    for ( int i = 0; i < width(); i++ )
-        for ( int j = 0; j < height(); j++ )
+    for ( unsigned int i = 0; i < width(); i++ )
+        for ( unsigned int j = 0; j < height(); j++ )
             if ((*this)(i, j) == 0)
                 waterSize++;
 
@@ -75,9 +75,9 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
     {
         int landBitsSize = ( width() * height() )/ 8;
         std::bitset<8>* landBits = new std::bitset<8>[landBitsSize];
-        for ( int i = 0; i < width(); i++ )
+        for ( unsigned int i = 0; i < width(); i++ )
         {
-            for ( int j = 0; j < height(); j++ )
+            for ( unsigned int j = 0; j < height(); j++ )
             {
                 bool isWater = (*this)(i, j) == 0;
                 landBits[(i * width() + j) / 8].set((i * width() + j) % 8, isWater);
@@ -86,7 +86,7 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
         // save land bits
         for ( int i = 0; i < landBitsSize; ++i )
         {
-            temp = landBits[i].to_ulong();
+            temp = static_cast<unsigned short>(landBits[i].to_ulong());
             os.write(reinterpret_cast<const char *>(&temp), 1);
         }
         delete[] landBits;
@@ -94,9 +94,9 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
     // save land
     char pos = 0;
     unsigned short mask;
-    for ( int i = 0; i < width(); i++ )
+    for ( unsigned int i = 0; i < width(); i++ )
     {
-        for ( int j = 0; j < height(); j++ )
+        for ( unsigned int j = 0; j < height(); j++ )
         {
             if (skipWater && (*this)(i, j) == 0)
                 continue;
@@ -112,8 +112,8 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
             os.write(reinterpret_cast<const char *>(&temp), 1);
             temp = 0;
 
-            mask = 0xFFFF << 8 - pos; // cut higher bits
-            temp = ((landPoint & mask) >> 8 - pos ) | temp;
+            mask = 0xFFFF << (8 - pos); // cut higher bits
+            temp = ((landPoint & mask) >> (8 - pos) ) | temp;
             pos = pos + 2; // each iteration we left 10 - 8 = 2 bits to next iteration
 
             if (pos > 8)
@@ -135,8 +135,8 @@ std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
                 os.write(reinterpret_cast<const char *>(&temp), 1);
                 temp = 0;
 
-                mask = 0xFFFF << 8 - pos; // cut higher bits
-                temp = ((landPoint & mask) >> 8 - pos ) | temp;
+                mask = 0xFFFF << (8 - pos); // cut higher bits
+                temp = ((landPoint & mask) >> (8 - pos) ) | temp;
                 pos = pos + 3; // this time we left 11 - 8 - 3 bits to next iteration
 
                 if (pos > 8)
@@ -180,9 +180,9 @@ std::istream& MapLand::fromCompactForm ( std::istream& is )
     // load land
     char pos = 0;
     temp = 0;
-    for ( int i = 0; i < width(); i++ )
+    for ( unsigned int i = 0; i < width(); i++ )
     {
-        for ( int j = 0; j < height(); j++ )
+        for ( unsigned int j = 0; j < height(); j++ )
         {
             if (skipWater)
             {
@@ -216,8 +216,8 @@ std::istream& MapLand::fromCompactForm ( std::istream& is )
             {
                 bits = 10;
                 temp = 0;
-                mask = 0xFFFF << bits - pos;
-                temp = ((readData & mask) >> bits - pos ) | temp;
+                mask = 0xFFFF << (bits - pos);
+                temp = ((readData & mask) >> (bits - pos) ) | temp;
                 pos = pos - (bits - 8);
 
                 readData = 0;
@@ -243,8 +243,8 @@ std::istream& MapLand::fromCompactForm ( std::istream& is )
                 bits = 11;
 
             temp = 0;
-            mask = 0xFFFF << bits - pos;
-            temp = ((readData & mask) >> bits - pos ) | temp;
+            mask = 0xFFFF << (bits - pos);
+            temp = ((readData & mask) >> (bits - pos) ) | temp;
             pos = pos - (bits - 8);
         }
     }

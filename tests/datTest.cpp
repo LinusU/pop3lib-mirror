@@ -50,10 +50,10 @@ int main ( int argc, const char* argv[] )
     MapLand* land = m.mapLand();
 
     // save land's height to the file
-    for ( int i = 0; i < land->width(); ++i )
+    for ( unsigned int i = 0; i < land->width(); ++i )
     {
         fout << "\n";
-        for ( int j = 0; j < land->height(); ++j )
+        for ( unsigned int j = 0; j < land->height(); ++j )
         {
             int landPoint = ( *land ) ( i, j );
 
