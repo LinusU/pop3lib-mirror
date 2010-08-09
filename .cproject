@@ -16,8 +16,8 @@
 <storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 <storageModule moduleId="org.eclipse.cdt.core.pathentry">
 <pathentry excluding="**/CMakeFiles/" kind="out" path=""/>
-<pathentry include="C:/Users/daroo/workspace/poplib@poplib/include" kind="inc" path="" system="true"/>
-<pathentry include="C:/Users/daroo/workspace/poplib@poplib/include/dmkp" kind="inc" path="" system="true"/>
+<pathentry include="C:/Users/daroo/workspace/poplib@poplib@poplib/include" kind="inc" path="" system="true"/>
+<pathentry include="C:/Users/daroo/workspace/poplib@poplib@poplib/include/dmkp" kind="inc" path="" system="true"/>
 <pathentry include="C:/Qt/2010.04/mingw/include" kind="inc" path="" system="true"/>
 <pathentry include="c:/qt/2010.04/mingw/lib/gcc/mingw32/4.4.0/include" kind="inc" path="" system="true"/>
 <pathentry include="C:/Qt/2010.04/mingw/lib/gcc/mingw32/4.4.0/include-fixed" kind="inc" path="" system="true"/>

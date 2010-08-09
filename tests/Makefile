@@ -38,10 +38,10 @@ RM = "C:\Program Files\CMake 2.8\bin\cmake.exe" -E remove -f
 CMAKE_EDIT_COMMAND = "C:\Program Files\CMake 2.8\bin\cmake-gui.exe"
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\daroo\workspace\poplib@poplib
+CMAKE_SOURCE_DIR = C:\Users\daroo\workspace\poplib@poplib@poplib
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\daroo\workspace\poplib@poplib
+CMAKE_BINARY_DIR = C:\Users\daroo\workspace\poplib@poplib@poplib
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,14 +68,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd C:\Users\daroo\workspace\poplib@poplib && $(CMAKE_COMMAND) -E cmake_progress_start C:\Users\daroo\workspace\poplib@poplib\CMakeFiles C:\Users\daroo\workspace\poplib@poplib\tests\CMakeFiles\progress.marks
-	cd C:\Users\daroo\workspace\poplib@poplib && $(MAKE) -f CMakeFiles\Makefile2 tests/all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\daroo\workspace\poplib@poplib\CMakeFiles 0
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(CMAKE_COMMAND) -E cmake_progress_start C:\Users\daroo\workspace\poplib@poplib@poplib\CMakeFiles C:\Users\daroo\workspace\poplib@poplib@poplib\tests\CMakeFiles\progress.marks
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(MAKE) -f CMakeFiles\Makefile2 tests/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\daroo\workspace\poplib@poplib@poplib\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd C:\Users\daroo\workspace\poplib@poplib && $(MAKE) -f CMakeFiles\Makefile2 tests/clean
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(MAKE) -f CMakeFiles\Makefile2 tests/clean
 .PHONY : clean
 
 # The main clean target
@@ -84,22 +84,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd C:\Users\daroo\workspace\poplib@poplib && $(MAKE) -f CMakeFiles\Makefile2 tests/preinstall
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(MAKE) -f CMakeFiles\Makefile2 tests/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd C:\Users\daroo\workspace\poplib@poplib && $(MAKE) -f CMakeFiles\Makefile2 tests/preinstall
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(MAKE) -f CMakeFiles\Makefile2 tests/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd C:\Users\daroo\workspace\poplib@poplib && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 1
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 tests/CMakeFiles/datTest.dir/rule:
-	cd C:\Users\daroo\workspace\poplib@poplib && $(MAKE) -f CMakeFiles\Makefile2 tests/CMakeFiles/datTest.dir/rule
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(MAKE) -f CMakeFiles\Makefile2 tests/CMakeFiles/datTest.dir/rule
 .PHONY : tests/CMakeFiles/datTest.dir/rule
 
 # Convenience name for target.
@@ -108,12 +108,12 @@ datTest: tests/CMakeFiles/datTest.dir/rule
 
 # fast build rule for target.
 datTest/fast:
-	cd C:\Users\daroo\workspace\poplib@poplib && $(MAKE) -f tests\CMakeFiles\datTest.dir\build.make tests/CMakeFiles/datTest.dir/build
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(MAKE) -f tests\CMakeFiles\datTest.dir\build.make tests/CMakeFiles/datTest.dir/build
 .PHONY : datTest/fast
 
 # Convenience name for target.
 tests/CMakeFiles/hdrTest.dir/rule:
-	cd C:\Users\daroo\workspace\poplib@poplib && $(MAKE) -f CMakeFiles\Makefile2 tests/CMakeFiles/hdrTest.dir/rule
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(MAKE) -f CMakeFiles\Makefile2 tests/CMakeFiles/hdrTest.dir/rule
 .PHONY : tests/CMakeFiles/hdrTest.dir/rule
 
 # Convenience name for target.
@@ -122,12 +122,12 @@ hdrTest: tests/CMakeFiles/hdrTest.dir/rule
 
 # fast build rule for target.
 hdrTest/fast:
-	cd C:\Users\daroo\workspace\poplib@poplib && $(MAKE) -f tests\CMakeFiles\hdrTest.dir\build.make tests/CMakeFiles/hdrTest.dir/build
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(MAKE) -f tests\CMakeFiles\hdrTest.dir\build.make tests/CMakeFiles/hdrTest.dir/build
 .PHONY : hdrTest/fast
 
 # Convenience name for target.
 tests/CMakeFiles/mappackTest.dir/rule:
-	cd C:\Users\daroo\workspace\poplib@poplib && $(MAKE) -f CMakeFiles\Makefile2 tests/CMakeFiles/mappackTest.dir/rule
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(MAKE) -f CMakeFiles\Makefile2 tests/CMakeFiles/mappackTest.dir/rule
 .PHONY : tests/CMakeFiles/mappackTest.dir/rule
 
 # Convenience name for target.
@@ -136,7 +136,7 @@ mappackTest: tests/CMakeFiles/mappackTest.dir/rule
 
 # fast build rule for target.
 mappackTest/fast:
-	cd C:\Users\daroo\workspace\poplib@poplib && $(MAKE) -f tests\CMakeFiles\mappackTest.dir\build.make tests/CMakeFiles/mappackTest.dir/build
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(MAKE) -f tests\CMakeFiles\mappackTest.dir\build.make tests/CMakeFiles/mappackTest.dir/build
 .PHONY : mappackTest/fast
 
 datTest.obj: datTest.cpp.obj
@@ -144,7 +144,7 @@ datTest.obj: datTest.cpp.obj
 
 # target to build an object file
 datTest.cpp.obj:
-	cd C:\Users\daroo\workspace\poplib@poplib && $(MAKE) -f tests\CMakeFiles\datTest.dir\build.make tests/CMakeFiles/datTest.dir/datTest.cpp.obj
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(MAKE) -f tests\CMakeFiles\datTest.dir\build.make tests/CMakeFiles/datTest.dir/datTest.cpp.obj
 .PHONY : datTest.cpp.obj
 
 datTest.i: datTest.cpp.i
@@ -152,7 +152,7 @@ datTest.i: datTest.cpp.i
 
 # target to preprocess a source file
 datTest.cpp.i:
-	cd C:\Users\daroo\workspace\poplib@poplib && $(MAKE) -f tests\CMakeFiles\datTest.dir\build.make tests/CMakeFiles/datTest.dir/datTest.cpp.i
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(MAKE) -f tests\CMakeFiles\datTest.dir\build.make tests/CMakeFiles/datTest.dir/datTest.cpp.i
 .PHONY : datTest.cpp.i
 
 datTest.s: datTest.cpp.s
@@ -160,7 +160,7 @@ datTest.s: datTest.cpp.s
 
 # target to generate assembly for a file
 datTest.cpp.s:
-	cd C:\Users\daroo\workspace\poplib@poplib && $(MAKE) -f tests\CMakeFiles\datTest.dir\build.make tests/CMakeFiles/datTest.dir/datTest.cpp.s
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(MAKE) -f tests\CMakeFiles\datTest.dir\build.make tests/CMakeFiles/datTest.dir/datTest.cpp.s
 .PHONY : datTest.cpp.s
 
 hdrTest.obj: hdrTest.cpp.obj
@@ -168,7 +168,7 @@ hdrTest.obj: hdrTest.cpp.obj
 
 # target to build an object file
 hdrTest.cpp.obj:
-	cd C:\Users\daroo\workspace\poplib@poplib && $(MAKE) -f tests\CMakeFiles\hdrTest.dir\build.make tests/CMakeFiles/hdrTest.dir/hdrTest.cpp.obj
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(MAKE) -f tests\CMakeFiles\hdrTest.dir\build.make tests/CMakeFiles/hdrTest.dir/hdrTest.cpp.obj
 .PHONY : hdrTest.cpp.obj
 
 hdrTest.i: hdrTest.cpp.i
@@ -176,7 +176,7 @@ hdrTest.i: hdrTest.cpp.i
 
 # target to preprocess a source file
 hdrTest.cpp.i:
-	cd C:\Users\daroo\workspace\poplib@poplib && $(MAKE) -f tests\CMakeFiles\hdrTest.dir\build.make tests/CMakeFiles/hdrTest.dir/hdrTest.cpp.i
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(MAKE) -f tests\CMakeFiles\hdrTest.dir\build.make tests/CMakeFiles/hdrTest.dir/hdrTest.cpp.i
 .PHONY : hdrTest.cpp.i
 
 hdrTest.s: hdrTest.cpp.s
@@ -184,7 +184,7 @@ hdrTest.s: hdrTest.cpp.s
 
 # target to generate assembly for a file
 hdrTest.cpp.s:
-	cd C:\Users\daroo\workspace\poplib@poplib && $(MAKE) -f tests\CMakeFiles\hdrTest.dir\build.make tests/CMakeFiles/hdrTest.dir/hdrTest.cpp.s
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(MAKE) -f tests\CMakeFiles\hdrTest.dir\build.make tests/CMakeFiles/hdrTest.dir/hdrTest.cpp.s
 .PHONY : hdrTest.cpp.s
 
 mappackTest.obj: mappackTest.cpp.obj
@@ -192,7 +192,7 @@ mappackTest.obj: mappackTest.cpp.obj
 
 # target to build an object file
 mappackTest.cpp.obj:
-	cd C:\Users\daroo\workspace\poplib@poplib && $(MAKE) -f tests\CMakeFiles\mappackTest.dir\build.make tests/CMakeFiles/mappackTest.dir/mappackTest.cpp.obj
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(MAKE) -f tests\CMakeFiles\mappackTest.dir\build.make tests/CMakeFiles/mappackTest.dir/mappackTest.cpp.obj
 .PHONY : mappackTest.cpp.obj
 
 mappackTest.i: mappackTest.cpp.i
@@ -200,7 +200,7 @@ mappackTest.i: mappackTest.cpp.i
 
 # target to preprocess a source file
 mappackTest.cpp.i:
-	cd C:\Users\daroo\workspace\poplib@poplib && $(MAKE) -f tests\CMakeFiles\mappackTest.dir\build.make tests/CMakeFiles/mappackTest.dir/mappackTest.cpp.i
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(MAKE) -f tests\CMakeFiles\mappackTest.dir\build.make tests/CMakeFiles/mappackTest.dir/mappackTest.cpp.i
 .PHONY : mappackTest.cpp.i
 
 mappackTest.s: mappackTest.cpp.s
@@ -208,7 +208,7 @@ mappackTest.s: mappackTest.cpp.s
 
 # target to generate assembly for a file
 mappackTest.cpp.s:
-	cd C:\Users\daroo\workspace\poplib@poplib && $(MAKE) -f tests\CMakeFiles\mappackTest.dir\build.make tests/CMakeFiles/mappackTest.dir/mappackTest.cpp.s
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(MAKE) -f tests\CMakeFiles\mappackTest.dir\build.make tests/CMakeFiles/mappackTest.dir/mappackTest.cpp.s
 .PHONY : mappackTest.cpp.s
 
 # Help Target
@@ -242,6 +242,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd C:\Users\daroo\workspace\poplib@poplib && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 0
+	cd C:\Users\daroo\workspace\poplib@poplib@poplib && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
