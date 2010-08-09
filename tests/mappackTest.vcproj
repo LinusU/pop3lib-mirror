@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="mappackTest"
-	ProjectGUID="{CE61EDEE-CBF6-4CC1-9D35-25BEB733EA7E}"
+	ProjectGUID="{F204C461-3953-4B46-AD57-20C180761E4B}"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
