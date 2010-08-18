@@ -23,25 +23,36 @@ namespace poplib
 {
 
 MapObjDiscovery::MapObjDiscovery ( DiscoveryAvailabilityType discType, Owner owner, int posx, int posy) :
-        MapObjGeneral ( AbstractMapObj::DISCOVERY, owner, posx, posy ), mdiscType(discType)
+        MapObject<AbstractMapObj::ModelGeneral> ( AbstractMapObj::GENERAL, AbstractMapObj::DISCOVERY, owner, posx, posy ),
+        mdiscType(discType)
 {
 
 }
 
 std::ostream& MapObjDiscovery::saveObject ( std::ostream& os ) const
 {
+    // 7 bytes of object's properties
     MapObject<ModelGeneral>::saveObject ( os );
+
     // TODO saving map object discovery
 
-	return os;
+    // populous object must have 55 bytes
+    os.seekp(48, std::ios_base::cur);
+
+    return os;
 }
 
 std::istream& MapObjDiscovery::loadObject ( std::istream& is )
 {
+    // 7 bytes of object's properties
     MapObject<ModelGeneral>::loadObject ( is );
+
     // TODO loading map object discovery
 
-	return is;
+    // populous object must have 55 bytes
+    is.seekg(48, std::ios_base::cur);
+
+    return is;
 }
 
 } // namespace poplib

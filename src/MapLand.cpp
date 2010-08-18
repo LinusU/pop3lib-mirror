@@ -24,39 +24,6 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 namespace poplib
 {
 
-std::ostream& operator<< ( std::ostream& os, const MapLand& mapLand )
-{
-    // Populous map is a square with 128x128,
-    // 128 (width) * 128 (height) * 2 (WORD) = 32 768 bytes,
-    // every WORD is one height of one point of map
-    for ( unsigned int i = 0; i < mapLand.width(); i++ )
-    {
-        for ( unsigned int j = 0; j < mapLand.height(); j++ )
-        {
-            unsigned int temp = mapLand ( i, j );
-            os.write ( reinterpret_cast<char *> ( &temp ), 2 );
-        }
-    }
-    return os;
-}
-
-std::istream& operator>> ( std::istream& is, MapLand& mapLand )
-{
-    // Populous map is a square with 128x128,
-    // 128 (width) * 128 (height) * 2 (WORD) = 32 768 bytes,
-    // every WORD is one height of one point of map
-    for ( unsigned int i = 0; i < mapLand.width(); i++ )
-    {
-        for ( unsigned int j = 0; j < mapLand.height(); j++ )
-        {
-            unsigned int temp = 0;
-            is.read ( reinterpret_cast<char *> ( &temp ), 2 );
-            mapLand ( i, j ) = temp;
-        }
-    }
-    return is;
-}
-
 std::ostream& MapLand::toCompactForm ( std::ostream& os ) const
 {
     // TODO write how actualy this compact form is saved

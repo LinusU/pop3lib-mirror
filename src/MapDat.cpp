@@ -95,13 +95,14 @@ void MapDat::saveMapDat ( const std::string& fileName ) const
     {
         fout << ( *mland );
         // TODO saving objects to the file
-        // fill with zeros if size under 192 137 bytes
+        // fill with zeros if size is under 192 137 bytes
         int zerosSize = 192137 - fout.tellp();
         if (zerosSize > 0)
         {
             char* zeros = new char[zerosSize];
+            std::memset(zeros, 0, zerosSize);
             fout.write ( zeros , zerosSize );
-			delete[] zeros;
+            delete[] zeros;
         }
     }
 }

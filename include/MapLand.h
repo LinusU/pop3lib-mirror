@@ -21,6 +21,9 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 #define _H_POPLIB_MAPLAND__
 
 #include <iostream>
+#include <cstring>
+
+#include "global.h"
 
 namespace poplib
 {
@@ -31,7 +34,7 @@ class Matrix
 public:
     /** Constructor.
     @param cols Width of the matrix.
-    @param rows Height of the matrix. 
+    @param rows Height of the matrix.
     */
     Matrix ( unsigned int cols, unsigned int rows );
     /** Copy constructor. */
@@ -48,6 +51,12 @@ public:
     @param row Row of the element.
     */
     T& operator() ( unsigned int col, unsigned int row );
+    /** Saves data to the stream. */
+    template<typename S>
+    friend std::ostream& operator<<( std::ostream& os, const Matrix<S>& obj );
+    /** Loades data from the stream. */
+    template<typename S>
+    friend std::istream& operator>>( std::istream& is, Matrix<S>& obj );
 
 protected:
     unsigned int mrows, mcols;
@@ -57,20 +66,21 @@ private:
 
     void copy ( const Matrix& map );
 };
+
 /** Populous map is a 128x128 square. */
-class MapLand : public Matrix<unsigned int>
+class MapLand : public Matrix<WORD>
 {
 public:
     /** Constructor. */
-    MapLand() : Matrix<unsigned int > ( 128, 128 ) {}
+    MapLand() : Matrix<WORD> ( 128, 128 ) {}
     /** Returns the width of the map. */
-    unsigned int width() const { return mcols; }
+    unsigned int width() const {
+        return mcols;
+    }
     /** Returns the height of the map. */
-    unsigned int height() const { return mrows; }
-    /** Saves map land to the stream. */
-    friend std::ostream& operator<< ( std::ostream& os, const MapLand& obj );
-    /** Loades map land from the stream. */
-    friend std::istream& operator>> ( std::istream& is, MapLand& obj );
+    unsigned int height() const {
+        return mrows;
+    }
     /** Saves map land details using compact form. Suitable for sending maps over the internet. */
     std::ostream& toCompactForm ( std::ostream& os ) const;
     /** Loades map header details from compact form. */
@@ -86,11 +96,8 @@ Matrix<T>::Matrix ( unsigned int cols, unsigned int rows ): mcols(cols), mrows(r
 template<typename T>
 void Matrix<T>::copy ( const Matrix<T>& map )
 {
-    mdata = new T[mcols * map.mrows];
-
-    for ( int i = 0; i < map.mcols; ++i )
-        for ( int j = 0; j < map.mrows; ++j )
-            this->operator() ( i, j ) = map ( i, j );// TODO use memcopy to copy mapland
+    mdata = new T[mcols * mrows];
+    std::memcpy(reinterpret_cast<char *>(mdata), map.mdata, mrows*mcols*sizeof(T));
 }
 
 template<typename T>
@@ -105,10 +112,10 @@ Matrix<T>& Matrix<T>::operator= ( const Matrix<T>& map )
     if ( this == &map )
         return *this;
 
-    delete[] mdata;
-    copy ( map );
     mcols = map.mcols;
     mrows = map.mrows;
+    delete[] mdata;
+    copy ( map );
 
     return *this;
 }
@@ -129,6 +136,20 @@ template<typename T>
 T& Matrix<T>::operator() ( unsigned int col, unsigned int row )
 {
     return mdata[row * mcols + col];
+}
+
+template<typename T>
+std::ostream& operator<< ( std::ostream& os, const Matrix<T>& m )
+{
+    os.write(reinterpret_cast<const char *>(m.mdata), m.mrows*m.mcols*sizeof(T));
+    return os;
+}
+
+template<typename T>
+std::istream& operator>> ( std::istream& is, Matrix<T>& m )
+{
+    is.read(reinterpret_cast<char *>(m.mdata), m.mrows*m.mcols*sizeof(T));
+    return is;
 }
 
 } // namespace poplib

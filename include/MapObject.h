@@ -24,6 +24,7 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 
 namespace poplib
 {
+
 /** This template allows to create typesafety map objects. */
 template <typename T>
 class MapObject : public AbstractMapObj
@@ -37,9 +38,13 @@ public:
     */
     MapObject ( Type type, T model, Owner owner, int posx = 0, int posy = 0 );
     /** Returns the model of the object. */
-    virtual T model() const { return mmodel; }
+    virtual T model() const {
+        return mmodel;
+    }
     /** Sets a model for the object. */
-    virtual void setModel ( T model ) { mmodel = model; }
+    virtual void setModel ( T model ) {
+        mmodel = model;
+    }
 
 protected:
     /** Saves model, type, owner and position of the object to the stream. */
@@ -97,6 +102,8 @@ std::istream& MapObject<T>::loadObject ( std::istream& is )
 
     return is;
 }
+
+
 /** Represents a follower on the map. */
 class MapObjFollower : public MapObject<AbstractMapObj::ModelFollower>
 {
@@ -112,7 +119,25 @@ public:
     {
 
     }
+    /** Saves object's data to the stream. */
+    virtual std::ostream& saveObject ( std::ostream& os ) const
+    {
+        // 7 bytes of object's properties
+        MapObject<AbstractMapObj::ModelFollower>::saveObject ( os );
+        // populous object must have 55 bytes
+        os.seekp(48, std::ios_base::cur);
+    }
+    /** Loades object's data from the stream. */
+    virtual std::istream& loadObject ( std::istream& is )
+    {
+        // 7 bytes of object's properties
+        MapObject<AbstractMapObj::ModelFollower>::loadObject ( is );
+        // populous object must have 55 bytes
+        is.seekg(48, std::ios_base::cur);
+    }
 };
+
+
 /** Represents a building on the map. */
 class MapObjBuilding : public MapObject<AbstractMapObj::ModelBuilding>
 {
@@ -131,22 +156,30 @@ public:
     }
 
 protected:
-    /** Saves object's properties and angle. */
+    /** Saves object's data to the stream. */
     virtual std::ostream& saveObject ( std::ostream& os ) const
     {
+        // 7 bytes of object's properties
         MapObject<AbstractMapObj::ModelBuilding>::saveObject ( os );
-        os.write ( reinterpret_cast<const char *> ( &mangle ), sizeof ( mangle ) );
+        os.write ( reinterpret_cast<const char *> ( &mangle ), 4 );
+        // populous object must have 55 bytes
+        os.seekp(44, std::ios_base::cur);
     }
-    /** Loades object's properties and angle. */
+    /** Loades object's data from the stream. */
     virtual std::istream& loadObject ( std::istream& is )
     {
+        // 7 bytes of object's properties
         MapObject<AbstractMapObj::ModelBuilding>::loadObject ( is );
-        is.read ( reinterpret_cast<char *> ( &mangle ), sizeof ( mangle ) );
+        is.read ( reinterpret_cast<char *> ( &mangle ), 4 );
+        // populous object must have 55 bytes
+        is.seekg(44, std::ios_base::cur);
     }
 
 private:
     long mangle;
 };
+
+
 /** Represents a creature on the map. */
 class MapObjCreature : public MapObject<AbstractMapObj::ModelCreature>
 {
@@ -162,7 +195,25 @@ public:
     {
 
     }
+    /** Saves object's data to the stream. */
+    virtual std::ostream& saveObject ( std::ostream& os ) const
+    {
+        // 7 bytes of object's properties
+        MapObject<AbstractMapObj::ModelCreature>::saveObject ( os );
+        // populous object must have 55 bytes
+        os.seekp(48, std::ios_base::cur);
+    }
+    /** Loades object's data from the stream. */
+    virtual std::istream& loadObject ( std::istream& is )
+    {
+        // 7 bytes of object's properties
+        MapObject<AbstractMapObj::ModelCreature>::loadObject ( is );
+        // populous object must have 55 bytes
+        is.seekg(48, std::ios_base::cur);
+    }
 };
+
+
 /** Represents a vehicle on the map. */
 class MapObjVehicle : public MapObject<AbstractMapObj::ModelVehicle>
 {
@@ -178,7 +229,25 @@ public:
     {
 
     }
+    /** Saves object's data to the stream. */
+    virtual std::ostream& saveObject ( std::ostream& os ) const
+    {
+        // 7 bytes of object's properties
+        MapObject<AbstractMapObj::ModelVehicle>::saveObject ( os );
+        // populous object must have 55 bytes
+        os.seekp(48, std::ios_base::cur);
+    }
+    /** Loades object's data from the stream. */
+    virtual std::istream& loadObject ( std::istream& is )
+    {
+        // 7 bytes of object's properties
+        MapObject<AbstractMapObj::ModelVehicle>::loadObject ( is );
+        // populous object must have 55 bytes
+        is.seekg(48, std::ios_base::cur);
+    }
 };
+
+
 /** Represents a scenery object on the map. */
 class MapObjScenery : public MapObject<AbstractMapObj::ModelScenery>
 {
@@ -197,24 +266,32 @@ public:
     }
 
 protected:
-    /** Saves object's properties and angle. */
+    /** Saves object's data to the stream. */
     virtual std::ostream& saveObject ( std::ostream& os ) const
     {
+        // 7 bytes of object's properties
         MapObject<AbstractMapObj::ModelScenery>::saveObject ( os );
-        os.seekp ( 2, std::ios_base::cur );
-        os.write ( reinterpret_cast<const char *> ( &mangle ), sizeof ( mangle ) );
+        os.seekp ( 2, std::ios_base::cur ); // skip 2 bytes
+        os.write ( reinterpret_cast<const char *> ( &mangle ), 4 );
+        // populous object must have 55 bytes
+        os.seekp(42, std::ios_base::cur);
     }
-    /** Loades object's properties and angle. */
+    /** Loades object's data from the stream. */
     virtual std::istream& loadObject ( std::istream& is )
     {
+        // 7 bytes of object's properties
         MapObject<AbstractMapObj::ModelScenery>::loadObject ( is );
-        is.seekg ( 2, std::ios_base::cur );
-        is.read ( reinterpret_cast<char *> ( &mangle ), sizeof ( mangle ) );
+        is.seekg ( 2, std::ios_base::cur ); // skip 2 bytes
+        is.read ( reinterpret_cast<char *> ( &mangle ), 4 );
+        // populous object must have 55 bytes
+        is.seekg(42, std::ios_base::cur);
     }
 
 private:
     long mangle;
 };
+
+
 /** Represents a general object on the map. */
 class MapObjGeneral : public MapObject<AbstractMapObj::ModelGeneral>
 {
@@ -230,7 +307,25 @@ public:
     {
 
     }
+    /** Saves object's data to the stream. */
+    virtual std::ostream& saveObject ( std::ostream& os ) const
+    {
+        // 7 bytes of object's properties
+        MapObject<AbstractMapObj::ModelGeneral>::saveObject ( os );
+        // populous object must have 55 bytes
+        os.seekp(48, std::ios_base::cur);
+    }
+    /** Loades object's data from the stream. */
+    virtual std::istream& loadObject ( std::istream& is )
+    {
+        // 7 bytes of object's properties
+        MapObject<AbstractMapObj::ModelGeneral>::loadObject ( is );
+        // populous object must have 55 bytes
+        is.seekg(48, std::ios_base::cur);
+    }
 };
+
+
 /** Represents an effect on the map, including spell effect. */
 class MapObjEffect : public MapObject<AbstractMapObj::ModelEffect>
 {
@@ -246,7 +341,25 @@ public:
     {
 
     }
+    /** Saves object's data to the stream. */
+    virtual std::ostream& saveObject ( std::ostream& os ) const
+    {
+        // 7 bytes of object's properties
+        MapObject<AbstractMapObj::ModelEffect>::saveObject ( os );
+        // populous object must have 55 bytes
+        os.seekp(48, std::ios_base::cur);
+    }
+    /** Loades object's data from the stream. */
+    virtual std::istream& loadObject ( std::istream& is )
+    {
+        // 7 bytes of object's properties
+        MapObject<AbstractMapObj::ModelEffect>::loadObject ( is );
+        // populous object must have 55 bytes
+        is.seekg(48, std::ios_base::cur);
+    }
 };
+
+
 /** Represents a shot effect, including firewarrior's shot. */
 class MapObjShot : public MapObject<AbstractMapObj::ModelShot>
 {
@@ -262,7 +375,25 @@ public:
     {
 
     }
+    /** Saves object's data to the stream. */
+    virtual std::ostream& saveObject ( std::ostream& os ) const
+    {
+        // 7 bytes of object's properties
+        MapObject<AbstractMapObj::ModelShot>::saveObject ( os );
+        // populous object must have 55 bytes
+        os.seekp(48, std::ios_base::cur);
+    }
+    /** Loades object's data from the stream. */
+    virtual std::istream& loadObject ( std::istream& is )
+    {
+        // 7 bytes of object's properties
+        MapObject<AbstractMapObj::ModelShot>::loadObject ( is );
+        // populous object must have 55 bytes
+        is.seekg(48, std::ios_base::cur);
+    }
 };
+
+
 /** Represents a general shape on the map. */
 class MapObjShape: public MapObject<AbstractMapObj::ModelShape>
 {
@@ -278,7 +409,25 @@ public:
     {
 
     }
+    /** Saves object's data to the stream. */
+    virtual std::ostream& saveObject ( std::ostream& os ) const
+    {
+        // 7 bytes of object's properties
+        MapObject<AbstractMapObj::ModelShape>::saveObject ( os );
+        // populous object must have 55 bytes
+        os.seekp(48, std::ios_base::cur);
+    }
+    /** Loades object's data from the stream. */
+    virtual std::istream& loadObject ( std::istream& is )
+    {
+        // 7 bytes of object's properties
+        MapObject<AbstractMapObj::ModelShape>::loadObject ( is );
+        // populous object must have 55 bytes
+        is.seekg(48, std::ios_base::cur);
+    }
 };
+
+
 /** Represents game's internal object on the map. */
 class MapObjInternal : public MapObject<AbstractMapObj::ModelInternal>
 {
@@ -294,7 +443,25 @@ public:
     {
 
     }
+    /** Saves object's data to the stream. */
+    virtual std::ostream& saveObject ( std::ostream& os ) const
+    {
+        // 7 bytes of object's properties
+        MapObject<AbstractMapObj::ModelInternal>::saveObject ( os );
+        // populous object must have 55 bytes
+        os.seekp(48, std::ios_base::cur);
+    }
+    /** Loades object's data from the stream. */
+    virtual std::istream& loadObject ( std::istream& is )
+    {
+        // 7 bytes of object's properties
+        MapObject<AbstractMapObj::ModelInternal>::loadObject ( is );
+        // populous object must have 55 bytes
+        is.seekg(48, std::ios_base::cur);
+    }
 };
+
+
 /** Represents a spell object on the map. */
 class MapObjSpell : public MapObject<AbstractMapObj::ModelSpell>
 {
@@ -309,6 +476,22 @@ public:
             MapObject<AbstractMapObj::ModelSpell> ( AbstractMapObj::SPELL, model, owner, posx, posy )
     {
 
+    }
+    /** Saves object's data to the stream. */
+    virtual std::ostream& saveObject ( std::ostream& os ) const
+    {
+        // 7 bytes of object's properties
+        MapObject<AbstractMapObj::ModelSpell>::saveObject ( os );
+        // populous object must have 55 bytes
+        os.seekp(48, std::ios_base::cur);
+    }
+    /** Loades object's data from the stream. */
+    virtual std::istream& loadObject ( std::istream& is )
+    {
+        // 7 bytes of object's properties
+        MapObject<AbstractMapObj::ModelSpell>::loadObject ( is );
+        // populous object must have 55 bytes
+        is.seekg(48, std::ios_base::cur);
     }
 };
 

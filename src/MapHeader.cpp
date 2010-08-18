@@ -19,6 +19,7 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 
 #include <string>
 #include <fstream>
+#include <cstring>
 
 #include "MapHeader.h"
 #include <AbstractMapObj.h>
@@ -28,12 +29,12 @@ namespace poplib
 
 void MapHeader::defaultValues()
 {
-    mmaxTribes = 3;
+    mmaxTribes = 4;
     // allies
     std::bitset<8> defaultAlly = std::bitset<8>();
     for ( int i = 0; i < TRIBES; ++i )
     {
-        defaultAlly.set ( TRIBES - i - 1 );
+        defaultAlly.set ( i );
         mallies[i] |= defaultAlly; // blue allied with blue, red with red etc.
         defaultAlly.reset();
     }
@@ -213,6 +214,7 @@ void MapHeader::saveHeader ( const std::string& fileName ) const
         if (zerosSize > 0)
         {
             char* zeros = new char[zerosSize];
+	    std::memset(zeros, 0, zerosSize);
             fout.write ( zeros , zerosSize );
             delete[] zeros;
         }

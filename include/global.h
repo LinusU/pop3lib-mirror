@@ -32,6 +32,11 @@ namespace poplib
 #	define PLATFORM_LINUX
 #endif
 
+// platform dependend unit size declarations
+typedef unsigned char BYTE;
+typedef unsigned short WORD;
+typedef unsigned int DWORD;
+
 } // namespace poplib
 
 #endif // _H_GLOBAL__

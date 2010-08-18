@@ -25,7 +25,7 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 namespace poplib
 {
 
-class MapObjTrigger : public MapObjGeneral
+class MapObjTrigger : public MapObject<AbstractMapObj::ModelGeneral>
 {
     // TODO add more things to triggers
     enum TriggerType {PROXIMITY = 0, // Stone Head or Totem Pole
