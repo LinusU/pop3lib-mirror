@@ -25,7 +25,7 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 namespace poplib
 {
 
-class MapObjDiscovery : public MapObjGeneral
+class MapObjDiscovery : public MapObject<AbstractMapObj::ModelGeneral>
 {
 public:
 	// TODO add more things to discoveries

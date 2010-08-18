@@ -33,7 +33,7 @@ int main ( int argc, const char* argv[] )
     std::ofstream fout;
     std::string outTextLand = "map_";
 
-    m.importFromDirectory ( "../../tests/Asgard Worlds I" );
+    m.importFromDirectory ( "Asgard Worlds I" );
     maps = m.maps();
     for ( i = 0, it = maps.begin(); it != maps.end(); ++it, ++i )
     {
