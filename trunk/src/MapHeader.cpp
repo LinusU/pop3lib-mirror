@@ -22,7 +22,6 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 #include <cstring>
 
 #include "MapHeader.h"
-#include <AbstractMapObj.h>
 
 namespace poplib
 {

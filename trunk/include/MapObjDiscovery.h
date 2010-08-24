@@ -25,24 +25,26 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 namespace poplib
 {
 
-class MapObjDiscovery : public MapObject<AbstractMapObj::ModelGeneral>
+class MapObjDiscovery : public MapObject<MapObjGeneric::ModelGeneral>
 {
 public:
-	// TODO add more things to discoveries
-    enum DiscoveryAvailabilityType {NOT_AVAILABLE = 0, PERMAMENT /* Needed for Vault of Knowledge */, LEVEL, ONCE, DISCOVERY_AV_TYPE};
+    friend class MapDat;
 
-    MapObjDiscovery ( DiscoveryAvailabilityType discType, Owner owner, int posx = 0, int posy = 0 ) ;
-    virtual ~MapObjDiscovery();
+    MapObjDiscovery ( DiscoveryAvailabilityType discType, Owner owner, int posx = 0, int posy = 0 ) :
+            MapObject<MapObjGeneric::ModelGeneral> (owner, posx, posy, discType) {}
 
-    DiscoveryAvailabilityType discoveryType() const { return mdiscType; }
-    void setDiscoveryType ( DiscoveryAvailabilityType discType ) { mdiscType = discType; }
+    virtual ~MapObjDiscovery() {}
 
-protected:
-    virtual std::ostream& saveObject ( std::ostream& os ) const;
-    virtual std::istream& loadObject ( std::istream& is );
+    DiscoveryAvailabilityType discoveryType() const {
+        return static_cast<DiscoveryAvailabilityType>(mdata.discovery.discType);
+    }
+    void setDiscoveryType ( DiscoveryAvailabilityType discType ) {
+        mdata.discovery.discType = discType;
+    }
 
 private:
-    DiscoveryAvailabilityType mdiscType;
+    // Used to construct object from data structure while loading objects in the MapDat class.
+    MapObjDiscovery(const MapObjData& data) : MapObject<MapObjGeneric::ModelGeneral>(data) {}
 };
 
 } // namespace poplib

@@ -25,29 +25,26 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 namespace poplib
 {
 
-class MapObjTrigger : public MapObject<AbstractMapObj::ModelGeneral>
+class MapObjTrigger : public MapObject<MapObjGeneric::ModelGeneral>
 {
-    // TODO add more things to triggers
-    enum TriggerType {PROXIMITY = 0, // Stone Head or Totem Pole
-                      TIMED, // Usually reoccurring automatic things
-                      PLAYER_DEATH,
-                      SHAMAN_PROXIMITY, // Obelisk
-                      LIBRARY, // Vault of Knowledge
-                      SHAMAN_AOD // Gargoyle
-                     };
+public:
+    friend class MapDat;
 
-    MapObjTrigger(TriggerType trigType, Owner owner, int posx, int posy);
-    virtual ~MapObjTrigger();
+    MapObjTrigger(TriggerType trigType, Owner owner, int posx, int posy):
+            MapObject<MapObjGeneric::ModelGeneral>(owner, posx, posy, trigType) {}
 
-    TriggerType triggerType() const { return mtrigType; }
-    void setTriggerType(TriggerType trigType) { mtrigType = trigType; }
+    virtual ~MapObjTrigger() {}
 
-protected:
-    virtual std::ostream& saveObject ( std::ostream& os ) const;
-    virtual std::istream& loadObject ( std::istream& is );
+    TriggerType triggerType() const {
+        return static_cast<TriggerType>(mdata.trigger.trigType);
+    }
+    void setTriggerType(TriggerType trigType) {
+        mdata.trigger.trigType = trigType;
+    }
 
 private:
-    TriggerType mtrigType;
+    // Used to construct object from data structure while loading objects in the MapDat class.
+    MapObjTrigger(const MapObjData& data) : MapObject<MapObjGeneric::ModelGeneral>(data) {}
 };
 
 } // namespace poplib

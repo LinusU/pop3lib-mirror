@@ -20,94 +20,60 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 #ifndef _H_POPLIB_MAP_OBJECT__
 #define _H_POPLIB_MAP_OBJECT__
 
-#include "AbstractMapObj.h"
+#include "MapObjGeneric.h"
 
 namespace poplib
 {
+class MapDat;
 
 /** This template allows to create typesafety map objects. */
 template <typename T>
-class MapObject : public AbstractMapObj
+class MapObject : public MapObjGeneric
 {
 public:
-    /** Constructor.
-    @param type Type of the object.
-    @param owner What tribe is the owner of this object.
-    @param posx X position of the object on the map.
-    @param posy Y position of the object on the map.
-    */
-    MapObject ( Type type, T model, Owner owner, int posx = 0, int posy = 0 );
+    /** Default constructor.*/
+    MapObject() {}
+    /** Generic constructor. */
+    MapObject(Type type, T model, Owner owner, int posx, int posy) :
+            MapObjGeneric(type, model, owner, posx, posy) {
+    }
+    /** Constructor for building objects. */
+    MapObject(ModelBuilding model, Owner owner, int posx, int posy, long angle) :
+            MapObjGeneric(model, owner, posx, posy, angle) {
+    }
+    /** Constructor for scenery objects. */
+    MapObject(ModelScenery model, Owner owner, int posx, int posy, int angle) :
+            MapObjGeneric(model, owner, posx, posy, angle) {
+    }
+    /** Constructor for discovery objects. */
+    MapObject(Owner owner, int posx, int posy, DiscoveryAvailabilityType discType) :
+            MapObjGeneric(owner, posx, posy, discType) {
+    }
+    /** Constructor for trigger objects. */
+    MapObject(Owner owner, int posx, int posy, TriggerType trigType) :
+            MapObjGeneric(owner, posx, posy, trigType) {
+    }
+    /** Destructor. **/
+    virtual ~MapObject() {}
     /** Returns the model of the object. */
     virtual T model() const {
-        return mmodel;
+        return static_cast<T>(mdata.model);
     }
-    /** Sets a model for the object. */
-    virtual void setModel ( T model ) {
-        mmodel = model;
+    /** Sets model of the object. */
+    void setModel(T model) {
+        mdata.model = static_cast<T>(model);
     }
 
 protected:
-    /** Saves model, type, owner and position of the object to the stream. */
-    virtual std::ostream& saveObject ( std::ostream& os ) const;
-    /** Loades model, type, owner and position of the object from the stream. */
-    virtual std::istream& loadObject ( std::istream& is );
-
-private:
-    T mmodel;
+    /** Used to construct object from data structure while loading objects in the MapDat class. */
+    MapObject(const MapObjData& data) : MapObjGeneric(data) {}
 };
 
-template <typename T>
-MapObject<T>::MapObject ( Type type, T model, Owner owner, int posx , int posy ) :
-        AbstractMapObj ( type, owner, posx, posy ), mmodel(model)
-{
-
-}
-
-template<typename T>
-std::ostream& MapObject<T>::saveObject ( std::ostream& os ) const
-{
-    T model = mmodel;
-    Type _type = type();
-    Owner _owner = owner();
-    int _posx = posx();
-    int _posy = posy();
-
-    os.write ( reinterpret_cast<char *> ( &model ), 1 );
-    os.write ( reinterpret_cast<char *> ( &_type ), 1 );
-    os.write ( reinterpret_cast<char *> ( &_owner ), 1 );
-    os.write ( reinterpret_cast<char *> ( &_posx ), 2 );
-    os.write ( reinterpret_cast<char *> ( &_posy ), 2 );
-
-    return os;
-}
-
-template<typename T>
-std::istream& MapObject<T>::loadObject ( std::istream& is )
-{
-    unsigned int model;
-    int posx, posy;
-    Type type;
-    Owner owner;
-
-    is.read ( reinterpret_cast<char *> ( &model ), 1 );
-    is.read ( reinterpret_cast<char *> ( &type ), 1 );
-    is.read ( reinterpret_cast<char *> ( &owner ), 1 );
-    is.read ( reinterpret_cast<char *> ( &posx ), 2 );
-    is.read ( reinterpret_cast<char *> ( &posy ), 2 );
-
-    setModel ( static_cast<T> ( model ) );
-    setType ( type );
-    setOwner ( owner );
-    setPosition ( posx, posy );
-
-    return is;
-}
-
-
 /** Represents a follower on the map. */
-class MapObjFollower : public MapObject<AbstractMapObj::ModelFollower>
+class MapObjFollower : public MapObject<MapObjGeneric::ModelFollower>
 {
 public:
+    friend class MapDat;
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -115,33 +81,22 @@ public:
     @param posy Y position of the object on the map.
     */
     MapObjFollower ( ModelFollower model, Owner owner, int posx = 0, int posy = 0 ) :
-            MapObject<AbstractMapObj::ModelFollower> ( AbstractMapObj::FOLLOWER, model, owner, posx, posy )
+            MapObject<MapObjGeneric::ModelFollower>( MapObjGeneric::FOLLOWER, model, owner, posx, posy )
     {
 
     }
-    /** Saves object's data to the stream. */
-    virtual std::ostream& saveObject ( std::ostream& os ) const
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelFollower>::saveObject ( os );
-        // populous object must have 55 bytes
-        os.seekp(48, std::ios_base::cur);
-    }
-    /** Loades object's data from the stream. */
-    virtual std::istream& loadObject ( std::istream& is )
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelFollower>::loadObject ( is );
-        // populous object must have 55 bytes
-        is.seekg(48, std::ios_base::cur);
-    }
+
+private:
+    // Used to construct object from data structure while loading objects in the MapDat class.
+    MapObjFollower(const MapObjData& data) : MapObject<MapObjGeneric::ModelFollower>(data) {}
 };
 
 
 /** Represents a building on the map. */
-class MapObjBuilding : public MapObject<AbstractMapObj::ModelBuilding>
+class MapObjBuilding : public MapObject<MapObjGeneric::ModelBuilding>
 {
 public:
+    friend class MapDat;
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -150,40 +105,22 @@ public:
     @param angle Angle of the building on the map.
     */
     MapObjBuilding ( ModelBuilding model, Owner owner, int posx = 0, int posy = 0, long angle = 0 ) :
-            MapObject<AbstractMapObj::ModelBuilding> ( AbstractMapObj::BUILDING, model, owner, posx, posy ), mangle(angle)
+            MapObject<MapObjGeneric::ModelBuilding>(model, owner, posx, posy, angle)
     {
 
-    }
-
-protected:
-    /** Saves object's data to the stream. */
-    virtual std::ostream& saveObject ( std::ostream& os ) const
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelBuilding>::saveObject ( os );
-        os.write ( reinterpret_cast<const char *> ( &mangle ), 4 );
-        // populous object must have 55 bytes
-        os.seekp(44, std::ios_base::cur);
-    }
-    /** Loades object's data from the stream. */
-    virtual std::istream& loadObject ( std::istream& is )
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelBuilding>::loadObject ( is );
-        is.read ( reinterpret_cast<char *> ( &mangle ), 4 );
-        // populous object must have 55 bytes
-        is.seekg(44, std::ios_base::cur);
     }
 
 private:
-    long mangle;
+    // Used to construct object from data structure while loading objects in the MapDat class.
+    MapObjBuilding(const MapObjData& data) : MapObject<MapObjGeneric::ModelBuilding>(data) {}
 };
 
 
 /** Represents a creature on the map. */
-class MapObjCreature : public MapObject<AbstractMapObj::ModelCreature>
+class MapObjCreature : public MapObject<MapObjGeneric::ModelCreature>
 {
 public:
+    friend class MapDat;
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -191,33 +128,22 @@ public:
     @param posy Y position of the object on the map.
     */
     MapObjCreature ( ModelCreature model, Owner owner, int posx = 0, int posy = 0 ) :
-            MapObject<AbstractMapObj::ModelCreature> ( AbstractMapObj::CREATURE, model, owner, posx, posy )
+            MapObject<MapObjGeneric::ModelCreature>( MapObjGeneric::CREATURE, model, owner, posx, posy )
     {
 
     }
-    /** Saves object's data to the stream. */
-    virtual std::ostream& saveObject ( std::ostream& os ) const
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelCreature>::saveObject ( os );
-        // populous object must have 55 bytes
-        os.seekp(48, std::ios_base::cur);
-    }
-    /** Loades object's data from the stream. */
-    virtual std::istream& loadObject ( std::istream& is )
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelCreature>::loadObject ( is );
-        // populous object must have 55 bytes
-        is.seekg(48, std::ios_base::cur);
-    }
+
+private:
+    // Used to construct object from data structure while loading objects in the MapDat class.
+    MapObjCreature(const MapObjData& data) : MapObject<MapObjGeneric::ModelCreature>(data) {}
 };
 
 
 /** Represents a vehicle on the map. */
-class MapObjVehicle : public MapObject<AbstractMapObj::ModelVehicle>
+class MapObjVehicle : public MapObject<MapObjGeneric::ModelVehicle>
 {
 public:
+    friend class MapDat;
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -225,33 +151,22 @@ public:
     @param posy Y position of the object on the map.
     */
     MapObjVehicle ( ModelVehicle model, Owner owner, int posx = 0, int posy = 0 ) :
-            MapObject<AbstractMapObj::ModelVehicle> ( AbstractMapObj::VEHICLE, model, owner, posx, posy )
+            MapObject<MapObjGeneric::ModelVehicle>( MapObjGeneric::VEHICLE, model, owner, posx, posy )
     {
 
     }
-    /** Saves object's data to the stream. */
-    virtual std::ostream& saveObject ( std::ostream& os ) const
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelVehicle>::saveObject ( os );
-        // populous object must have 55 bytes
-        os.seekp(48, std::ios_base::cur);
-    }
-    /** Loades object's data from the stream. */
-    virtual std::istream& loadObject ( std::istream& is )
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelVehicle>::loadObject ( is );
-        // populous object must have 55 bytes
-        is.seekg(48, std::ios_base::cur);
-    }
+
+private:
+    // Used to construct object from data structure while loading objects in the MapDat class.
+    MapObjVehicle(const MapObjData& data) : MapObject<MapObjGeneric::ModelVehicle>(data) {}
 };
 
 
 /** Represents a scenery object on the map. */
-class MapObjScenery : public MapObject<AbstractMapObj::ModelScenery>
+class MapObjScenery : public MapObject<MapObjGeneric::ModelScenery>
 {
 public:
+    friend class MapDat;
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -259,43 +174,23 @@ public:
     @param posy Y position of the object on the map.
     @param angle Angle of the building on the map.
     */
-    MapObjScenery ( ModelScenery model, Owner owner, int posx = 0, int posy = 0, long angle = 0) :
-            MapObject<AbstractMapObj::ModelScenery> ( AbstractMapObj::SCENERY, model, owner, posx, posy ), mangle(angle)
+    MapObjScenery ( ModelScenery model, Owner owner, int posx = 0, int posy = 0, int angle = 0) :
+            MapObject<MapObjGeneric::ModelScenery>(model, owner, posx, posy, angle)
     {
 
-    }
-
-protected:
-    /** Saves object's data to the stream. */
-    virtual std::ostream& saveObject ( std::ostream& os ) const
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelScenery>::saveObject ( os );
-        os.seekp ( 2, std::ios_base::cur ); // skip 2 bytes
-        os.write ( reinterpret_cast<const char *> ( &mangle ), 4 );
-        // populous object must have 55 bytes
-        os.seekp(42, std::ios_base::cur);
-    }
-    /** Loades object's data from the stream. */
-    virtual std::istream& loadObject ( std::istream& is )
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelScenery>::loadObject ( is );
-        is.seekg ( 2, std::ios_base::cur ); // skip 2 bytes
-        is.read ( reinterpret_cast<char *> ( &mangle ), 4 );
-        // populous object must have 55 bytes
-        is.seekg(42, std::ios_base::cur);
     }
 
 private:
-    long mangle;
+    // Used to construct object from data structure while loading objects in the MapDat class.
+    MapObjScenery(const MapObjData& data) : MapObject<MapObjGeneric::ModelScenery>(data) {}
 };
 
 
 /** Represents a general object on the map. */
-class MapObjGeneral : public MapObject<AbstractMapObj::ModelGeneral>
+class MapObjGeneral : public MapObject<MapObjGeneric::ModelGeneral>
 {
 public:
+    friend class MapDat;
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -303,33 +198,22 @@ public:
     @param posy Y position of the object on the map.
     */
     MapObjGeneral ( ModelGeneral model, Owner owner, int posx = 0, int posy = 0 ) :
-            MapObject<AbstractMapObj::ModelGeneral> ( AbstractMapObj::GENERAL, model, owner, posx, posy )
+            MapObject<MapObjGeneric::ModelGeneral>( MapObjGeneric::GENERAL, model, owner, posx, posy )
     {
 
     }
-    /** Saves object's data to the stream. */
-    virtual std::ostream& saveObject ( std::ostream& os ) const
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelGeneral>::saveObject ( os );
-        // populous object must have 55 bytes
-        os.seekp(48, std::ios_base::cur);
-    }
-    /** Loades object's data from the stream. */
-    virtual std::istream& loadObject ( std::istream& is )
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelGeneral>::loadObject ( is );
-        // populous object must have 55 bytes
-        is.seekg(48, std::ios_base::cur);
-    }
+
+private:
+    // Used to construct object from data structure while loading objects in the MapDat class.
+    MapObjGeneral(const MapObjData& data) : MapObject<MapObjGeneric::ModelGeneral>(data) {}
 };
 
 
 /** Represents an effect on the map, including spell effect. */
-class MapObjEffect : public MapObject<AbstractMapObj::ModelEffect>
+class MapObjEffect : public MapObject<MapObjGeneric::ModelEffect>
 {
 public:
+    friend class MapDat;
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -337,33 +221,22 @@ public:
     @param posy Y position of the object on the map.
     */
     MapObjEffect ( ModelEffect model, Owner owner, int posx = 0, int posy = 0 ) :
-            MapObject<AbstractMapObj::ModelEffect> ( AbstractMapObj::EFFECT, model, owner, posx, posy )
+            MapObject<MapObjGeneric::ModelEffect>( MapObjGeneric::EFFECT, model, owner, posx, posy )
     {
 
     }
-    /** Saves object's data to the stream. */
-    virtual std::ostream& saveObject ( std::ostream& os ) const
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelEffect>::saveObject ( os );
-        // populous object must have 55 bytes
-        os.seekp(48, std::ios_base::cur);
-    }
-    /** Loades object's data from the stream. */
-    virtual std::istream& loadObject ( std::istream& is )
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelEffect>::loadObject ( is );
-        // populous object must have 55 bytes
-        is.seekg(48, std::ios_base::cur);
-    }
+
+private:
+    // Used to construct object from data structure while loading objects in the MapDat class.
+    MapObjEffect(const MapObjData& data) : MapObject<MapObjGeneric::ModelEffect>(data) {}
 };
 
 
 /** Represents a shot effect, including firewarrior's shot. */
-class MapObjShot : public MapObject<AbstractMapObj::ModelShot>
+class MapObjShot : public MapObject<MapObjGeneric::ModelShot>
 {
 public:
+    friend class MapDat;
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -371,33 +244,22 @@ public:
     @param posy Y position of the object on the map.
     */
     MapObjShot ( ModelShot model, Owner owner, int posx = 0, int posy = 0 ) :
-            MapObject<AbstractMapObj::ModelShot> ( AbstractMapObj::SHOT, model, owner, posx, posy )
+            MapObject<MapObjGeneric::ModelShot>( MapObjGeneric::SHOT, model, owner, posx, posy )
     {
 
     }
-    /** Saves object's data to the stream. */
-    virtual std::ostream& saveObject ( std::ostream& os ) const
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelShot>::saveObject ( os );
-        // populous object must have 55 bytes
-        os.seekp(48, std::ios_base::cur);
-    }
-    /** Loades object's data from the stream. */
-    virtual std::istream& loadObject ( std::istream& is )
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelShot>::loadObject ( is );
-        // populous object must have 55 bytes
-        is.seekg(48, std::ios_base::cur);
-    }
+
+private:
+    // Used to construct object from data structure while loading objects in the MapDat class.
+    MapObjShot(const MapObjData& data) : MapObject<MapObjGeneric::ModelShot>(data) {}
 };
 
 
 /** Represents a general shape on the map. */
-class MapObjShape: public MapObject<AbstractMapObj::ModelShape>
+class MapObjShape: public MapObject<MapObjGeneric::ModelShape>
 {
 public:
+    friend class MapDat;
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -405,33 +267,22 @@ public:
     @param posy Y position of the object on the map.
     */
     MapObjShape ( ModelShape model, Owner owner, int posx = 0, int posy = 0 ) :
-            MapObject<AbstractMapObj::ModelShape> ( AbstractMapObj::SHAPE, model, owner, posx, posy )
+            MapObject<MapObjGeneric::ModelShape>( MapObjGeneric::SHAPE, model, owner, posx, posy )
     {
 
     }
-    /** Saves object's data to the stream. */
-    virtual std::ostream& saveObject ( std::ostream& os ) const
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelShape>::saveObject ( os );
-        // populous object must have 55 bytes
-        os.seekp(48, std::ios_base::cur);
-    }
-    /** Loades object's data from the stream. */
-    virtual std::istream& loadObject ( std::istream& is )
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelShape>::loadObject ( is );
-        // populous object must have 55 bytes
-        is.seekg(48, std::ios_base::cur);
-    }
+
+private:
+    // Used to construct object from data structure while loading objects in the MapDat class.
+    MapObjShape(const MapObjData& data) : MapObject<MapObjGeneric::ModelShape>(data) {}
 };
 
 
 /** Represents game's internal object on the map. */
-class MapObjInternal : public MapObject<AbstractMapObj::ModelInternal>
+class MapObjInternal : public MapObject<MapObjGeneric::ModelInternal>
 {
 public:
+    friend class MapDat;
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -439,33 +290,22 @@ public:
     @param posy Y position of the object on the map.
     */
     MapObjInternal ( ModelInternal model, Owner owner, int posx = 0, int posy = 0 ) :
-            MapObject<AbstractMapObj::ModelInternal> ( AbstractMapObj::INTERNAL, model, owner, posx, posy )
+            MapObject<MapObjGeneric::ModelInternal>( MapObjGeneric::INTERNAL, model, owner, posx, posy )
     {
 
     }
-    /** Saves object's data to the stream. */
-    virtual std::ostream& saveObject ( std::ostream& os ) const
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelInternal>::saveObject ( os );
-        // populous object must have 55 bytes
-        os.seekp(48, std::ios_base::cur);
-    }
-    /** Loades object's data from the stream. */
-    virtual std::istream& loadObject ( std::istream& is )
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelInternal>::loadObject ( is );
-        // populous object must have 55 bytes
-        is.seekg(48, std::ios_base::cur);
-    }
+
+private:
+    // Used to construct object from data structure while loading objects in the MapDat class.
+    MapObjInternal(const MapObjData& data) : MapObject<MapObjGeneric::ModelInternal>(data) {}
 };
 
 
 /** Represents a spell object on the map. */
-class MapObjSpell : public MapObject<AbstractMapObj::ModelSpell>
+class MapObjSpell : public MapObject<MapObjGeneric::ModelSpell>
 {
 public:
+    friend class MapDat;
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -473,26 +313,14 @@ public:
     @param posy Y position of the object on the map.
     */
     MapObjSpell ( ModelSpell model, Owner owner, int posx = 0, int posy = 0 ) :
-            MapObject<AbstractMapObj::ModelSpell> ( AbstractMapObj::SPELL, model, owner, posx, posy )
+            MapObject<MapObjGeneric::ModelSpell>( MapObjGeneric::SPELL, model, owner, posx, posy )
     {
 
     }
-    /** Saves object's data to the stream. */
-    virtual std::ostream& saveObject ( std::ostream& os ) const
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelSpell>::saveObject ( os );
-        // populous object must have 55 bytes
-        os.seekp(48, std::ios_base::cur);
-    }
-    /** Loades object's data from the stream. */
-    virtual std::istream& loadObject ( std::istream& is )
-    {
-        // 7 bytes of object's properties
-        MapObject<AbstractMapObj::ModelSpell>::loadObject ( is );
-        // populous object must have 55 bytes
-        is.seekg(48, std::ios_base::cur);
-    }
+
+private:
+    // Used to construct object from data structure while loading objects in the MapDat class.
+    MapObjSpell(const MapObjData& data) : MapObject<MapObjGeneric::ModelSpell>(data) {}
 };
 
 } // namespace poplib

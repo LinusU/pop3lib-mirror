@@ -23,6 +23,9 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 
 #include "MapDat.h"
 #include "MapLand.h"
+#include "MapObject.h"
+#include "MapObjTrigger.h"
+#include "MapObjDiscovery.h"
 
 namespace poplib
 {
@@ -82,8 +85,9 @@ void MapDat::loadMapDat ( const std::string& fileName )
     fin.open ( fileName.c_str(), std::ios_base::in | std::ios_base::binary );
     if ( fin.is_open() )
     {
-        fin >> ( *mland );
-        // TODO loading objects from the file
+        fin >> ( *mland ); // load map land
+        fin.seekg(0x14043);
+        loadObjects(fin);
     }
 }
 
@@ -94,8 +98,13 @@ void MapDat::saveMapDat ( const std::string& fileName ) const
     if ( fout.is_open() )
     {
         fout << ( *mland );
-        // TODO saving objects to the file
-        // fill with zeros if size is under 192 137 bytes
+        // TODO fill with zeros until objects section?
+        fout.seekp(0x14045);
+        // save objects
+        objList::const_iterator it;
+        for (it = mobjects->begin(); it != mobjects->end(); ++it)
+            fout << (**it);
+        // fill with zeros if size of the file is under 192 137 bytes
         int zerosSize = 192137 - fout.tellp();
         if (zerosSize > 0)
         {
@@ -148,6 +157,62 @@ void MapDat::setObjects ( MapDat::objList* objects )
     delete mobjects;
 
     mobjects = objects;
+}
+
+std::istream& MapDat::loadObjects(std::istream& is)
+{
+    MapObjGeneric* obj;
+    for (int i = 0; i < 2000; ++i)
+    {
+        MapObjGeneric::MapObjData objData;
+        is.read(reinterpret_cast<char *>(&objData), 55);
+        switch (objData.type)
+        {
+        case MapObjGeneric::FOLLOWER:
+            obj = new MapObjFollower(objData);
+            break;
+        case MapObjGeneric::BUILDING:
+            obj = new MapObjBuilding(objData);
+            break;
+        case MapObjGeneric::CREATURE:
+            obj = new MapObjCreature(objData);
+            break;
+        case MapObjGeneric::VEHICLE:
+            obj = new MapObjVehicle(objData);
+            break;
+        case MapObjGeneric::SCENERY:
+            obj = new MapObjScenery(objData);
+            break;
+        case MapObjGeneric::GENERAL:
+            if (objData.model == MapObjGeneric::TRIGGER)
+                obj = new MapObjTrigger(objData);
+            else if (objData.model == MapObjGeneric::DISCOVERY)
+                obj = new MapObjDiscovery(objData);
+            else
+                obj = new MapObjGeneral(objData);
+            break;
+        case MapObjGeneric::EFFECT:
+            obj = new MapObjEffect(objData);
+            break;
+        case MapObjGeneric::SHOT:
+            obj = new MapObjShot(objData);
+            break;
+        case MapObjGeneric::SHAPE:
+            obj = new MapObjShape(objData);
+            break;
+        case MapObjGeneric::INTERNAL:
+            obj = new MapObjInternal(objData);
+            break;
+        case MapObjGeneric::SPELL:
+            obj = new MapObjSpell(objData);
+            break;
+        default:
+            return is;
+        }
+        mobjects->push_back(obj);
+    }
+
+    return is;
 }
 
 void MapDat::cleanObjects()
