@@ -22,16 +22,17 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 
 #include <list>
 
-#include "AbstractMapObj.h"
 #include "MapLand.h"
 
 namespace poplib
 {
+  class MapObjGeneric;
+  
 /** Represents file mapName.dat. Loads / saves map land and objects on the map. */
 class MapDat
 {
 public:
-    typedef std::list<AbstractMapObj *> objList;
+    typedef std::list<MapObjGeneric *> objList;
     /** Constructor. */
     MapDat();
     /** Constructor. Loades map land and objects from the file.  */
@@ -66,6 +67,7 @@ private:
     MapLand* mland;
 
     void copy(const MapDat& map);
+    std::istream& loadObjects(std::istream& is);
     void cleanObjects();
 };
 

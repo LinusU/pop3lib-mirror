@@ -19,3 +19,9 @@ set(mappackTest_SRCS
 
 add_executable(mappackTest ${mappackTest_SRCS})
 target_link_libraries(mappackTest poplib)
+
+set(objetcsTest_SRCS
+	objectsTest.cpp)
+
+add_executable(objectsTest ${objetcsTest_SRCS})
+target_link_libraries(objectsTest poplib)

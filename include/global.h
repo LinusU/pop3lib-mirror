@@ -33,9 +33,12 @@ namespace poplib
 #endif
 
 // platform dependend unit size declarations
-typedef unsigned char BYTE;
-typedef unsigned short WORD;
-typedef unsigned int DWORD;
+typedef unsigned char UBYTE;
+typedef signed char SBYTE;
+typedef unsigned short UWORD;
+typedef signed short SWORD;
+typedef unsigned int UDWORD;
+typedef signed int SDWORD;
 
 } // namespace poplib
 

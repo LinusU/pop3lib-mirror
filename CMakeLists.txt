@@ -11,8 +11,6 @@ set(poplib_SRCS
 	src/MapDat.cpp
 	src/MapHeader.cpp
 	src/Map.cpp
-	src/MapObjDiscovery.cpp
-	src/MapObjTrigger.cpp
 	src/MapLand.cpp
 	src/Ip.cpp
 	src/PopGame.cpp
