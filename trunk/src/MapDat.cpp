@@ -23,7 +23,6 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 
 #include "MapDat.h"
 #include "MapLand.h"
-#include "MapObject.h"
 #include "MapObjTrigger.h"
 #include "MapObjDiscovery.h"
 
@@ -48,9 +47,10 @@ void MapDat::copy ( const MapDat& map )
     mland = new MapLand ( *map.mland );
     // assign memory for objects and copy them
     mobjects = new objList();
+    MapObjGeneric* obj = 0;
     objList::iterator it;
     for ( it = map.mobjects->begin(); it != map.mobjects->end(); ++it )
-        mobjects->push_back ( *it );
+        mobjects->push_back ( MapObjGeneric::clone(*it) );
 }
 
 MapDat::MapDat ( const MapDat& map )
@@ -87,7 +87,15 @@ void MapDat::loadMapDat ( const std::string& fileName )
     {
         fin >> ( *mland ); // load map land
         fin.seekg(0x14043);
-        loadObjects(fin);
+        MapObjGeneric* obj;
+        for (int i = 0; i < 2000; ++i)
+        {
+            obj = MapObjGeneric::loadObject(fin);
+            if (obj)
+                mobjects->push_back(obj);
+            else
+                break;
+        }
     }
 }
 
@@ -98,12 +106,12 @@ void MapDat::saveMapDat ( const std::string& fileName ) const
     if ( fout.is_open() )
     {
         fout << ( *mland );
-        // TODO fill with zeros until objects section?
-        fout.seekp(0x14045);
+        // FIXME fill with zeros until objects section?
+        fout.seekp(0x14043);
         // save objects
         objList::const_iterator it;
         for (it = mobjects->begin(); it != mobjects->end(); ++it)
-            fout << (**it);
+            MapObjGeneric::saveObject(*it, fout);
         // fill with zeros if size of the file is under 192 137 bytes
         int zerosSize = 192137 - fout.tellp();
         if (zerosSize > 0)
@@ -125,7 +133,7 @@ std::ostream& MapDat::saveMapDatCompactForm ( std::ostream& os ) const
     // save objects
     objList::iterator it;
     for ( it = mobjects->begin(); it != mobjects->end(); ++it )
-        ; // TODO save objects to compact form
+        MapObjGeneric::toCompactForm(*it, os);
 
     return os;
 }
@@ -140,7 +148,9 @@ std::istream& MapDat::loadMapDatCompactForm ( std::istream& is )
     is.read(reinterpret_cast<char *>(&temp), 2);
     // load objects
     for ( unsigned int i = 0; i < temp; ++i )
-        ; // TODO load objects from compact form
+    {
+        mobjects->push_back(MapObjGeneric::fromCompactForm(is));
+    }
 
     return is;
 }
@@ -157,62 +167,6 @@ void MapDat::setObjects ( MapDat::objList* objects )
     delete mobjects;
 
     mobjects = objects;
-}
-
-std::istream& MapDat::loadObjects(std::istream& is)
-{
-    MapObjGeneric* obj;
-    for (int i = 0; i < 2000; ++i)
-    {
-        MapObjGeneric::MapObjData objData;
-        is.read(reinterpret_cast<char *>(&objData), 55);
-        switch (objData.type)
-        {
-        case MapObjGeneric::FOLLOWER:
-            obj = new MapObjFollower(objData);
-            break;
-        case MapObjGeneric::BUILDING:
-            obj = new MapObjBuilding(objData);
-            break;
-        case MapObjGeneric::CREATURE:
-            obj = new MapObjCreature(objData);
-            break;
-        case MapObjGeneric::VEHICLE:
-            obj = new MapObjVehicle(objData);
-            break;
-        case MapObjGeneric::SCENERY:
-            obj = new MapObjScenery(objData);
-            break;
-        case MapObjGeneric::GENERAL:
-            if (objData.model == MapObjGeneric::TRIGGER)
-                obj = new MapObjTrigger(objData);
-            else if (objData.model == MapObjGeneric::DISCOVERY)
-                obj = new MapObjDiscovery(objData);
-            else
-                obj = new MapObjGeneral(objData);
-            break;
-        case MapObjGeneric::EFFECT:
-            obj = new MapObjEffect(objData);
-            break;
-        case MapObjGeneric::SHOT:
-            obj = new MapObjShot(objData);
-            break;
-        case MapObjGeneric::SHAPE:
-            obj = new MapObjShape(objData);
-            break;
-        case MapObjGeneric::INTERNAL:
-            obj = new MapObjInternal(objData);
-            break;
-        case MapObjGeneric::SPELL:
-            obj = new MapObjSpell(objData);
-            break;
-        default:
-            return is;
-        }
-        mobjects->push_back(obj);
-    }
-
-    return is;
 }
 
 void MapDat::cleanObjects()

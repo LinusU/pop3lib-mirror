@@ -31,36 +31,31 @@ template <typename T>
 class MapObject : public MapObjGeneric
 {
 public:
-    /** Default constructor.*/
-    MapObject() {}
     /** Generic constructor. */
     MapObject(Type type, T model, Owner owner, int posx, int posy) :
-            MapObjGeneric(type, model, owner, posx, posy) {
-    }
+            MapObjGeneric(type, model, owner, posx, posy) {}
     /** Constructor for building objects. */
     MapObject(ModelBuilding model, Owner owner, int posx, int posy, long angle) :
-            MapObjGeneric(model, owner, posx, posy, angle) {
-    }
+            MapObjGeneric(model, owner, posx, posy, angle) {}
     /** Constructor for scenery objects. */
     MapObject(ModelScenery model, Owner owner, int posx, int posy, int angle) :
-            MapObjGeneric(model, owner, posx, posy, angle) {
-    }
+            MapObjGeneric(model, owner, posx, posy, angle) {}
     /** Constructor for discovery objects. */
     MapObject(Owner owner, int posx, int posy, DiscoveryAvailabilityType discType) :
-            MapObjGeneric(owner, posx, posy, discType) {
-    }
+            MapObjGeneric(owner, posx, posy, discType) {}
     /** Constructor for trigger objects. */
     MapObject(Owner owner, int posx, int posy, TriggerType trigType) :
-            MapObjGeneric(owner, posx, posy, trigType) {
-    }
+            MapObjGeneric(owner, posx, posy, trigType) {}
     /** Destructor. **/
     virtual ~MapObject() {}
     /** Returns the model of the object. */
-    virtual T model() const {
+    virtual T model() const
+    {
         return static_cast<T>(mdata.model);
     }
     /** Sets model of the object. */
-    void setModel(T model) {
+    void setModel(T model)
+    {
         mdata.model = static_cast<T>(model);
     }
 
@@ -73,7 +68,8 @@ protected:
 class MapObjFollower : public MapObject<MapObjGeneric::ModelFollower>
 {
 public:
-    friend class MapDat;
+    friend MapObjGeneric* MapObjGeneric::loadObject(std::istream& is);
+    friend MapObjGeneric* MapObjGeneric::fromCompactForm(std::istream& is);
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -96,7 +92,8 @@ private:
 class MapObjBuilding : public MapObject<MapObjGeneric::ModelBuilding>
 {
 public:
-    friend class MapDat;
+    friend MapObjGeneric* MapObjGeneric::loadObject(std::istream& is);
+    friend MapObjGeneric* MapObjGeneric::fromCompactForm(std::istream& is);
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -120,7 +117,8 @@ private:
 class MapObjCreature : public MapObject<MapObjGeneric::ModelCreature>
 {
 public:
-    friend class MapDat;
+    friend MapObjGeneric* MapObjGeneric::loadObject(std::istream& is);
+    friend MapObjGeneric* MapObjGeneric::fromCompactForm(std::istream& is);
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -143,7 +141,8 @@ private:
 class MapObjVehicle : public MapObject<MapObjGeneric::ModelVehicle>
 {
 public:
-    friend class MapDat;
+    friend MapObjGeneric* MapObjGeneric::loadObject(std::istream& is);
+    friend MapObjGeneric* MapObjGeneric::fromCompactForm(std::istream& is);
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -166,7 +165,8 @@ private:
 class MapObjScenery : public MapObject<MapObjGeneric::ModelScenery>
 {
 public:
-    friend class MapDat;
+    friend MapObjGeneric* MapObjGeneric::loadObject(std::istream& is);
+    friend MapObjGeneric* MapObjGeneric::fromCompactForm(std::istream& is);
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -190,7 +190,8 @@ private:
 class MapObjGeneral : public MapObject<MapObjGeneric::ModelGeneral>
 {
 public:
-    friend class MapDat;
+    friend MapObjGeneric* MapObjGeneric::loadObject(std::istream& is);
+    friend MapObjGeneric* MapObjGeneric::fromCompactForm(std::istream& is);
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -213,7 +214,8 @@ private:
 class MapObjEffect : public MapObject<MapObjGeneric::ModelEffect>
 {
 public:
-    friend class MapDat;
+    friend MapObjGeneric* MapObjGeneric::loadObject(std::istream& is);
+    friend MapObjGeneric* MapObjGeneric::fromCompactForm(std::istream& is);
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -236,7 +238,8 @@ private:
 class MapObjShot : public MapObject<MapObjGeneric::ModelShot>
 {
 public:
-    friend class MapDat;
+    friend MapObjGeneric* MapObjGeneric::loadObject(std::istream& is);
+    friend MapObjGeneric* MapObjGeneric::fromCompactForm(std::istream& is);
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -259,7 +262,8 @@ private:
 class MapObjShape: public MapObject<MapObjGeneric::ModelShape>
 {
 public:
-    friend class MapDat;
+    friend MapObjGeneric* MapObjGeneric::loadObject(std::istream& is);
+    friend MapObjGeneric* MapObjGeneric::fromCompactForm(std::istream& is);
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -267,10 +271,7 @@ public:
     @param posy Y position of the object on the map.
     */
     MapObjShape ( ModelShape model, Owner owner, int posx = 0, int posy = 0 ) :
-            MapObject<MapObjGeneric::ModelShape>( MapObjGeneric::SHAPE, model, owner, posx, posy )
-    {
-
-    }
+            MapObject<MapObjGeneric::ModelShape>( MapObjGeneric::SHAPE, model, owner, posx, posy ) {}
 
 private:
     // Used to construct object from data structure while loading objects in the MapDat class.
@@ -282,7 +283,8 @@ private:
 class MapObjInternal : public MapObject<MapObjGeneric::ModelInternal>
 {
 public:
-    friend class MapDat;
+    friend MapObjGeneric* MapObjGeneric::loadObject(std::istream& is);
+    friend MapObjGeneric* MapObjGeneric::fromCompactForm(std::istream& is);
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -290,10 +292,7 @@ public:
     @param posy Y position of the object on the map.
     */
     MapObjInternal ( ModelInternal model, Owner owner, int posx = 0, int posy = 0 ) :
-            MapObject<MapObjGeneric::ModelInternal>( MapObjGeneric::INTERNAL, model, owner, posx, posy )
-    {
-
-    }
+            MapObject<MapObjGeneric::ModelInternal>( MapObjGeneric::INTERNAL, model, owner, posx, posy ) {}
 
 private:
     // Used to construct object from data structure while loading objects in the MapDat class.
@@ -305,7 +304,8 @@ private:
 class MapObjSpell : public MapObject<MapObjGeneric::ModelSpell>
 {
 public:
-    friend class MapDat;
+    friend MapObjGeneric* MapObjGeneric::loadObject(std::istream& is);
+    friend MapObjGeneric* MapObjGeneric::fromCompactForm(std::istream& is);
     /** Constructor.
     @param model Model of the object.
     @param owner What tribe is the owner of this object.
@@ -313,10 +313,7 @@ public:
     @param posy Y position of the object on the map.
     */
     MapObjSpell ( ModelSpell model, Owner owner, int posx = 0, int posy = 0 ) :
-            MapObject<MapObjGeneric::ModelSpell>( MapObjGeneric::SPELL, model, owner, posx, posy )
-    {
-
-    }
+            MapObject<MapObjGeneric::ModelSpell>( MapObjGeneric::SPELL, model, owner, posx, posy ) {}
 
 private:
     // Used to construct object from data structure while loading objects in the MapDat class.

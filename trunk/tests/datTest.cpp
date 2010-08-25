@@ -35,7 +35,7 @@ int main ( int argc, const char* argv[] )
     std::ofstream fout;
     std::ifstream fin;
 
-    MapDat m1, m2;
+    MapDat m1, m2, m3;
     m1.loadMapDat( filePath ); // load map details
     m2 = m1; // test copy operator
     fout.open ( compactFile.c_str(), std::ios_base::out );
@@ -44,11 +44,11 @@ int main ( int argc, const char* argv[] )
     std::cout << "Loaded map has been saved in compact form to the file: " << compactFile << std::endl;
 
     fin.open ( compactFile.c_str(), std::ios_base::in );
-    m2.loadMapDatCompactForm(fin);
+    m3.loadMapDatCompactForm(fin); // load from compact form
     fin.close();
     fout.open ( outTextLand.c_str(), std::ios_base::out );
 
-    MapLand* land = m2.mapLand();
+    MapLand* land = m3.mapLand();
 
     // save land's height to the file
     for ( unsigned int i = 0; i < land->width(); ++i )

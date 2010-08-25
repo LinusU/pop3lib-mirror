@@ -22,6 +22,7 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 
 #include <iostream>
 #include <cstring>
+#include <list>
 
 #include "global.h"
 
@@ -92,68 +93,53 @@ public:
                       SHAMAN_AOD // Gargoyle
                      };
 
-    /** Default constructor. */
-    MapObjGeneric() {}
-    /** Generic constructor. */
-    MapObjGeneric(Type type, UBYTE model, Owner owner, int posx, int posy) :
-            mdata(type, model, owner, posx, posy) {
-    }
-    /** Constructor for building objects. */
-    MapObjGeneric(ModelBuilding model, Owner owner, int posx, int posy, long angle) :
-            mdata(model, owner, posx, posy, angle) {
-    }
-    /** Constructor for scenery objects. */
-    MapObjGeneric(ModelScenery model, Owner owner, int posx, int posy, int angle) :
-            mdata(model, owner, posx, posy, angle) {
-    }
-    /** Constructor for discovery objects. */
-    MapObjGeneric(Owner owner, int posx, int posy, DiscoveryAvailabilityType discType) :
-            mdata(owner, posx, posy, discType) {
-    }
-    /** Constructor for trigger objects. */
-    MapObjGeneric(Owner owner, int posx, int posy, TriggerType trigType) :
-            mdata(owner, posx, posy, trigType) {
-    }
-
     virtual ~MapObjGeneric() {}
     /** Returns type of the object */
-    virtual Type type() const {
+    virtual Type type() const
+    {
         return static_cast<Type>(mdata.type);
     }
     /** Returns tribe who is the owner of the object. */
-    Owner owner() const {
+    Owner owner() const
+    {
         return static_cast<Owner>(mdata.owner);
     }
     /** Set new owner of the object.
     @param own Which tribe is the new owner of an object.
     */
-    void setOwner(Owner owner) {
+    void setOwner(Owner owner)
+    {
         mdata.owner = static_cast<Owner>(owner);
     }
     /** Returns X position of the object on the map. */
-    unsigned int posx() const {
+    char posx() const
+    {
         return mdata.posx;
     }
     /** Returns Y position of the object on the map. */
-    unsigned int posy() const {
+    char posy() const
+    {
         return mdata.posy;
     }
     /** Set new position of the object on the map. */
-    void setPosition ( int posX, int posY ) {
+    void setPosition ( short posX, short posY ) {
         mdata.posx = posX;
         mdata.posy = posY;
     }
     /** Saves object to the stream. */
-    friend std::ostream& operator<<(std::ostream& os, const MapObjGeneric& obj) {
-        os.write(reinterpret_cast<const char *>(&obj.mdata), 55);
+    static std::ostream& saveObject(const MapObjGeneric* obj, std::ostream& os)
+    {
+        os.write(reinterpret_cast<const char *>(&(obj->mdata)), 55);
         return os;
     }
-
-//    /** Loads object from the stream. */
-//     friend std::istream& operator>>(std::istream& is, MapObjGeneric& obj) {
-//         is.read(reinterpret_cast<char *>(&obj.mdata), 55);
-//         return is;
-//     }
+    /** Returns copy of the object. */
+    static MapObjGeneric* clone(const MapObjGeneric* obj);
+    /** Loads object from the stream. */
+    static MapObjGeneric* loadObject(std::istream& is);
+    /** Saves object details using compact form. Suitable for sending data over the internet. */
+    static std::ostream& toCompactForm (const MapObjGeneric* obj, std::ostream& os);
+    /** Loades object details from compact form. */
+    static MapObjGeneric* fromCompactForm(std::istream& is);
 
 protected:
     typedef struct _BuildingData
@@ -247,6 +233,23 @@ protected:
 
     // Used to construct object from data structure while loading objects in the MapDat class.
     MapObjGeneric(const MapObjData& data) : mdata(data) {}
+    // Default constructor.
+    MapObjGeneric() {}
+    // Generic constructor.
+    MapObjGeneric(Type type, UBYTE model, Owner owner, int posx, int posy) :
+            mdata(type, model, owner, posx, posy) {}
+    // Constructor for building objects.
+    MapObjGeneric(ModelBuilding model, Owner owner, int posx, int posy, long angle) :
+            mdata(model, owner, posx, posy, angle) {}
+    // Constructor for scenery objects.
+    MapObjGeneric(ModelScenery model, Owner owner, int posx, int posy, int angle) :
+            mdata(model, owner, posx, posy, angle) {}
+    // Constructor for discovery objects.
+    MapObjGeneric(Owner owner, int posx, int posy, DiscoveryAvailabilityType discType) :
+            mdata(owner, posx, posy, discType) {}
+    // Constructor for trigger objects.
+    MapObjGeneric(Owner owner, int posx, int posy, TriggerType trigType) :
+            mdata(owner, posx, posy, trigType) {}
 
     MapObjData mdata;
 };
