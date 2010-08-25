@@ -28,17 +28,20 @@ namespace poplib
 class MapObjTrigger : public MapObject<MapObjGeneric::ModelGeneral>
 {
 public:
-    friend class MapDat;
+    friend MapObjGeneric* MapObjGeneric::loadObject(std::istream& is);
+    friend MapObjGeneric* MapObjGeneric::fromCompactForm(std::istream& is);
 
     MapObjTrigger(TriggerType trigType, Owner owner, int posx, int posy):
             MapObject<MapObjGeneric::ModelGeneral>(owner, posx, posy, trigType) {}
 
     virtual ~MapObjTrigger() {}
 
-    TriggerType triggerType() const {
+    TriggerType triggerType() const
+    {
         return static_cast<TriggerType>(mdata.trigger.trigType);
     }
-    void setTriggerType(TriggerType trigType) {
+    void setTriggerType(TriggerType trigType)
+    {
         mdata.trigger.trigType = trigType;
     }
 

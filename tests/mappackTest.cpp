@@ -34,6 +34,7 @@ int main ( int argc, const char* argv[] )
     std::string outTextLand = "map_";
 
     m.importFromDirectory ( "Asgard Worlds I" );
+    //m.importFromDirectory ( "The Beginning" );
     maps = m.maps();
     for ( i = 0, it = maps.begin(); it != maps.end(); ++it, ++i )
     {

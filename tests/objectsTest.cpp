@@ -107,9 +107,9 @@ int main ( int argc, const char* argv[] )
         default:
             std::cout << obj->owner();
         }
-        std::cout << "; posx: " << obj->posx() << ", posy: " << obj->posy();
+        std::cout << "; posx: " << static_cast<int>(obj->posx()) << ", posy: " << static_cast<int>(obj->posy());
     }
-    
+
     std::cout << std::endl;
 
     return 0;

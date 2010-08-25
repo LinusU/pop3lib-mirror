@@ -28,17 +28,20 @@ namespace poplib
 class MapObjDiscovery : public MapObject<MapObjGeneric::ModelGeneral>
 {
 public:
-    friend class MapDat;
+    friend MapObjGeneric* MapObjGeneric::loadObject(std::istream& is);
+    friend MapObjGeneric* MapObjGeneric::fromCompactForm(std::istream& is);
 
     MapObjDiscovery ( DiscoveryAvailabilityType discType, Owner owner, int posx = 0, int posy = 0 ) :
             MapObject<MapObjGeneric::ModelGeneral> (owner, posx, posy, discType) {}
 
     virtual ~MapObjDiscovery() {}
 
-    DiscoveryAvailabilityType discoveryType() const {
+    DiscoveryAvailabilityType discoveryType() const
+    {
         return static_cast<DiscoveryAvailabilityType>(mdata.discovery.discType);
     }
-    void setDiscoveryType ( DiscoveryAvailabilityType discType ) {
+    void setDiscoveryType ( DiscoveryAvailabilityType discType )
+    {
         mdata.discovery.discType = discType;
     }
 

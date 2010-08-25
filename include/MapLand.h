@@ -68,11 +68,11 @@ private:
 };
 
 /** Populous map is a 128x128 square. */
-class MapLand : public Matrix<UWORD>
+class MapLand : public Matrix<SWORD>
 {
 public:
     /** Constructor. */
-    MapLand() : Matrix<UWORD> ( 128, 128 ) {}
+    MapLand() : Matrix<SWORD> ( 128, 128 ) {}
     /** Returns the width of the map. */
     unsigned int width() const {
         return mcols;

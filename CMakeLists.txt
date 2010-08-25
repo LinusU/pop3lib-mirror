@@ -8,6 +8,7 @@ set(poplib_SRCS
 	src/StrUtil.cpp
 	src/UTFConversion.cpp
 	src/String16.cpp
+	src/MapObjGeneric.cpp
 	src/MapDat.cpp
 	src/MapHeader.cpp
 	src/Map.cpp

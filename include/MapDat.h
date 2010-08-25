@@ -26,13 +26,13 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 
 namespace poplib
 {
-  class MapObjGeneric;
-  
+class MapObjGeneric;
+
 /** Represents file mapName.dat. Loads / saves map land and objects on the map. */
 class MapDat
 {
 public:
-    typedef std::list<MapObjGeneric *> objList;
+   typedef std::list<MapObjGeneric *> objList;
     /** Constructor. */
     MapDat();
     /** Constructor. Loades map land and objects from the file.  */
@@ -54,11 +54,17 @@ public:
     /** Loades map header details from compact form. */
     std::istream& loadMapDatCompactForm ( std::istream& is );
     /** Returns the land heights. */
-    MapLand* mapLand() { return mland; }
+    MapLand* mapLand()
+    {
+        return mland;
+    }
     /** Sets the land heights for the map.  */
     void setMapLand ( MapLand* land );
     /** Returns list of the objects on the map. */
-    objList* objects() { return mobjects; }
+    objList* objects()
+    {
+        return mobjects;
+    }
     /** Sets new list of the objects on the map.  */
     void setObjects ( objList* objects );
 
