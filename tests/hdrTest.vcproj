@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="hdrTest"
-	ProjectGUID="{F372D72B-B171-4178-877F-B9E3C7DA65B9}"
+	ProjectGUID="{29ED0D46-2494-420F-8C13-230EF4F87F71}"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform

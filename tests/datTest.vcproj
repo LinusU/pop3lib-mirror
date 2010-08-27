@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="datTest"
-	ProjectGUID="{D1963D91-960D-4C1E-AFE2-F55E5E2449FA}"
+	ProjectGUID="{BC1EBBB7-204E-4D18-91E8-6F7C81688A1E}"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
