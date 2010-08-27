@@ -114,12 +114,12 @@ public:
     /** Returns X position of the object on the map. */
     char posx() const
     {
-        return mdata.posx;
+        return static_cast<char>(mdata.posx);
     }
     /** Returns Y position of the object on the map. */
     char posy() const
     {
-        return mdata.posy;
+        return static_cast<char>(mdata.posy);
     }
     /** Set new position of the object on the map. */
     void setPosition ( short posX, short posY ) {
