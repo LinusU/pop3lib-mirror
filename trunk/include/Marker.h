@@ -41,12 +41,16 @@ public:
     {
         os.write ( &obj.x, 1 );
         os.write ( &obj.y, 1 );
+
+		return os;
     }
 
     friend std::istream& operator>> ( std::istream& is, Marker& obj )
     {
         is.read ( reinterpret_cast<char *> ( &obj.x ) , 1 );
         is.read ( reinterpret_cast<char *> ( &obj.y ) , 1 );
+
+		return is;
     }
 };
 
