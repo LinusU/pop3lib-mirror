@@ -127,13 +127,13 @@ Matrix<T>::~Matrix ()
 }
 
 template<typename T>
-T Matrix<T>::operator() ( unsigned int col, unsigned int row ) const
+T Matrix<T>::operator() ( unsigned int row, unsigned int col ) const
 {
     return mdata[col*mrows + row];
 }
 
 template<typename T>
-T& Matrix<T>::operator() ( unsigned int col, unsigned int row )
+T& Matrix<T>::operator() ( unsigned int row, unsigned int col )
 {
      return mdata[col*mrows + row];
 }
