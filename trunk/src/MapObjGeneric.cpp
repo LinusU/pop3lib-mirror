@@ -80,7 +80,8 @@ MapObjGeneric* MapObjGeneric::loadObject(std::istream& is)
 {
     MapObjGeneric* obj = 0;
     MapObjGeneric::MapObjData objData;
-    is.read(reinterpret_cast<char *>(&objData), 55);
+    memset(&objData, 0, sizeof(objData));
+    is.read(reinterpret_cast<char *>(&objData), sizeof(objData));
     switch (objData.type)
     {
     case MapObjGeneric::FOLLOWER:
@@ -186,7 +187,7 @@ MapObjGeneric* MapObjGeneric::fromCompactForm(std::istream& is)
 {
     MapObjGeneric* obj = 0;
     MapObjGeneric::MapObjData objData;
-    std::memset(&objData, 0, sizeof(MapObjGeneric::MapObjData));
+    std::memset(&objData, 0, sizeof(objData));
 
     UBYTE temp = 0;
     is.read(reinterpret_cast<char *>(&temp), 1);

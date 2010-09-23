@@ -20,11 +20,10 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 #ifndef _H_POPLIB_MAP_HEADER__
 #define _H_POPLIB_MAP_HEADER__
 
-#include <bitset>
-#include <list>
+#include <iostream>
 
+#include "global.h"
 #include "bits/mapBits.h"
-#include "Marker.h"
 
 namespace poplib
 {
@@ -38,20 +37,24 @@ public:
     enum Building {HUT = 1, GUARD_TOWER = 3, TEMPLE, SPY_HUT, WARRIOR_HUT, FIREWARRIOR_HUT,
                    BOAT_HOUSE = 13, BALLOON_HUT = 15
                   };
-    enum Property {NO_GUEST_SPELLS = 5, GOD_MODE, FOG_OF_WAR};
+    enum Property {FOG_OF_WAR = 0, GOD_MODE, FORCE_640_x_480, FORGE_WORLD, NO_GUEST_SPELLS };
     enum Tribe {BLUE = 0, RED, YELLOW, GREEN};
+
+#pragma pack(push, 1) /* set alignment to 1 byte boundary */
+    typedef struct _Marker
+    {
+        SBYTE x, y;
+    } Marker;
+#pragma pack(pop) /* restore original alignment from stack */
+
     /** Bit mask enum. */
     typedef _Allies Allies;
-    typedef std::list<Marker> markerList;
     /** Constructor. By default there is no allies, special properties are disabled, spells and buildings
     * are all enabled, all spells are charging at start.
     */
     MapHeader();
     /** Constructor. Loads the header properties from the file. */
     explicit MapHeader ( const std::string& fileName );
-    /** Copy constructor. */
-    MapHeader ( const MapHeader& mapHdr );
-    MapHeader& operator= ( const MapHeader& mapHdr );
     virtual ~MapHeader();
     /** Loades map header details from the file.
     @param fileName Path to the file where header details are stored. File usualy has *.hdr extension.
@@ -61,46 +64,72 @@ public:
     @param fileName Path to the file where header details should be stored. File should have *.hdr extension.
     */
     void saveHeader ( const std::string& fileName ) const;
-    /** Saves map header details using compact form. Suitable for sending maps over the internet. */
+    /** Saves map header details using compact form optimised for being small. It's designed for multiplayer maps 
+    thus it doesn't store some informations about single player mode. */
     virtual std::ostream& saveHeaderCompactForm ( std::ostream& os ) const;
-    /** Loades map header details from compact form. */
+    /** Loades map header details using compact form optimised for being small. It's designed for multiplayer maps 
+    thus it doesn't store some informations about single player mode. */
     virtual std::istream& loadHeaderCompactForm ( std::istream& is );
     /** Returns true if spell is chargin at start. */
-    bool isCharging ( Spell spell ) const { return mspellsNotCharging[spell] == 0; }
+    bool isCharging ( Spell spell ) const { return (mdata.spellsNotCharging & (0x00000001 << spell)) == 0; }
     /** Enables or disables spell charging at start. */
-    void setCharging ( Spell spell, bool enabled ) { mspellsNotCharging[spell] = !enabled; }
+    void setCharging ( Spell spell, bool enabled ) 
+    {
+        if (enabled)
+            mdata.spellsNotCharging |= (0x00000001 << spell);
+        else
+            mdata.spellsNotCharging &= ((0x00000001 << spell) ^ 0xffffffff);
+    }
     /** Enables or disables all spells charging at start. */
     void setAllCharging(bool charge);
     /** Sets allies for the tribe.
     @param ally Bitmask with allies.
     @remarks You can use | operator to provide more allies.
     */
-    void setAlly ( Tribe tribe, Allies ally );
+    void setAlly ( Tribe tribe, Allies ally ) { mdata.allies[tribe] = (mdata.allies[tribe] & 0) | ally; }
     /** Checks if tribe is allied with pointed tribes.
     @param ally Bitmask with allies.
     @remarks You can use | operator to provide more allies.
     */
-    bool isAllied ( Tribe tribe, Allies ally );
+    bool isAllied ( Tribe tribe, Allies ally ) const { return (mdata.allies[tribe] & ally) > 0; }
     /** Reset allies, no tribes will be allied together. */
     void resetAllies();
     /** Sets maximum tribes amount available for this map.
-    @param maxTribes Must be positive and smaller than 5.
+    @param maxTribes Must be positive, bigger than 1 and smaller than 5.
     */
-    void setMaxTribes(int maxTribes) { if(maxTribes > 0 && maxTribes < 5) mmaxTribes = maxTribes; }
+    void setMaxTribes(int maxTribes) { if(maxTribes > 1 && maxTribes < 5) mdata.maxTribes = maxTribes - 1; }
     /** Returns maximum tribes amount available for this map. */
-    int maxTribes() const { return mmaxTribes; }
+    int maxTribes() const { return mdata.maxTribes + 1; }
     /** Enables / Disables spell on the map. */
-    void setEnabled ( Spell spell, bool enabled ) { mspells.set(spell, enabled); }
+    void setEnabled ( Spell spell, bool enabled ) 
+    {
+        if (enabled)
+            mdata.spellsAvailable |= (0x00000001 << spell);
+        else
+            mdata.spellsAvailable &= ((0x00000001 << spell) ^ 0xffffffff);
+    }
     /** Enables / Disables building on the map. */
-    void setEnabled ( Building building, bool enabled ) { mbuildings.set(building, enabled); }
+    void setEnabled ( Building building, bool enabled ) 
+    { 
+        if (enabled)
+            mdata.buildingsAvailable |= (0x00000001 << building);
+        else
+            mdata.buildingsAvailable &= ((0x00000001 << building) ^ 0xffffffff);
+    }
     /** Enables / Disables property on the map. */
-    void setEnabled ( Property property, bool enabled ) { mproperties.set(property, enabled); }
+    void setEnabled ( Property property, bool enabled ) 
+    { 
+        if (enabled)
+            mdata.properties |= (0x00000001 << property);
+        else
+            mdata.properties &= ((0x00000001 << property) ^ 0xffffffff);
+    }
     /** Returns true if spell is enabled. */
-    bool isEnabled ( Spell spell ) { return mspells.test(spell); }
+    bool isEnabled ( Spell spell ) const { return (mdata.spellsAvailable & (0x00000001 << spell)) > 0; }
     /** Returns true if building is enabled. */
-    bool isEnabled ( Building building ) { return mbuildings.test(building); }
+    bool isEnabled ( Building building ) const { return (mdata.buildingsAvailable & (0x00000001 << building)) > 0; }
     /** Returns true if property is enabled. */
-    bool isEnabled ( Property property ) { return  mproperties.test(property); }
+    bool isEnabled ( Property property ) const { return (mdata.properties & (0x00000001 << property)) > 0; }
     /** Enables / Disables all spells. */
     void setEnabledAllSpells(bool enabled);
     /** Enables / Disables all buildings. */
@@ -113,27 +142,40 @@ public:
     void setStandardSpells();
     /** Restrictions common for multiplayer games. Enabled buildings: hut, guard tower, warrior hut, firewarrior hut. */
     void setStandardBuildings();
-    /** Returns list of the markers on the map. Map usualy contain 256 markers and their are used
+    /** Returns list of the markers on the map. Map always contains exactly 256 markers and their are used
     by AI scripts. */
-    markerList* markers() { return mmarkers; }
-    // TODO add methods, enums for landscape, tree style and markers
+    Marker* markers() { return mdata.markers; }
+    // TODO add more methods
 
 private:
-    static const int TRIBES = 4; // max tribes
 
-    std::bitset<24> mspells;
-    std::bitset<16> mbuildings;
-    std::bitset<24> mspellsNotCharging;
-    std::bitset<8> mproperties;
-    std::bitset<8> mallies[TRIBES];
-    char maiScripts[TRIBES - 1];
-    int mlandscape;
-    int mtreeStyle;
-    char mmaxTribes; 
-    markerList* mmarkers;
+#pragma pack(push, 1) /* set alignment to 1 byte boundary */
+    typedef struct _HeaderData
+    {
+        UDWORD spellsAvailable;
+        UDWORD buildingsAvailable;
+        UDWORD buildingsAvailableLevel; // TODO what's this?
+        UDWORD buildingsAvailableOnce; // buildings which can be build once
+        UDWORD spellsNotCharging; // spells which are not charging at the beginning of the game
+        UBYTE spellsAvailableOnce[32]; // spells which can be used once
+        UWORD vehicles; // types of vehicles available to the player, TODO how to use it?
+        UBYTE disableTrainingMana; // TODO what's this?
+        UBYTE flags; //unused
+        char levelName[32];
+        UBYTE maxTribes; // how many tribes are on the map, 0 - one tribe, 1 - two tribes ...
+        UBYTE AIscriptIndex[3]; // indexes are in order for red, yellow and green
+        UBYTE allies[4]; // teams in single player mode
+        UBYTE landscape; // grass, snow etc.
+        UBYTE treeStyle; // type of trees
+        UBYTE properties; // available in single player mode
+        UBYTE padding[1];
+        Marker markers[256]; // markers are points (x, y) used in the AI scripts
+        SBYTE startCameraX, startCameraY; // (x, y) position of the camera at the beginning of the game
+        UWORD startCameraAngle;
+    } HeaderData;
+#pragma pack(pop) /* restore original alignment from stack */
 
-    void copy ( const MapHeader& mapHdr );
-    void defaultValues();
+    HeaderData mdata;
 };
 
 } // namespace poplib

@@ -32,7 +32,7 @@ namespace poplib
 #	define PLATFORM_LINUX
 #endif
 
-// platform dependend unit size declarations
+// platform dependent unit size declarations
 typedef unsigned char UBYTE;
 typedef signed char SBYTE;
 typedef unsigned short UWORD;

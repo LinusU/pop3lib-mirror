@@ -129,7 +129,7 @@ public:
     /** Saves object to the stream. */
     static std::ostream& saveObject(const MapObjGeneric* obj, std::ostream& os)
     {
-        os.write(reinterpret_cast<const char *>(&(obj->mdata)), 55);
+        os.write(reinterpret_cast<const char *>(&(obj->mdata)), sizeof(obj->mdata));
         return os;
     }
     /** Returns copy of the object. */
@@ -142,6 +142,9 @@ public:
     static MapObjGeneric* fromCompactForm(std::istream& is);
 
 protected:
+
+#pragma pack(push, 1) /* set alignment to 1 byte boundary */
+
     typedef struct _BuildingData
     {
         SDWORD angle;
@@ -230,6 +233,8 @@ protected:
             trigger.trigType = _trigType;
         }
     } MapObjData;
+
+#pragma pack(pop) /* restore original alignment from stack */
 
     // Used to construct object from data structure while loading objects in the MapDat class.
     MapObjGeneric(const MapObjData& data) : mdata(data) {}
