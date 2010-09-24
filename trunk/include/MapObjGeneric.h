@@ -187,6 +187,7 @@ protected:
         UBYTE model,
         type;
         SBYTE owner;
+        UBYTE padding;
         SWORD posx,
         posy;
         union
@@ -195,41 +196,41 @@ protected:
             SceneryData scenery;
             DiscoveryData discovery;
             TriggerData trigger;
-            UBYTE gap[48]; // each object must have exactly 55 bytes
+            UBYTE gap[47]; // each object must have exactly 55 bytes
         };
 
         // default constructor
         _MapObjData() :
                 model(BALLOON), type(VEHICLE), owner(NEUTRAL), posx(0), posy(0) {
-            std::memset(gap, 0, sizeof(gap));
+            memset(gap, 0, sizeof(gap));
         }
         // generic constructor
         _MapObjData(Type _type, UBYTE _model, Owner _owner, int _posx, int _posy) :
                 model(_model), type(_type), owner(_owner), posx(_posx), posy(_posy) {
-            std::memset(gap, 0, sizeof(gap));
+            memset(gap, 0, sizeof(gap));
         }
         // constructor for building objects
         _MapObjData (ModelBuilding _model, Owner _owner, int _posx, int _posy, long _angle) :
                 model(_model), type(BUILDING), owner(_owner), posx(_posx), posy(_posy) {
-            std::memset(gap, 0, sizeof(gap));
+            memset(gap, 0, sizeof(gap));
             building.angle = _angle;
         }
         // constructor for scenery objects
         _MapObjData (ModelScenery _model, Owner _owner, int _posx, int _posy, int _angle) :
                 model(_model), type(SCENERY), owner(_owner), posx(_posx), posy(_posy) {
-            std::memset(gap, 0, sizeof(gap));
+            memset(gap, 0, sizeof(gap));
             scenery.angle = _angle;
         }
         // constructor for discovery objects
         _MapObjData (Owner _owner, int _posx, int _posy, DiscoveryAvailabilityType discType) :
                 model(DISCOVERY), type(GENERAL), owner(_owner), posx(_posx), posy(_posy) {
-            std::memset(gap, 0, sizeof(gap));
+            memset(gap, 0, sizeof(gap));
             discovery.discType = discType;
         }
         // constructor for trigger objects
         _MapObjData(Owner _owner, int _posx, int _posy, TriggerType _trigType) :
                 model(TRIGGER), type(GENERAL), owner(_owner), posx(_posx), posy(_posy) {
-            std::memset(gap, 0, sizeof(gap));
+            memset(gap, 0, sizeof(gap));
             trigger.trigType = _trigType;
         }
     } MapObjData;

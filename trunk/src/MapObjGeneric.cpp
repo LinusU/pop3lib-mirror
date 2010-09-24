@@ -187,7 +187,7 @@ MapObjGeneric* MapObjGeneric::fromCompactForm(std::istream& is)
 {
     MapObjGeneric* obj = 0;
     MapObjGeneric::MapObjData objData;
-    std::memset(&objData, 0, sizeof(objData));
+    memset(&objData, 0, sizeof(objData));
 
     UBYTE temp = 0;
     is.read(reinterpret_cast<char *>(&temp), 1);
