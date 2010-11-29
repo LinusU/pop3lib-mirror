@@ -117,7 +117,7 @@ void MapDat::saveMapDat ( const std::string& fileName ) const
         if (zerosSize > 0)
         {
             char* zeros = new char[zerosSize];
-            std::memset(zeros, 0, zerosSize);
+            memset(zeros, 0, zerosSize);
             fout.write ( zeros , zerosSize );
             delete[] zeros;
         }

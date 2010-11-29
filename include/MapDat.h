@@ -54,14 +54,14 @@ public:
     /** Loades map header details from compact form. */
     std::istream& loadMapDatCompactForm ( std::istream& is );
     /** Returns the land heights. */
-    MapLand* mapLand()
+    MapLand* mapLand() const
     {
         return mland;
     }
     /** Sets the land heights for the map.  */
     void setMapLand ( MapLand* land );
     /** Returns list of the objects on the map. */
-    objList* objects()
+    objList* objects() const
     {
         return mobjects;
     }
