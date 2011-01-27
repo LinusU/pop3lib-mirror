@@ -99,6 +99,11 @@ public:
     {
         return static_cast<Type>(mdata.type);
     }
+    /** Returns number representation of the model */
+    unsigned int rawModel() const
+    {
+        return mdata.model;
+    }
     /** Returns tribe who is the owner of the object. */
     Owner owner() const
     {
@@ -122,7 +127,8 @@ public:
         return static_cast<char>(mdata.posy);
     }
     /** Set new position of the object on the map. */
-    void setPosition ( short posX, short posY ) {
+    void setPosition ( short posX, short posY )
+    {
         mdata.posx = posX;
         mdata.posy = posY;
     }
@@ -188,15 +194,17 @@ protected:
         type;
         SBYTE owner;
         UBYTE padding;
-        SWORD posx,
-        posy;
+        SBYTE posx;
+        UBYTE padding2;
+        SBYTE posy;
+        // SWORD posx, posy;
         union
         {
             BuildingData building;
             SceneryData scenery;
             DiscoveryData discovery;
             TriggerData trigger;
-            UBYTE gap[47]; // each object must have exactly 55 bytes
+            UBYTE gap[48]; // each object must have exactly 55 bytes
         };
 
         // default constructor
