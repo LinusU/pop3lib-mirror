@@ -113,7 +113,7 @@ void MapDat::saveMapDat ( const std::string& fileName ) const
         for (it = mobjects->begin(); it != mobjects->end(); ++it)
             MapObjGeneric::saveObject(*it, fout);
         // fill with zeros if size of the file is under 192 137 bytes
-        int zerosSize = 192137 - fout.tellp();
+        int zerosSize = static_cast<int>(192137 - fout.tellp());
         if (zerosSize > 0)
         {
             char* zeros = new char[zerosSize];

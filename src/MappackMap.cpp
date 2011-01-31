@@ -43,8 +43,8 @@ MappackMap::MappackMap ( const std::string& directory, const std::string& mapNam
 
 }
 
-MappackMap::MappackMap ( const MappackMap& map ) : mpossTeams(map.mpossTeams.to_ulong()),
-        mdefTeams(map.mdefTeams.to_ulong()), mname(map.mname), mdescr(map.mdescr)
+MappackMap::MappackMap ( const MappackMap& map ) : mpossTeams(static_cast<int>(map.mpossTeams.to_ulong())),
+        mdefTeams(static_cast<int>(map.mdefTeams.to_ulong())), mname(map.mname), mdescr(map.mdescr)
 {
     copyAuthors(map);
 }
@@ -97,7 +97,7 @@ void MappackMap::loadMappack(const std::string& fileName)
 
 void MappackMap::setPossibleTeams(poplib::MappackMap::Teams teams, bool enabled)
 {
-    std::bitset<8> bteams(static_cast<unsigned long>(teams)); // bitmask representation of teams
+    std::bitset<8> bteams(static_cast<int>(teams)); // bitmask representation of teams
     if (enabled)
     {
         mpossTeams |= bteams;
@@ -111,7 +111,7 @@ void MappackMap::setPossibleTeams(poplib::MappackMap::Teams teams, bool enabled)
 
 bool MappackMap::isPossibleTeam(Teams team) const
 {
-    std::bitset<8> bteam(static_cast<unsigned long>(team)); // bitmask representation of teams
+    std::bitset<8> bteam(static_cast<int>(team)); // bitmask representation of teams
     std::bitset<8> temp = mpossTeams; // make copy of the original teams
     temp &= bteam;
     return temp.any();
@@ -119,7 +119,7 @@ bool MappackMap::isPossibleTeam(Teams team) const
 
 void MappackMap::setDefaultTeams(poplib::MappackMap::Teams teams, bool enabled)
 {
-    std::bitset<8> bteams(static_cast<unsigned long>(teams)); // bitmask representation of teams
+    std::bitset<8> bteams(static_cast<int>(teams)); // bitmask representation of teams
     if (enabled)
     {
         mdefTeams |= bteams;
@@ -133,7 +133,7 @@ void MappackMap::setDefaultTeams(poplib::MappackMap::Teams teams, bool enabled)
 
 bool MappackMap::isDefaultTeam(Teams team) const
 {
-    std::bitset<8> teams(static_cast<unsigned long>(team)); // bitmask representation of teams
+    std::bitset<8> teams(static_cast<int>(team)); // bitmask representation of teams
     std::bitset<8> temp = mdefTeams; // make copy of the original teams
     temp &= teams;
     return temp.any();
@@ -188,10 +188,10 @@ std::istream& operator>>(std::istream& is, MappackMap& obj)
 
     unsigned int temp = 0;
     is.read(reinterpret_cast<char *>(&temp), 1);
-    obj.mpossTeams = std::bitset<8>(temp);
+    obj.mpossTeams = std::bitset<8>(static_cast<int>(temp));
     temp = 0;
     is.read(reinterpret_cast<char *>(&temp), 1);
-    obj.mdefTeams = std::bitset<8>(temp);
+    obj.mdefTeams = std::bitset<8>(static_cast<int>(temp));
     is.read(reinterpret_cast<char *>(&obj.mstatus), 1);
 
     is >> obj.mname >> obj.mdescr;
