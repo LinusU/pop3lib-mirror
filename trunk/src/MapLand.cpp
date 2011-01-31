@@ -141,7 +141,7 @@ std::istream& MapLand::fromCompactForm ( std::istream& is )
         {
             temp = 0;
             is.read(reinterpret_cast<char *>(&temp), 1);
-            landBits[i] = std::bitset<8>(temp);
+            landBits[i] = std::bitset<8>(static_cast<int>(temp));
         }
     }
     // load land

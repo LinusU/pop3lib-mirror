@@ -92,7 +92,7 @@ std::istream& operator>>(std::istream& is, String16& obj)
     // TODO storing string16 data using utf-8 encoding - it's usualy shorter
     delete[] obj.mdata;
 
-    int pos = is.tellg();
+    int pos = static_cast<int>(is.tellg());
     obj.msize = 0;
     UTF16 c;
     while (true)
