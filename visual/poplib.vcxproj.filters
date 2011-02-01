@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\src\StrUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UTFConversion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\String16.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MapObjGeneric.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MapDat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MapHeader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MapLand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Ip.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PopGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MappackMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Mappack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\systemUtils\Dir.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\systemUtils\File.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{E0F08180-23D5-42F5-AF88-6F29901B635E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\StrUtil.cpp">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\src\UTFConversion.cpp">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\src\String16.cpp">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\src\MapObjGeneric.cpp">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\src\MapDat.cpp">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\src\MapHeader.cpp">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\src\Map.cpp">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\src\MapLand.cpp">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\src\Ip.cpp">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\src\PopGame.cpp">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\src\MappackMap.cpp">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\src\Mappack.cpp">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\src\systemUtils\Dir.cpp">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\src\systemUtils\File.cpp">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>
