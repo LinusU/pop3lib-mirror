@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 2.6)
 project(poplib)
 
 include_directories(${CMAKE_HOME_DIRECTORY}/include)
-include_directories(${CMAKE_HOME_DIRECTORY}/include/dmkp)
 
 set(poplib_SRCS
 	src/StrUtil.cpp
