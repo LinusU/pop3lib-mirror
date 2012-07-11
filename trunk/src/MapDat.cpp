@@ -47,7 +47,6 @@ void MapDat::copy ( const MapDat& map )
     mland = new MapLand ( *map.mland );
     // assign memory for objects and copy them
     mobjects = new objList();
-    MapObjGeneric* obj = 0;
     objList::iterator it;
     for ( it = map.mobjects->begin(); it != map.mobjects->end(); ++it )
         mobjects->push_back ( MapObjGeneric::clone(*it) );
@@ -86,7 +85,7 @@ void MapDat::loadMapDat ( const std::string& fileName )
     if ( fin.is_open() )
     {
         fin >> ( *mland ); // load map land
-        fin.seekg(0x14043);
+        fin.seekg(0x14043); // offset for objects
         MapObjGeneric* obj;
         for (int i = 0; i < 2000; ++i)
         {

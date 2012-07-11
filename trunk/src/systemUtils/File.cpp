@@ -30,13 +30,9 @@ std::string File::path(const std::string& directory, const std::string& fileName
 {
     std::string filePath = directory;
     char lastChar = directory.at ( directory.length() - 1 );
-    if ( lastChar != '/' && lastChar != '\\' )
+    if ( lastChar != dirSep )
     {
-#if defined(PLATFORM_WIN32)
         filePath += dirSep;
-#elif defined(PLATFORM_LINUX)
-        filePath += dirSep;
-#endif
     }
 
     return filePath + fileName;
@@ -89,12 +85,13 @@ bool File::fileExists(const std::string& filePath)
 int File::extPos(const std::string& str)
 {
     char c;
-    for (unsigned int i = str.size() - 1; i >= 0; --i)
+    int size = static_cast<int>(str.size());
+    for (int i = size - 1; i >= 0; --i)
     {
         c = str.at(i);
         if (c == '.')
         {
-            if (i > 0 && i < str.size() - 1)
+            if (i > 0 && i < size - 1)
                 return i;
             else
                 return 0;

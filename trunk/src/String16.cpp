@@ -33,7 +33,7 @@ String16::String16()
 
 String16::String16(const UTF32* str)
 {
-    // TODO string16 constructing from UTF16
+    // TODO string16 constructing from UTF32
 }
 
 String16::String16(const UTF16* str)
