@@ -88,7 +88,7 @@ public:
 };
 
 template<typename T>
-Matrix<T>::Matrix ( unsigned int cols, unsigned int rows ): mcols(cols), mrows(rows)
+Matrix<T>::Matrix ( unsigned int cols, unsigned int rows ): mrows(rows), mcols(cols)
 {
     mdata = new T[cols * rows];
 }
@@ -101,7 +101,7 @@ void Matrix<T>::copy ( const Matrix<T>& map )
 }
 
 template<typename T>
-Matrix<T>::Matrix ( const Matrix<T>& map ): mcols(map.mcols), mrows(map.mrows)
+Matrix<T>::Matrix ( const Matrix<T>& map ): mrows(map.mrows), mcols(map.mcols)
 {
     copy ( map );
 }

@@ -24,27 +24,27 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 namespace poplib
 {
 
-MappackMap::MappackMap(): mstatus(ALPHA), mpossTeams(std::string("11111111")),
-        mdefTeams(std::string("11111111"))
+MappackMap::MappackMap(): mpossTeams(std::string("11111111")), mdefTeams(std::string("11111111")),
+    mstatus(ALPHA)
 {
 
 }
 
-MappackMap::MappackMap(const std::string& filename):  mstatus(ALPHA), mpossTeams(std::string("11111111")),
-        mdefTeams(std::string("11111111"))
+MappackMap::MappackMap(const std::string& filename):  mpossTeams(std::string("11111111")), mdefTeams(std::string("11111111")),
+    mstatus(ALPHA)
 {
     loadMappack(filename);
 }
 
 MappackMap::MappackMap ( const std::string& directory, const std::string& mapName ) :
-        Map(directory, mapName), mstatus(ALPHA), mpossTeams(std::string("11111111")),
-        mdefTeams(std::string("11111111"))
+        Map(directory, mapName), mpossTeams(std::string("11111111")),
+        mdefTeams(std::string("11111111")), mstatus(ALPHA)
 {
 
 }
 
-MappackMap::MappackMap ( const MappackMap& map ) : mpossTeams(static_cast<int>(map.mpossTeams.to_ulong())),
-        mdefTeams(static_cast<int>(map.mdefTeams.to_ulong())), mname(map.mname), mdescr(map.mdescr)
+MappackMap::MappackMap ( const MappackMap& map ) : Map(), mpossTeams(static_cast<int>(map.mpossTeams.to_ulong())),
+        mdefTeams(static_cast<int>(map.mdefTeams.to_ulong())), mname(map.mname), mdescr(map.mdescr), mstatus(map.mstatus)
 {
     copyAuthors(map);
 }
