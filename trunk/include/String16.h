@@ -33,9 +33,11 @@ class String16
 {
 public:
     String16();
+    /** Constructs object from a block of the data, encoded using start ANSI string representation. Makes a deep copy of data. */
+    String16(const char * str);
     /** Not implemented yet. */
     String16(const UTF32* str);
-    /** Constructs object from block of data encoded with UTF-16 and terminated by null character. */
+    /** Constructs object from a block of the data, encoded with UTF-16 and terminated by null character. Makes a deep copy of data. */
     String16(const UTF16* str);
     /** Not implemented yet. */
     String16(const UTF8* str);

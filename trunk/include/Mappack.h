@@ -46,6 +46,14 @@ public:
 
     void addMap(MappackMap* map) { mmaps.push_back(map); }
     void removeMap(MappackMap* map);
+    /**
+     * Returns number of maps in this mappack
+     */
+    unsigned int count() const;
+    /**
+     * Returns the most popular status of maps in this mappack;
+     */
+    MappackMap::Status status() const;
     std::list<MappackMap *> maps() const { return mmaps; }
 
     String16 name() const { return mname; }

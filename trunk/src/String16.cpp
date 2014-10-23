@@ -31,6 +31,22 @@ String16::String16()
     msize = 2;
 }
 
+String16::String16(const char * str)
+{
+    int len = strlen(str);
+    msize = (len + 1)*sizeof(UTF16);
+    mdata = new UTF16[len + 1];
+    
+    // deep copy of the data
+    for(int i = 0; i < len; ++i)
+    {
+        mdata[i] = str[i];
+    }
+    
+    // null termination character
+    mdata[len] = 0;
+}
+
 String16::String16(const UTF32* str)
 {
     // TODO string16 constructing from UTF32

@@ -18,6 +18,7 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <fstream>
+#include <map>
 
 #include "Mappack.h"
 #include "systemUtils/Dir.h"
@@ -83,8 +84,8 @@ void Mappack::loadFromFile ( const std::string& fileName )
 
 void Mappack::importFromDirectory ( const std::string& dir )
 {
-	if(mmaps.size() > 0)
-		mmaps.clear();
+    if(mmaps.size() > 0)
+        mmaps.clear();
 
     std::list<std::string> files = Dir::listFiles ( dir );
     MappackMap* m;
@@ -157,6 +158,51 @@ void Mappack::removeMap(MappackMap* map)
         }
     }
 
+}
+
+unsigned int Mappack::count() const
+{
+    unsigned int count = 0;
+    std::list<MappackMap *>::const_iterator it;
+    for ( it = mmaps.begin(); it != mmaps.end(); ++it, ++count );
+    
+    return count;
+}
+
+MappackMap::Status Mappack::status() const
+{
+    std::map<int, int> stats;
+    std::map<int, int>::iterator sit;
+    std::list<MappackMap *>::const_iterator it;
+    MappackMap::Status st;
+    
+    for ( it = mmaps.begin(); it != mmaps.end(); ++it )
+    {
+        st = (*it)->status();
+        sit = stats.find(st);
+        if(sit != stats.end())
+        {
+            ++(sit->second);
+        }
+        else
+        {
+           stats[st] = 0;
+        }
+    }
+    
+    // now return the Status, which appears the most frequently in the mappack
+    int mostFreq = 0;
+    st = MappackMap::ALPHA;
+    for( sit = stats.begin(); sit != stats.end(); ++sit )
+    {
+        if(sit->second > mostFreq)
+        {
+            mostFreq = sit->second;
+            st = static_cast<MappackMap::Status>(sit->first);
+        }
+    }
+    
+    return st;
 }
 
 void Mappack::cleanMaps()
