@@ -104,7 +104,7 @@ void MapHeader::setAllCharging(bool charge)
 
 void MapHeader::resetAllies()
 {
-    for ( int i = 0; i < 4; ++i )
+    for ( int i = 0; i < MapHeader::NUMB_OF_TRIBES; ++i )
         mdata.allies[i] = (mdata.allies[i] & 0) | (0x00000001 << i); // blue allied with blue, red with red etc.
 }
 

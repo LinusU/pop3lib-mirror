@@ -36,7 +36,9 @@ class MappackMap : public Map
 public:
     typedef _Teams Teams;
     enum Status {ALPHA = 0, BETA, STABLE, MATURE};
-
+    
+    static String16 statusStr(Status st);
+    
     MappackMap();
     explicit MappackMap(const std::string& fileName);
     MappackMap(const std::string& directory, const std::string& mapName);
@@ -52,6 +54,8 @@ public:
     bool isPossibleTeam(Teams team) const;
     void setDefaultTeams(Teams teams, bool enabled);
     bool isDefaultTeam(Teams team) const;
+    String16 possibleTeams(const std::string& sep) const;
+    String16 defaultTeams(const std::string& sep) const;
 
     void setMapName(const String16& name) { mname =  name; }
     String16 mapName() const { return mname; }
@@ -79,6 +83,9 @@ private:
 
     void clearAuthors();
     void copyAuthors(const MappackMap& map);
+    bool isSet(std::bitset<8> team, Teams toTest) const;
+    String16 teamsStr(std::bitset<8> tms, const std::string& sep) const;
+    void appendSep(std::string& str, const std::string& sep) const;
 };
 
 } // namespace poplib

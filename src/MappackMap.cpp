@@ -23,6 +23,23 @@ along with poplib. If not, see <http://www.gnu.org/licenses/>.
 
 namespace poplib
 {
+    
+String16 MappackMap::statusStr(Status st)
+{
+    switch(st)
+    {
+        case ALPHA:
+            return String16("ALPHA");
+        case BETA:
+            return String16("BETA");
+        case STABLE:
+            return String16("STABLE");
+        case MATURE:
+            return String16("MATURE");
+        default:
+            return String16("BAD_STATUS");
+    }
+}
 
 MappackMap::MappackMap(): mpossTeams(std::string("11111111")), mdefTeams(std::string("11111111")),
     mstatus(ALPHA)
@@ -111,10 +128,7 @@ void MappackMap::setPossibleTeams(poplib::MappackMap::Teams teams, bool enabled)
 
 bool MappackMap::isPossibleTeam(Teams team) const
 {
-    std::bitset<8> bteam(static_cast<int>(team)); // bitmask representation of teams
-    std::bitset<8> temp = mpossTeams; // make copy of the original teams
-    temp &= bteam;
-    return temp.any();
+    return isSet(mpossTeams, team);
 }
 
 void MappackMap::setDefaultTeams(poplib::MappackMap::Teams teams, bool enabled)
@@ -133,10 +147,17 @@ void MappackMap::setDefaultTeams(poplib::MappackMap::Teams teams, bool enabled)
 
 bool MappackMap::isDefaultTeam(Teams team) const
 {
-    std::bitset<8> teams(static_cast<int>(team)); // bitmask representation of teams
-    std::bitset<8> temp = mdefTeams; // make copy of the original teams
-    temp &= teams;
-    return temp.any();
+    return isSet(mdefTeams, team);
+}
+
+String16 MappackMap::possibleTeams(const std::string& sep) const
+{
+    return teamsStr(mpossTeams, sep);
+}
+
+String16 MappackMap::defaultTeams(const std::string& sep) const
+{
+    return teamsStr(mdefTeams, sep);
 }
 
 void MappackMap::removeAuthor(const String16& author)
@@ -223,6 +244,60 @@ void MappackMap::copyAuthors(const MappackMap& map)
     std::list<String16 *>::const_iterator it;
     for (it = map.mauthors.begin(); it != map.mauthors.end(); ++it)
         mauthors.push_back(new String16(**it));
+}
+
+bool MappackMap::isSet(std::bitset<8> team, Teams toTest) const
+{
+    std::bitset<8> bteam(static_cast<int>(toTest)); // bitmask representation of teams
+    team &= bteam;
+    return team.any();
+}
+
+String16 MappackMap::teamsStr(std::bitset<8> tms, const std::string& sep) const
+{
+    std::string tmsStr = "";
+    if(isSet(tms, IVO))
+    {
+        appendSep(tmsStr, sep);
+        tmsStr += "IVO";
+    }
+    
+    if(isSet(tms, EVO))
+    {
+        appendSep(tmsStr, sep);
+        tmsStr += "EVO";
+    }
+    
+    if(isSet(tms, TVB))
+    {
+        appendSep(tmsStr, sep);
+        tmsStr += "TVB";
+    }
+    
+    if(isSet(tms, FFA))
+    {
+        appendSep(tmsStr, sep);
+        tmsStr += "FFA";
+    }
+    
+    if(isSet(tms, THREE_WAY))
+    {
+        appendSep(tmsStr, sep);
+        tmsStr += "THREE_WAY";
+    }
+    
+    if(isSet(tms, TWO_WAY))
+    {
+        appendSep(tmsStr, sep);
+        tmsStr += "TWO_WAY";
+    }
+    
+    return String16(tmsStr.c_str());
+}
+
+void MappackMap::appendSep(std::string& str, const std::string& sep) const
+{
+    str += (str.empty() ? "" : sep);
 }
 
 } // namespace poplib

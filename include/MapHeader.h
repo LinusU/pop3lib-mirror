@@ -32,13 +32,11 @@ class MapHeader
 {
 public:
     enum Spell {BLAST = 2, LIGHTNING, TORNADO, SWARM, INVISIBILITY, HYPNOTISE, FIRESTORM, GHOST_ARMY, ERODE,
-                SWAMP, LANDBRIDGE, ANGEL_OF_DEATH, EARTHQUAKE, FLATTEN, VOLCANO, CONVERT, MAGICAL_SHIELD = 19
-               };
+                SWAMP, LANDBRIDGE, ANGEL_OF_DEATH, EARTHQUAKE, FLATTEN, VOLCANO, CONVERT, MAGICAL_SHIELD = 19, NUMB_OF_SPELLS = 20 };
     enum Building {HUT = 1, GUARD_TOWER = 3, TEMPLE, SPY_HUT, WARRIOR_HUT, FIREWARRIOR_HUT,
-                   BOAT_HOUSE = 13, BALLOON_HUT = 15
-                  };
-    enum Property {FOG_OF_WAR = 0, GOD_MODE, FORCE_640_x_480, FORGE_WORLD, NO_GUEST_SPELLS };
-    enum Tribe {BLUE = 0, RED, YELLOW, GREEN};
+                   BOAT_HOUSE = 13, BALLOON_HUT = 15, NUMB_OF_BUILDINGS = 16};
+    enum Property {FOG_OF_WAR = 0, GOD_MODE, FORCE_640_x_480, FORGE_WORLD, NO_GUEST_SPELLS = 4, NO_OF_PROPERTIES = 5 };
+    enum Tribe {BLUE = 0, RED, YELLOW, GREEN, NUMB_OF_TRIBES = 4};
 
 #pragma pack(push, 1) /* set alignment to 1 byte boundary */
     typedef struct _Marker
