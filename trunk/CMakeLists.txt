@@ -1,6 +1,14 @@
 cmake_minimum_required(VERSION 2.6)
 project(poplib)
 
+if(CMAKE_COMPILER_IS_GNUCXX)
+    set(CMAKE_CXX_FLAGS "-Wall -Wempty-body -Wignored-qualifiers -Wmissing-field-initializers -Wsign-compare -Wtype-limits -Wuninitialized")
+endif()
+
+if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+    set(CMAKE_CXX_FLAGS "-Wall -Wempty-body -Wmissing-field-initializers -Wsign-compare -Wtype-limits -Wuninitialized")
+endif()
+
 include_directories(include)
 
 set(poplib_SRCS
